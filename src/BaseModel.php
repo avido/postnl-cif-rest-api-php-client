@@ -31,7 +31,7 @@ class BaseModel
     {
         switch (substr($method, 0, 3)) {
             case 'get' :
-                $key = $this->underScore(strtolower(substr($method,3)));
+                $key = $this->underScore(substr($method,3));
                 return $this->getData($key, isset($args[0]) ? $args[0] : null);
                 break;
             case 'set':

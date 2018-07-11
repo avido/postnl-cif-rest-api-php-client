@@ -14,7 +14,10 @@ namespace Avido\PostNLCifClient;
 
 use PHPUnit\Framework\TestCase;
 use Avido\PostNLCifClient\CifApi;
+
+// exceptions
 use Avido\PostNLCifClient\Exceptions\CifClientException;
+use Avido\PostNLCifClient\Exceptions\CifDeliveryDateException;
 
 // entities
 use Avido\PostNLCifClient\Entities\Location;
@@ -26,6 +29,10 @@ use Avido\PostNLCifClient\Request\DeliveryOptions\Locations\NearestLocationsArea
 use Avido\PostNLCifClient\Request\DeliveryOptions\Locations\LocationRequest;
 // timeframe
 use Avido\PostNLCifClient\Request\DeliveryOptions\Timeframe\TimeframeRequest;
+// deliverydate
+use Avido\PostNLCifClient\Request\DeliveryOptions\Deliverydate\DeliverydateRequest;
+use Avido\PostNLCifClient\Request\DeliveryOptions\Deliverydate\ShippingdateRequest;
+
 
 class CifApiTest extends TestCase 
 {
@@ -107,7 +114,6 @@ class CifApiTest extends TestCase
             ->setOpeningTime('09:00:00')
             ->addDeliveryOptions('PG');
         $response = $this->client->getAPI('location')->getNearestLocations($request);
-        $this->assertTrue(count($response->getLocations()) >0);
     }
     
     /**
@@ -289,6 +295,161 @@ class CifApiTest extends TestCase
         
         $response = $this->client->getAPI('timeframe')->getTimeframes($request);
         $this->assertTrue(count($response->asArray()) >0);
+    }
+    
+    /**
+     * Deliverydate test
+     * 
+     * Get Delivery date instance
+     * 
+     * @group deliverydate
+     */
+    
+    public function testDeliveryDateInstance()
+    {
+        $request = new DeliverydateRequest();
+        $request->setShippingDate('11-07-2018 16:00:00')
+            ->setShippingDuration(1)
+            ->setCutOffTime('16:00:00')
+            ->setPostalCode('1411XC')
+            ->setCountryCode('NL')
+            ->setOriginCountryCode('NL')
+            ->setCity('Hoofddorp')
+            ->setStreet('Siriusdreef')
+            ->setHouseNumber(22)
+            ->setHouseNumberExt('a')
+            ->addDeliveryOption('evening');
+        
+        $response = $this->client->getAPI('deliverydate')->getDeliveryDate($request);
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\DeliveryOptions\Deliverydate\DeliverydateResponse', $response);
+    }
+    
+    /**
+     * Deliverydate test
+     * 
+     * Test Delivery date exception
+     * 
+     * @group deliverydate
+     */
+    
+    public function testDeliveryDateException()
+    {
+        $this->expectException(CifDeliveryDateException::class);
+        $request = new DeliverydateRequest();
+        $request->setShippingDuration(1)
+            ->setCutOffTime('16:00:00')
+            ->setPostalCode('1411XC')
+            ->setCountryCode('NL')
+            ->setOriginCountryCode('NL')
+            ->setCity('Hoofddorp')
+            ->setStreet('Siriusdreef')
+            ->setHouseNumber(22)
+            ->setHouseNumberExt('a')
+            ->addDeliveryOption('evening');
+        
+        $response = $this->client->getAPI('deliverydate')->getDeliveryDate($request);
+    }
+  
+    /**
+     * Deliverydate test
+     * 
+     * Get Delivery date instance
+     * 
+     * @group deliverydate
+     */
+    
+    public function testDeliveryDate()
+    {
+        $request = new DeliverydateRequest();
+        $request->setShippingDate('11-07-2018 16:00:00')
+            ->setShippingDuration(1)
+            ->setCutOffTime('16:00:00')
+            ->setPostalCode('1411XC')
+            ->setCountryCode('NL')
+            ->setOriginCountryCode('NL')
+            ->setCity('Hoofddorp')
+            ->setStreet('Siriusdreef')
+            ->setHouseNumber(22)
+            ->setHouseNumberExt('a')
+            ->addDeliveryOption('evening');
+        
+        $response = $this->client->getAPI('deliverydate')->getDeliveryDate($request);
+        $this->assertNotNull($response->getDeliveryDate());
+        
+    }
+    
+    /**
+     * Shippingdate test
+     * 
+     * Get Shipping date instance
+     * 
+     * @group deliverydate
+     */
+    
+    public function testShippingDateInstance()
+    {
+        $request = new ShippingdateRequest();
+        $request->setDeliveryDate('11-07-2018 16:00:00')
+            ->setShippingDuration(1)
+            ->setPostalCode('1411XC')
+            ->setCountryCode('NL')
+            ->setOriginCountryCode('NL')
+            ->setCity('Hoofddorp')
+            ->setStreet('Siriusdreef')
+            ->setHouseNumber(22)
+            ->setHouseNumberExt('a');
+        
+        $response = $this->client->getAPI('deliverydate')->getShippingDate($request);
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\DeliveryOptions\Deliverydate\ShippingdateResponse', $response);
+    }
+    
+    /**
+     * Shippingdate test
+     * 
+     * Test Shipping date exception
+     * 
+     * @group deliverydate
+     */
+    
+    public function testShippingDateException()
+    {
+        $this->expectException(CifDeliveryDateException::class);
+        $request = new ShippingdateRequest();
+        $request->setShippingDuration(1)
+            ->setPostalCode('1411XC')
+            ->setCountryCode('NL')
+            ->setOriginCountryCode('NL')
+            ->setCity('Hoofddorp')
+            ->setStreet('Siriusdreef')
+            ->setHouseNumber(22)
+            ->setHouseNumberExt('a');
+        
+        $response = $this->client->getAPI('deliverydate')->getShippingDate($request);
+    }
+  
+    /**
+     * Shippingdate test
+     * 
+     * Get Shippingdate
+     * 
+     * @group deliverydate
+     */
+    
+    public function testShippingDate()
+    {
+        $request = new ShippingdateRequest();
+        $request->setDeliveryDate('11-07-2018 16:00:00')
+            ->setShippingDuration(1)
+            ->setPostalCode('1411XC')
+            ->setCountryCode('NL')
+            ->setOriginCountryCode('NL')
+            ->setCity('Hoofddorp')
+            ->setStreet('Siriusdreef')
+            ->setHouseNumber(22)
+            ->setHouseNumberExt('a');
+        
+        $response = $this->client->getAPI('deliverydate')->getShippingDate($request);
+        $this->assertNotNull($response->getShippingDate());
     }
     
 }
