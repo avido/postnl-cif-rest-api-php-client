@@ -1,0 +1,30 @@
+{
+    "name": "avido-postnl-cif-rest-api-php-client",
+    "version": "0.1.0",
+    "description": "PostNL Rest Webservice PHP API Client",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/avido/postnl-cif-rest-api-php-client.git"
+    },
+    "keywords": [
+        "php",
+        "postnl",
+        "cif",
+        "api",
+        "client",
+        "rest"
+    ],
+    "author": "Avido",
+    "contributors": [
+        "Sebastiaan Blaas <sebastiaan@avido.nl>"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/avido/postnl-cif-rest-api-php-client#readme",
+    "devDependencies": {
+        "grunt": "~0.4.5",
+        "grunt-exec": "~0.4.6",
+        "grunt-phpcs": "~0.4.0",
+        "grunt-phplint": "0.0.5",
+        "grunt-phpdocumentor": "~0.4.1"
+    }
+}

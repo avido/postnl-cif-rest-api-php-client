@@ -21,7 +21,9 @@
         "monolog/monolog": "^1.23"
     },
     "require-dev": {
-      "phpunit/phpunit": "*"
+        "phpunit/phpunit": "*",
+        "squizlabs/php_codesniffer": "2.*",
+        "apigen/apigen": "^4.1"
     },
     "autoload": {
         "psr-4": {
