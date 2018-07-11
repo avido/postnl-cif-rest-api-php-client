@@ -15,6 +15,7 @@ namespace Avido\PostNLCifClient\Api;
  */
 use Avido\PostNLCifClient\BaseClient;
 
+// exceptions
 use Avido\PostNLCifClient\Exceptions\CifClientException;
 use Avido\PostNLCifClient\Exceptions\CifLocationException;
 
