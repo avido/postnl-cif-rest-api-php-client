@@ -15,6 +15,9 @@ namespace Avido\PostNLCifClient\Api;
  */
 use Avido\PostNLCifClient\BaseClient;
 
+use Avido\PostNLCifClient\Exceptions\CifClientException;
+use Avido\PostNLCifClient\Exceptions\CifLocationException;
+
 // entities 
 use Avido\PostNLCifClient\Entities\Location;
 
@@ -50,8 +53,12 @@ class LocationApi extends BaseClient
      */
     public function getNearestLocations(NearestLocationsRequest $request)
     {
-        $resp = $this->get($request->getEndpoint(), $request->getArguments());
-        return new NearestLocationsResponse($resp);
+        try {
+            $resp = $this->get($request->getEndpoint(), $request->getArguments());
+            return new NearestLocationsResponse($resp);
+        } catch (CifClientException $e) {
+            throw new CifLocationException($e->getMessage());
+        }
     }
     
     /**
@@ -64,8 +71,12 @@ class LocationApi extends BaseClient
      */
     public function getNearestLocationsGeo(NearestLocationsGeoRequest $request)
     {
-        $resp = $this->get($request->getEndpoint(), $request->getArguments());
-        return new NearestLocationsResponse($resp);
+        try {
+            $resp = $this->get($request->getEndpoint(), $request->getArguments());
+            return new NearestLocationsResponse($resp);
+        } catch (CifClientException $e) {
+            throw new CifLocationException($e->getMessage());
+        }
     }
     
     
@@ -80,8 +91,12 @@ class LocationApi extends BaseClient
      */
     public function getNearestLocationsArea(NearestLocationsAreaRequest $request)
     {
-        $resp = $this->get($request->getEndpoint(), $request->getArguments());
-        return new NearestLocationsResponse($resp);
+        try {
+            $resp = $this->get($request->getEndpoint(), $request->getArguments());
+            return new NearestLocationsResponse($resp);
+        } catch (CifClientException $e) {
+            throw new CifLocationException($e->getMessage());
+        }
     }
 
     /**
@@ -95,9 +110,13 @@ class LocationApi extends BaseClient
      */
     public function getLocation(LocationRequest $request)
     {
-        $resp = $this->get($request->getEndpoint(), $request->getArguments());
-        if (isset($resp['GetLocationsResult']) && isset($resp['GetLocationsResult']['ResponseLocation'])) {
-            return new Location($resp['GetLocationsResult']['ResponseLocation']);
+        try {
+            $resp = $this->get($request->getEndpoint(), $request->getArguments());
+            if (isset($resp['GetLocationsResult']) && isset($resp['GetLocationsResult']['ResponseLocation'])) {
+                return new Location($resp['GetLocationsResult']['ResponseLocation']);
+            }
+        } catch (CifClientException $e) {
+            throw new CifLocationException($e->getMessage());
         }
     }
 }
