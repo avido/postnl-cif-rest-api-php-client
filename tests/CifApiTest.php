@@ -24,7 +24,8 @@ use Avido\PostNLCifClient\Request\DeliveryOptions\Locations\NearestLocationsRequ
 use Avido\PostNLCifClient\Request\DeliveryOptions\Locations\NearestLocationsGeoRequest;
 use Avido\PostNLCifClient\Request\DeliveryOptions\Locations\NearestLocationsAreaRequest;
 use Avido\PostNLCifClient\Request\DeliveryOptions\Locations\LocationRequest;
-
+// timeframe
+use Avido\PostNLCifClient\Request\DeliveryOptions\Timeframe\TimeframeRequest;
 
 class CifApiTest extends TestCase 
 {
@@ -42,6 +43,13 @@ class CifApiTest extends TestCase
         $this->client = new CifApi($apiKey, true);
     }
 
+    /**
+     * Test Nearest Locations 
+     * 
+     * Nearest location instance test
+     * 
+     * @group location
+     */
     public function testGetNearestLocationsInstance()
     {
         $request = new NearestLocationsRequest();
@@ -57,7 +65,13 @@ class CifApiTest extends TestCase
         $this->assertInstanceOf('Avido\PostNLCifClient\Response\DeliveryOptions\Locations\NearestLocationsResponse', $response);
     }
     
-    
+    /**
+     * Test Nearest Locations 
+     * 
+     * Retrieve nearest locations based on address information
+     * 
+     * @group location
+     */
     public function testGetNearestLocations()
     {
         $request = new NearestLocationsRequest();
@@ -73,6 +87,13 @@ class CifApiTest extends TestCase
         $this->assertTrue(count($response->getLocations()) >0);
     }
     
+    /**
+     * Test Nearest Locations 
+     * 
+     * Test exception, missing postal code
+     * 
+     * @group location
+     */
     public function testGetNearestLocationsExceptionMissingPostalCode()
     {
         $this->expectException(CifClientException::class);
@@ -89,6 +110,13 @@ class CifApiTest extends TestCase
         $this->assertTrue(count($response->getLocations()) >0);
     }
     
+    /**
+     * Test Nearest Locations Geo
+     * 
+     * Get nearest locations instance based on geo coordinates
+     * 
+     * @group location
+     */
     public function testGetNearestLocationsGeoInstance()
     {
         $request = new NearestLocationsGeoRequest();
@@ -102,6 +130,13 @@ class CifApiTest extends TestCase
         $this->assertInstanceOf('Avido\PostNLCifClient\Response\DeliveryOptions\Locations\NearestLocationsResponse', $response);
     }
     
+    /**
+     * Test Nearest Locations Geo
+     * 
+     * Exception missing latitude
+     * 
+     * @group location
+     */
     public function testGetNearestLocationsGeoExceptionMissingLat()
     {
         $this->expectException(CifClientException::class);
@@ -116,6 +151,13 @@ class CifApiTest extends TestCase
         $this->assertTrue(count($response->getLocations()) >0);
     }
     
+    /**
+     * Test Nearest Locations 
+     * 
+     * Get nearest locations based on geo coordinates
+     * 
+     * @group location
+     */
     public function testGetNearestLocationsGeo()
     {
         $request = new NearestLocationsGeoRequest();
@@ -129,6 +171,13 @@ class CifApiTest extends TestCase
         $this->assertTrue(count($response->getLocations()) >0);
     }
   
+    /**
+     * Test Nearest Locations Area
+     * 
+     * Get nearest locations instance based on area
+     * 
+     * @group location
+     */
     public function testGetNearestLocationsArea()
     {
         $request = new NearestLocationsAreaRequest();
@@ -142,6 +191,13 @@ class CifApiTest extends TestCase
     }
   
 
+    /**
+     * Test Location detail
+     * 
+     * Get location information based on location code and retail network id
+     * 
+     * @group location
+     */
     public function testGetLocation()
     {
         $request = new LocationRequest();
@@ -151,5 +207,88 @@ class CifApiTest extends TestCase
         $this->assertInstanceOf('Avido\PostNLCifClient\Entities\Location', $response);
     }
   
+    /**
+     * Time frame test
+     * 
+     * Get timeframe instance
+     * 
+     * @group timeframe
+     */
+    public function testTimeframeInstance()
+    {
+        $request = new TimeframeRequest();
+        $request->setAllowSundaySorting(false)
+            ->setStartDate('25-06-2017')
+            ->setEndDate('02-07-2017')
+            ->setPostalCode('2132WT')
+            ->setHouseNumber(42)
+            ->setHouseNumberExt('a')
+            ->setStreet('Siriusdreef')
+            ->setCity('Hoofddorp')
+            ->setCountryCode('NL')
+            ->addDeliveryOption('Daytime')
+            ->addDeliveryOption('Evening');
+//            ->addDeliveryOption('Sameday')
+//            ->addDeliveryOption('Morning');
+        
+        $response = $this->client->getAPI('timeframe')->getTimeframes($request);
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\DeliveryOptions\Timeframe\TimeframesResponse', $response);
+    }
+    
+    /**
+     * Time frame test
+     * 
+     * Get timeframes
+     * 
+     * @group timeframe
+     */
+    public function testTimeframes()
+    {
+        $request = new TimeframeRequest();
+        $request->setAllowSundaySorting(false)
+            ->setStartDate('25-06-2017')
+            ->setEndDate('02-07-2017')
+            ->setPostalCode('2132WT')
+            ->setHouseNumber(42)
+            ->setHouseNumberExt('a')
+            ->setStreet('Siriusdreef')
+            ->setCity('Hoofddorp')
+            ->setCountryCode('NL')
+            ->addDeliveryOption('Daytime')
+            ->addDeliveryOption('Evening');
+//            ->addDeliveryOption('Sameday')
+//            ->addDeliveryOption('Morning');
+        
+        $response = $this->client->getAPI('timeframe')->getTimeframes($request);
+        $this->assertTrue(count($response->getTimeframes()) >0);
+    }
+    
+    /**
+     * Time frame test
+     * 
+     * Get timeframes as array
+     * 
+     * @group timeframe
+     */
+    public function testTimeframesAsArray()
+    {
+        $request = new TimeframeRequest();
+        $request->setAllowSundaySorting(false)
+            ->setStartDate('25-06-2017')
+            ->setEndDate('02-07-2017')
+            ->setPostalCode('2132WT')
+            ->setHouseNumber(42)
+            ->setHouseNumberExt('a')
+            ->setStreet('Siriusdreef')
+            ->setCity('Hoofddorp')
+            ->setCountryCode('NL')
+            ->addDeliveryOption('Daytime')
+            ->addDeliveryOption('Evening');
+//            ->addDeliveryOption('Sameday')
+//            ->addDeliveryOption('Morning');
+        
+        $response = $this->client->getAPI('timeframe')->getTimeframes($request);
+        $this->assertTrue(count($response->asArray()) >0);
+    }
     
 }

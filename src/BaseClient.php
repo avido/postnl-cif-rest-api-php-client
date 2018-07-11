@@ -281,7 +281,11 @@ abstract class BaseClient
             $response = $e->getResponse()->getBody()->getContents();
             if (!empty($response)) {
                 $decode = json_decode($response, true);
-                $error = (count($decode) > 0) ? array_shift($decode) : [];
+                if (isset($decode[0])) {
+                    $error = (count($decode) > 0) ? array_shift($decode) : [];
+                } else {
+                    $error = $decode;
+                }
                 $errorMessage = isset($error['ErrorMsg']) ? $error['ErrorMsg'] : '';
                 $errorNumber = isset($error['ErrorNumber']) ? $error['ErrorNumber'] : 0;
                 throw new CifClientException($errorMessage, $errorNumber);
