@@ -28,10 +28,6 @@ use Monolog\Handler\NullHandler;
 abstract class BaseClient
 {
     const LIBVERSION = "0.1.0"; // Avido PostNL CIF Rest API Lib Version
-    /**
-     * Namespace for loading entities
-     */
-    const _NAMESPACE = "Avido\\PostNLCifClient\\Request\\";
     
     /**
      * API Endpoints
@@ -39,11 +35,6 @@ abstract class BaseClient
     const API_ADDRESS_LIVE = 'https://api.postnl.nl';
     const API_ADDRESS_TEST = 'https://api-sandbox.postnl.nl';
 
-    /**
-     * Expected http response code
-     * @var int
-     */
-    private $expectedStatusCode = 200;
     
     /**
      * PostNL API Key
@@ -157,18 +148,6 @@ abstract class BaseClient
         return (bool)!is_null($this->logger) ? true : false;
     }
     
-    /**
-     * Set expected http status code
-     *
-     * @access public
-     * @param int $code
-     * @return $this
-     */
-    public function setExpectedStatusCode($code = 200)
-    {
-        $this->expectedStatusCode = (int)$code;
-        return $this;
-    }
 
     /**
      * Internal API Calls
@@ -194,7 +173,6 @@ abstract class BaseClient
             $endpoint .= "?" . http_build_query($parameters);
         }
         return $this->makeRequest('GET', $endpoint);
-//        return $this->setExpectedStatusCode(200)->makeRequest('GET', $endpoint);
     }
 
     /**
