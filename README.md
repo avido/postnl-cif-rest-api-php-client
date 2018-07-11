@@ -78,29 +78,21 @@ This library is still in development, new releases / implementations will follow
 ## Send & Track
 
 ### Barcode webservice
-| Service                                            | Implemented | Version |
-|-----------------------------------------------|:-----------:|:-------:|
-| Barcode (generate)                                     |      ✗      |   N/A   |
-
-### Labelling webservice
-| Service                                            | Implemented | Version |
-|-----------------------------------------------|:-----------:|:-------:|
-| Label (generate)                                     |      ✗      |   N/A   |
-
-### Confirming webservice
-| Service                                            | Implemented | Version |
-|-----------------------------------------------|:-----------:|:-------:|
-| Confirm                                     |      ✗      |   N/A   |
-
-### Shippingstatus webservice
-| Service                                            | Implemented | Version |
-|-----------------------------------------------|:-----------:|:-------:|
-| Status by barcode                                     |      ✗      |   N/A   |
-| Status by reference id                                |      ✗      |   N/A   |
-| Status by reference id                                |      ✗      |   N/A   |
-| Status by kid ('kennisgeving id')                   |      ✗      |   N/A   |
-| Search                                                    |      ✗      |   N/A   |
-| Signature                                                 |      ✗      |   N/A   |
+| Service                                       | Implemented   | Version   |
+|-----------------------------------------------|:-------------:|:---------:|
+|**Barcode service**                            |               |           |
+| Barcode (generate)                            |      ✗        |   N/A     |
+|###Labelling webservice                        |               |           |
+| Label (generate)                              |      ✗        |   N/A     |
+|###Confirming webservice                       |               |           |
+| Confirm                                       |      ✗        |   N/A     |
+|###Shippingstatus webservice                   |               |           |
+| Status by barcode                             |      ✗        |   N/A     |
+| Status by reference id                        |      ✗        |   N/A     |
+| Status by reference id                        |      ✗        |   N/A     |
+| Status by kid ('kennisgeving id')             |      ✗        |   N/A     |
+| Search                                        |      ✗        |   N/A     |
+| Signature                                     |      ✗        |   N/A     |
 
 ## Fraud Prevention
 
