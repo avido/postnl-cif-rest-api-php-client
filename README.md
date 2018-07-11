@@ -63,15 +63,15 @@ This library is still in development, new releases / implementations will follow
 ### Deliverydate webservice
 | Service                                            | Implemented | Version |
 |-----------------------------------------------|:-----------:|:-------:|
-|** Delivery date webservice**                      |             |         |
+|**Delivery date webservice**                      |             |         |
 | Deliverydate                                     |      ✓      |   2_2   |
 | Shippingdate                                     |      ✓      |   2_2   |
-|** Location webservice**                       |             |         |
+|**Location webservice**                       |             |         |
 | Nearest Locations                              |      ✓      |   2_1   |
 | Nearest based on Geo location             |      ✓      |   2_1   |
 | Nearest based on Area                         |      ✓      |   2_1   |
 | Location lookup                                   |      ✓      |   2_1   |
-|** Timeframe webservice**                      |             |         |
+|**Timeframe webservice**                      |             |         |
 | timeframes                                     |      ✓      |   2_1   |
 
 
