@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Entities;
+
 /**
   @File: Timeframe.php
   @version 0.1.0
@@ -8,7 +9,7 @@ namespace Avido\PostNLCifClient\Entities;
   @copyright   Avido
   @Modified:
   @Description:
-        Timeframe 
+        Timeframe
   @Dependencies:
  */
 use Avido\PostNLCifClient\BaseModel;
@@ -19,7 +20,7 @@ class NoTimeframe extends BaseModel
 {
     private $options = [];
     
-    public function __construct($data = []) 
+    public function __construct($data = [])
     {
         $this->setDate($data['Date']);
         unset($data['Date']);
@@ -30,7 +31,8 @@ class NoTimeframe extends BaseModel
             unset($data['Options']);
         }
         parent::__construct($data);
-    }    
+    }
+    
     public function setDate($date)
     {
         if (!$date instanceof Date) {

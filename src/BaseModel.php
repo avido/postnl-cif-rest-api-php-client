@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient;
+
 /**
     @File: BaseModel.php
     @version 0.1.0
@@ -11,6 +12,7 @@ namespace Avido\PostNLCifClient;
 class BaseModel
 {
     private $data = [];
+    
     public function __construct()
     {
         $args = func_get_args();
@@ -30,16 +32,16 @@ class BaseModel
     public function __call($method, $args)
     {
         switch (substr($method, 0, 3)) {
-            case 'get' :
-                $key = $this->underScore(substr($method,3));
+            case 'get':
+                $key = $this->underScore(substr($method, 3));
                 return $this->getData($key, isset($args[0]) ? $args[0] : null);
                 break;
             case 'set':
-                $key = $this->underScore(substr($method,3));
+                $key = $this->underScore(substr($method, 3));
                 return $this->setData($key, isset($args[0]) ? $args[0] : null);
                 break;
             case 'has':
-                $key = $this->underScore(strtolower(substr($method,3)));
+                $key = $this->underScore(strtolower(substr($method, 3)));
                 return isset($this->data[$key]);
                 break;
         }
@@ -50,14 +52,13 @@ class BaseModel
      * @param string $key
      * @return null|string|array
      */
-    public function getData($key=null)
+    public function getData($key = null)
     {
-//        $data = self::toArray();
         $data = $this->data;
         return isset($data[$key]) ? $data[$key] : null;
     }
     
-    public function setData($key, $value=null)
+    public function setData($key, $value = null)
     {
         if (is_array($key)) {
             foreach ($key as $dataKey => $dataValue) {
@@ -103,7 +104,7 @@ class BaseModel
     {
         $str = strtolower($str);
         $str = str_replace(" ", "_", $str);
-        return stristr($str,'_') ? str_replace(" ", "", ucwords(str_replace("_", " ", $str))) : $str;
+        return stristr($str, '_') ? str_replace(" ", "", ucwords(str_replace("_", " ", $str))) : $str;
     }
 
     /**

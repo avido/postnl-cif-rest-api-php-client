@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Request\DeliveryOptions\Locations;
+
 /**
     @File: LocationRequest.php
     @version 0.1.0
@@ -7,7 +8,7 @@ namespace Avido\PostNLCifClient\Request\DeliveryOptions\Locations;
     @Package: PostNL Cif Rest API PHP Client
     @see https://developer.postnl.nl/browse-apis/delivery-options/location-webservice/documentation/
     @copyright   Avido
-  
+
     Lookup location details
 */
 
@@ -22,7 +23,7 @@ class LocationRequest extends BaseRequest
     public function __construct()
     {
         parent::__construct($this->endpoint, $this->path, $this->version);
-        // or 
+        // or
 //        $this->setEndpoint('shipment')
 //        ->setPath('path')
 //            ->setVersion('2_1');
@@ -34,9 +35,9 @@ class LocationRequest extends BaseRequest
     
     /**
      * Set Location Code
-     * 
+     *
      * Codes can be obtained from the Location requests calls
-     * 
+     *
      * @access public
      * @param string $location_code
      * @return $this
@@ -49,6 +50,8 @@ class LocationRequest extends BaseRequest
     
     /**
      * Set Retail Network Id
+     *
+     * @access public
      * @param string $retail_network_id
      * @return $this
      */

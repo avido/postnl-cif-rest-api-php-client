@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Request\DeliveryOptions\Locations;
+
 /**
     @File: NearestLocationsGeoRequest.php
     @version 0.1.0
@@ -32,7 +33,7 @@ class NearestLocationsGeoRequest extends BaseRequest
     
     /**
      * Set Country Code (ISO 3166-1 alpha-2.)
-     * 
+     *
      * @access public
      * @see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      * @param string $country_code
@@ -58,7 +59,7 @@ class NearestLocationsGeoRequest extends BaseRequest
 
     /**
      * Set Delivery date
-     * 
+     *
      * @access public
      * @param string $delivery_date
      * @return $this
@@ -71,7 +72,7 @@ class NearestLocationsGeoRequest extends BaseRequest
     
     /**
      * Set Opening Time
-     * 
+     *
      * @access public
      * @param string $opening_time
      * @return $this
@@ -83,8 +84,8 @@ class NearestLocationsGeoRequest extends BaseRequest
     }
     
     /**
-     * Add delivery option 
-     * 
+     * Add delivery option
+     *
      * @access public
      * @param string $option
      * @return $this

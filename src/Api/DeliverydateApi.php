@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Api;
+
 /**
   @File: Deliverydate.php
   @version 0.1.0
@@ -29,8 +30,7 @@ use Avido\PostNLCifClient\Request\DeliveryOptions\Deliverydate\ShippingdateReque
 use Avido\PostNLCifClient\Response\DeliveryOptions\Deliverydate\DeliverydateResponse;
 use Avido\PostNLCifClient\Response\DeliveryOptions\Deliverydate\ShippingdateResponse;
 
-
-class DeliverydateApi extends BaseClient 
+class DeliverydateApi extends BaseClient
 {
     /***********************************
      * Delivery date Webservice API
@@ -45,7 +45,7 @@ class DeliverydateApi extends BaseClient
      * Get Delivery Date
      *
      * Calculate delivery date based on address data
-     * 
+     *
      * @access public
      * @param \Avido\PostNLCifClient\Request\DeliveryOptions\Deliverydate\DeliverydateRequest $request
      * @return \Avido\PostNLCifClient\Response\DeliveryOptions\Deliverydate\DeliverydateResponse
@@ -65,7 +65,7 @@ class DeliverydateApi extends BaseClient
      * Get Shipping Date
      *
      * Calculate date of shipping to deliver on promised date
-     * 
+     *
      * @access public
      * @param \Avido\PostNLCifClient\Request\DeliveryOptions\Deliverydate\ShippingdateRequest $request
      * @return \Avido\PostNLCifClient\Response\DeliveryOptions\Deliverydate\ShippingdateResponse

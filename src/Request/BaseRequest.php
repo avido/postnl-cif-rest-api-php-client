@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Request;
+
 /**
     @File: BaseRequest.php
     @version 0.1.0
@@ -20,7 +21,7 @@ class BaseRequest extends BaseModel
     
     /**
      *Endpoint path
-     * @var string 
+     * @var string
      */
     private $path = null;
     
@@ -32,7 +33,7 @@ class BaseRequest extends BaseModel
   
     /**
      * Request arguments
-     * @var array 
+     * @var array
      */
     protected $arguments = [];
     
@@ -41,7 +42,7 @@ class BaseRequest extends BaseModel
      * @var array
      */
     private $deliveryOptions = [
-        'PG',           // Pick up at PostNL location (in Dutch: Ophalen bij  PostNL Locatie) 
+        'PG',           // Pick up at PostNL location (in Dutch: Ophalen bij  PostNL Locatie)
         'PGE',          // Pick up at PostNL location Express (in Dutch: Extra Vroeg Ophalen)
         'KEL'           // Customer own location (in Dutch: Klant Eigen Locatie)
     ];
@@ -65,7 +66,7 @@ class BaseRequest extends BaseModel
         'pickup'
     ];
     
-    public function __construct($endpoint=null, $path = null, $version=null)
+    public function __construct($endpoint = null, $path = null, $version = null)
     {
         if (!is_null($endpoint)) {
             $this->setEndpoint($endpoint);
@@ -80,7 +81,7 @@ class BaseRequest extends BaseModel
     
     /**
      * Set endpoint
-     * 
+     *
      * @access protected
      * @param string $endpoint
      * @return $this
@@ -93,7 +94,7 @@ class BaseRequest extends BaseModel
     
     /**
      * Set Endpoint path
-     * 
+     *
      * @access protected
      * @param string $path
      * @return $this
@@ -106,7 +107,7 @@ class BaseRequest extends BaseModel
     
     /**
      * Set Endpoint version
-     * 
+     *
      * @access protected
      * @param string $version
      * @return $this
@@ -119,7 +120,7 @@ class BaseRequest extends BaseModel
     
     /**
      * Get Formatted endpoint (endpoint + version)
-     * 
+     *
      * @access public
      * @return string
      */
@@ -130,12 +131,12 @@ class BaseRequest extends BaseModel
     
     /**
      * Validate Delivery Option
-     * 
+     *
      * @access protected
      * @param string $option
      * @return boolean
      */
-    protected function isValidDeliveryOption($option, $type='location')
+    protected function isValidDeliveryOption($option, $type = 'location')
     {
         switch ($type) {
             case 'timeframe':
@@ -158,7 +159,7 @@ class BaseRequest extends BaseModel
     
     /**
      * Camelcase and ucfirst argument keys
-     * 
+     *
      * @access protected
      * @param array $arguments
      * @return array

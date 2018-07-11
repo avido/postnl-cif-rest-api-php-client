@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Request\DeliveryOptions\Deliverydate;
+
 /**
     @File: ShippingdateRequest.php
     @version 0.1.0
@@ -7,7 +8,7 @@ namespace Avido\PostNLCifClient\Request\DeliveryOptions\Deliverydate;
     @Package: PostNL Cif Rest API PHP Client
     @see https://developer.postnl.nl/browse-apis/delivery-options/deliverydate-webservice/documentation/
     @copyright   Avido
-  
+
     Calculate Shipping date
 */
 
@@ -42,7 +43,7 @@ class ShippingdateRequest extends BaseRequest
     
     /**
      * Set Requested delivery date
-     * 
+     *
      * @access public
      * @param string $date
      * @return $this
@@ -57,9 +58,10 @@ class ShippingdateRequest extends BaseRequest
     }
     
     /**
-     * The duration it takes for the shipment to be delivered to PostNL in days. A value of 1 means that the parcel will be delivered to PostNL on the same day as
-     *  the date specified in ShippingDate. A value of 2 means the parcel will arrive at PostNL a day later etc.
-     * 
+     * The duration it takes for the shipment to be delivered to PostNL in days. A value of 1 means that the
+     * parcel will be delivered to PostNL on the same day as
+     * the date specified in ShippingDate. A value of 2 means the parcel will arrive at PostNL a day later etc.
+     *
      * @access public
      * @param int $duration
      * @return $this
@@ -72,7 +74,7 @@ class ShippingdateRequest extends BaseRequest
 
     /**
      * Set Postal code
-     * 
+     *
      * @access public
      * @param string $postal_code
      * @return $this
@@ -85,7 +87,7 @@ class ShippingdateRequest extends BaseRequest
     
     /**
      * Set Country Code (ISO 3166-1 alpha-2.)
-     * 
+     *
      * @access public
      * @see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      * @param string $country_code
@@ -99,7 +101,7 @@ class ShippingdateRequest extends BaseRequest
 
     /**
      * Set Origin Country Code (ISO 3166-1 alpha-2.)
-     * 
+     *
      * @access public
      * @see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      * @param string $origin_country_code
@@ -113,7 +115,7 @@ class ShippingdateRequest extends BaseRequest
 
     /**
      * Set city
-     * 
+     *
      * @access public
      * @param string $city
      * @return $this
@@ -126,7 +128,7 @@ class ShippingdateRequest extends BaseRequest
     
     /**
      * Set street
-     * 
+     *
      * @access public
      * @param string $street
      * @return $this
@@ -139,7 +141,7 @@ class ShippingdateRequest extends BaseRequest
     
     /**
      * Set housenumber
-     * 
+     *
      * @access public
      * @param int $house_number
      * @return $this
@@ -152,7 +154,7 @@ class ShippingdateRequest extends BaseRequest
 
     /**
      * Set housenumber ext
-     * 
+     *
      * @access public
      * @param string $house_nr_ext
      * @return $this

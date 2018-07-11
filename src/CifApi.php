@@ -9,7 +9,7 @@ namespace Avido\PostNLCifClient;
     @copyright   Avido
 
     CIF Api for interacting with the PostNL Webservices
-    
+
     https://developer.postnl.nl/
 */
 
@@ -43,7 +43,7 @@ class CifApi
     private $testMode = null;
     
     /**
-     * Log 
+     * Log
      * @var Monolog\Logger
      */
     private $logger = null;
@@ -62,15 +62,15 @@ class CifApi
     
     /**
      * Construct PostNL CIF Rest API Client
-     * 
+     *
      * @param string $apiKey
      * @param boolean $test/sandbox
      * @param mixed Monolog\Handler|null $logger
      */
-    public function __construct($apiKey, $sanbox=false, $logger=null)
+    public function __construct($apiKey, $sandbox = false, $logger = null)
     {
         $this->setApiKey($apiKey)
-            ->setTestMode($sanbox);
+            ->setTestMode($sandbox);
         $this->setLogger($logger);
         
         date_default_timezone_set('europe/amsterdam');
@@ -96,7 +96,7 @@ class CifApi
     }
     /**
      * Set API Key
-     * 
+     *
      * @access public
      * @param string $username
      * @return $this
@@ -109,7 +109,7 @@ class CifApi
 
     /**
      * Enable or disable testmode (default disabled)
-     * 
+     *
      * @access public
      * @param boolean $mode
      * @return $this
@@ -123,7 +123,7 @@ class CifApi
     
     /**
      * Set logger
-     * 
+     *
      * @access public
      * @param Monolog\Handler $handler
      * @return $this
@@ -140,7 +140,7 @@ class CifApi
     
     /**
      * Get Logger
-     * 
+     *
      * @access public
      * @return Monolog\Logger
      */
@@ -156,7 +156,7 @@ class CifApi
     
     /**
      * Check for defined logger
-     * 
+     *
      * @access public
      * @return boolean
      */

@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Entities;
+
 /**
   @File: Timeframe.php
   @version 0.1.0
@@ -8,7 +9,7 @@ namespace Avido\PostNLCifClient\Entities;
   @copyright   Avido
   @Modified:
   @Description:
-        Timeframe 
+        Timeframe
   @Dependencies:
  */
 use Avido\PostNLCifClient\BaseModel;
@@ -26,11 +27,14 @@ class Timeframe extends BaseModel
 //                        to
 //                        delivery_options
 
-    public function __construct($data = []) 
+    public function __construct($data = [])
     {
         $this->setDate($data['Date']);
         
-        if (isset($data['Timeframes']) && isset($data['Timeframes']['TimeframeTimeFrame']) && is_array($data['Timeframes']['TimeframeTimeFrame'])) {
+        if (isset($data['Timeframes']) &&
+            isset($data['Timeframes']['TimeframeTimeFrame']) &&
+            is_array($data['Timeframes']['TimeframeTimeFrame'])
+        ) {
             if (isset($data['Timeframes']['TimeframeTimeFrame'][0])) {
                 foreach ($data['Timeframes']['TimeframeTimeFrame'] as $item) {
                     $timeframeWindow = new TimeframeWindow($item);
@@ -42,7 +46,6 @@ class Timeframe extends BaseModel
             }
             unset($data['Timeframes']);
         }
-        
     }
     
     public function setDate($date)

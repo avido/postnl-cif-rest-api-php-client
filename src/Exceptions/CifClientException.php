@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Exceptions;
+
 /**
     @File:  CifClientException.php
     @version 0.1.0
@@ -10,4 +11,6 @@ namespace Avido\PostNLCifClient\Exceptions;
     Cif Client Exception (Response API)
 */
 
-class CifClientException extends \Exception {}
+class CifClientException extends \Exception
+{
+}

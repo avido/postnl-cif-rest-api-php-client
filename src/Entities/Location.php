@@ -1,15 +1,15 @@
 <?php
 namespace Avido\PostNLCifClient\Entities;
+
 /**
   @File: Location.php
   @version 0.1.0
   @Encoding:  UTF-8
-  @Date:  Jul 9, 2018
   @Package: postnl-cif-rest-api-php-client
   @copyright   Avido
   @Modified:
   @Description:
-        Location 
+        Location
   @Dependencies:
  */
 use Avido\PostNLCifClient\BaseModel;
@@ -32,13 +32,16 @@ class Location extends BaseModel
 //    private $saleschannel = null;
 //    private $terminalType = null;
 
-    public function __construct($data = []) 
+    public function __construct($data = [])
     {
-        // address 
+        // address
         $address = new Address($data['Address']);
         $this->setAddress($address);
         unset($data['Address']);
-        if (isset($data['DeliveryOptions']) && isset($data['DeliveryOptions']['string']) && is_array($data['DeliveryOptions']['string'])) {
+        if (isset($data['DeliveryOptions']) &&
+            isset($data['DeliveryOptions']['string']) &&
+            is_array($data['DeliveryOptions']['string'])
+        ) {
             $this->setDeliveryOptions($data['DeliveryOptions']['string']);
             unset($data['DeliveryOptions']);
         }
@@ -57,5 +60,4 @@ class Location extends BaseModel
         }
         parent::__construct($data);
     }
-    
 }

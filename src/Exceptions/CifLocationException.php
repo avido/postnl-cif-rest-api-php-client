@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Exceptions;
+
 /**
     @File:  CifLocationException.php
     @version 0.1.0
@@ -11,9 +12,9 @@ namespace Avido\PostNLCifClient\Exceptions;
 */
 use \Exception;
 
-class CifLocationException extends Exception 
+class CifLocationException extends Exception
 {
-    public function __construct($message = "", $code = 0, \Throwable $previous = null) 
+    public function __construct($message = "", $code = 0, \Throwable $previous = null)
     {
         if (!empty($message)) {
             $data = json_decode($message, true);

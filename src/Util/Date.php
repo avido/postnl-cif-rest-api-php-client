@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Util;
+
 /**
   @File: Date.php
   @version 0.1.0
@@ -9,7 +10,7 @@ namespace Avido\PostNLCifClient\Util;
   @Modified:
   @Description:
         Date model
- 
+
   @Dependencies:
         DateTime
         DateInterval
@@ -27,23 +28,23 @@ class Date extends DateTime
      *
      * @var int
      */
-    private $_offset = 0;
+    private $offset = 0;
 
     /**
      * Current system offset in seconds
      *
      * @var int
      */
-    private $_systemOffset = 0;
+    private $systemOffset = 0;
 
     /**
      * Init offset
      *
      */
-    public function __construct($time=null, $object=null)
+    public function __construct($time = null, $object = null)
     {
-        $this->_offset = $this->calculateOffset($this->_getConfigTimezone());
-        $this->_systemOffset = $this->calculateOffset();
+        $this->offset = $this->calculateOffset($this->getConfigTimezone());
+        $this->systemOffset = $this->calculateOffset();
         parent::__construct($time, $object);
     }
 
@@ -52,7 +53,7 @@ class Date extends DateTime
      *
      * @return string
      */
-    protected function _getConfigTimezone()
+    protected function getConfigTimezone()
     {
         return 'Europe/Amsterdam';
     }
@@ -68,7 +69,7 @@ class Date extends DateTime
         $result = true;
         $offset = 0;
 
-        if (!is_null($timezone)){
+        if (!is_null($timezone)) {
             $oldzone = @date_default_timezone_get();
             $result = date_default_timezone_set($timezone);
         }
@@ -77,7 +78,7 @@ class Date extends DateTime
             $offset = (int)date('Z');
         }
 
-        if (!is_null($timezone)){
+        if (!is_null($timezone)) {
             date_default_timezone_set($oldzone);
         }
 
@@ -86,7 +87,7 @@ class Date extends DateTime
     
     /**
      * Subtract day(s)
-     * 
+     *
      * @param int $days
      * @return Date
      */
@@ -98,7 +99,7 @@ class Date extends DateTime
     
     /**
      * Add day(s)
-     * 
+     *
      * @param int $days
      * @return Date
      */
@@ -118,9 +119,9 @@ class Date extends DateTime
      * @param Datetime|String $now
      * @return DateInterval
      */
-    public function diff($now='',$absolute=null) 
+    public function diff($now = '', $absolute = null)
     {
-        if(!($now instanceOf DateTime)) {
+        if (!($now instanceof DateTime)) {
             $now = new DateTime($now);
         }
         return parent::diff($now);
@@ -128,7 +129,7 @@ class Date extends DateTime
 
     /**
      * Check if date is today
-     * 
+     *
      * @access public
      * @return boolean
      */
@@ -139,7 +140,7 @@ class Date extends DateTime
     
     /**
      * Check if date is tomorrow
-     * 
+     *
      * @access public
      * @return boolean
      */
@@ -152,7 +153,7 @@ class Date extends DateTime
     
     /**
      * Check if date is in the past
-     * 
+     *
      * @access public
      * @return boolean
      */
@@ -164,7 +165,7 @@ class Date extends DateTime
     
     /**
      * Check if date is in the future
-     * 
+     *
      * @access public
      * @return boolean
      */
@@ -176,12 +177,12 @@ class Date extends DateTime
     
     /**
      * Check if current date(scope) is after $date
-     * 
+     *
      * @access public
      * @param Date $date
      * @return boolean
      */
-    public function isAfter(Date $date) 
+    public function isAfter(Date $date)
     {
         return ($this > $date) ? true : false;
     }
@@ -189,5 +190,5 @@ class Date extends DateTime
     public function __toString()
     {
         return $this->format(self::DEFAULT_FORMAT);
-    }  
+    }
 }

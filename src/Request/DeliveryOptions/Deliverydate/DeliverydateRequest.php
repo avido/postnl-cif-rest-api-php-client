@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Request\DeliveryOptions\Deliverydate;
+
 /**
     @File: DeliverydateRequest.php
     @version 0.1.0
@@ -7,7 +8,7 @@ namespace Avido\PostNLCifClient\Request\DeliveryOptions\Deliverydate;
     @Package: PostNL Cif Rest API PHP Client
     @see https://developer.postnl.nl/browse-apis/delivery-options/deliverydate-webservice/documentation/
     @copyright   Avido
-  
+
     Calculate delivery date
 */
 
@@ -58,7 +59,7 @@ class DeliverydateRequest extends BaseRequest
     
     /**
      * Set Shipping date
-     * 
+     *
      * @access public
      * @param string $date
      * @return $this
@@ -73,9 +74,10 @@ class DeliverydateRequest extends BaseRequest
     }
     
     /**
-     * The duration it takes for the shipment to be delivered to PostNL in days. A value of 1 means that the parcel will be delivered to PostNL on the same day as
-     *  the date specified in ShippingDate. A value of 2 means the parcel will arrive at PostNL a day later etc.
-     * 
+     * The duration it takes for the shipment to be delivered to PostNL in days. A value of 1 means that the
+     * parcel will be delivered to PostNL on the same day as
+     * the date specified in ShippingDate. A value of 2 means the parcel will arrive at PostNL a day later etc.
+     *
      * @access public
      * @param int $duration
      * @return $this
@@ -94,16 +96,16 @@ class DeliverydateRequest extends BaseRequest
      *          null = global cut off time
      *          dayOfWeek = single day
      *          array[dayOfWeek] = array of weekDays to set cutoff time for.
-     * 
+     *
      *      Examples:
      *          Single day cut off time
      *              ->setCutOffTime('14:00:00', 'wednesday');
-     * 
+     *
      *          Multiple days
      *              ->setCutOffTime('14:00:00', ['monday', 'wednesday', 'friday']);
      * @return $this
      */
-    public function setCutOffTime($cut_off_time, $day=null)
+    public function setCutOffTime($cut_off_time, $day = null)
     {
         if (!preg_match("/[0-9]{2}:[0-9]{2}:[0-9]{2}/", $cut_off_time)) {
             throw new BadMethodCallException("Wrong cut off time format, use: HH:ii:ss");
@@ -118,7 +120,7 @@ class DeliverydateRequest extends BaseRequest
                         $this->arguments["cut_off_time_{$dayName}"] = $cut_off_time;
                     }
                 }
-            } else { 
+            } else {
                 $dayName = strtolower($day);
                 if (in_array($dayName, $this->validDayNames)) {
                     $this->arguments["cut_off_time_{$dayName}"] = $cut_off_time;
@@ -130,7 +132,7 @@ class DeliverydateRequest extends BaseRequest
     
     /**
      * Set Postal code
-     * 
+     *
      * @access public
      * @param string $postal_code
      * @return $this
@@ -143,7 +145,7 @@ class DeliverydateRequest extends BaseRequest
     
     /**
      * Set Country Code (ISO 3166-1 alpha-2.)
-     * 
+     *
      * @access public
      * @see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      * @param string $country_code
@@ -157,7 +159,7 @@ class DeliverydateRequest extends BaseRequest
 
     /**
      * Set Origin Country Code (ISO 3166-1 alpha-2.)
-     * 
+     *
      * @access public
      * @see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      * @param string $origin_country_code
@@ -171,7 +173,7 @@ class DeliverydateRequest extends BaseRequest
 
     /**
      * Set city
-     * 
+     *
      * @access public
      * @param string $city
      * @return $this
@@ -184,7 +186,7 @@ class DeliverydateRequest extends BaseRequest
     
     /**
      * Set street
-     * 
+     *
      * @access public
      * @param string $street
      * @return $this
@@ -197,7 +199,7 @@ class DeliverydateRequest extends BaseRequest
     
     /**
      * Set housenumber
-     * 
+     *
      * @access public
      * @param int $house_number
      * @return $this
@@ -210,7 +212,7 @@ class DeliverydateRequest extends BaseRequest
 
     /**
      * Set housenumber ext
-     * 
+     *
      * @access public
      * @param string $house_nr_ext
      * @return $this
@@ -223,7 +225,7 @@ class DeliverydateRequest extends BaseRequest
     
     /**
      * Add delivery option
-     * 
+     *
      * @access public
      * @param string  $option
      * @return $this

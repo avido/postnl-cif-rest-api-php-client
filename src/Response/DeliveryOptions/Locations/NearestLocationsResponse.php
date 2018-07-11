@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Response\DeliveryOptions\Locations;
+
 /**
   @File: NearestLocationsResponse.php
   @version 0.1.0
@@ -18,7 +19,7 @@ class NearestLocationsResponse
 {
     private $locations = [];
     
-    public function __construct($data = []) 
+    public function __construct($data = [])
     {
         if (isset($data['GetLocationsResult']) && isset($data['GetLocationsResult']['ResponseLocation'])) {
             foreach ($data['GetLocationsResult']['ResponseLocation'] as $item) {
@@ -30,7 +31,7 @@ class NearestLocationsResponse
 
     /**
      * Add location object to collection
-     * 
+     *
      * @access public
      * @param Location $location
      * @return $this
@@ -43,7 +44,7 @@ class NearestLocationsResponse
     
     /**
      * Get locations collection
-     * 
+     *
      * @access public
      * @return array
      */

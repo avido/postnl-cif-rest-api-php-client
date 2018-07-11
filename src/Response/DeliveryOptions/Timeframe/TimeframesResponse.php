@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Response\DeliveryOptions\Timeframe;
+
 /**
   @File: TimeframesResponse.php
   @version 0.1.0
@@ -22,12 +23,15 @@ class TimeframesResponse
      * Data can contain 2 keys:
      *      - ReasonNoTimeframes
      *      - Timeframes
-     * 
+     *
      * @param array $data
      */
-    public function __construct($data = []) 
+    public function __construct($data = [])
     {
-        if (isset($data['ReasonNoTimeframes']) && isset($data['ReasonNoTimeframes']['ReasonNoTimeframe']) && is_array($data['ReasonNoTimeframes']['ReasonNoTimeframe'])) {
+        if (isset($data['ReasonNoTimeframes']) &&
+            isset($data['ReasonNoTimeframes']['ReasonNoTimeframe']) &&
+            is_array($data['ReasonNoTimeframes']['ReasonNoTimeframe'])
+        ) {
             // single value ? or multiple
             if (isset($data['ReasonNoTimeframes']['ReasonNoTimeframe'][0])) {
                 // multiple
@@ -38,7 +42,10 @@ class TimeframesResponse
                 $this->addNoTimeframe(new NoTimeframe($data['ReasonNoTimeframes']['ReasonNoTimeframe']));
             }
         }
-        if (isset($data['Timeframes']) && isset($data['Timeframes']['Timeframe']) && is_array($data['Timeframes']['Timeframe'])) {        
+        if (isset($data['Timeframes']) &&
+            isset($data['Timeframes']['Timeframe']) &&
+            is_array($data['Timeframes']['Timeframe'])
+        ) {
             foreach ($data['Timeframes']['Timeframe'] as $item) {
                 $timeframe = new Timeframe($item);
                 $this->add($timeframe);
@@ -48,7 +55,7 @@ class TimeframesResponse
 
     /**
      * Add timeframe object to collection
-     * 
+     *
      * @access public
      * @param Timeframe $timeframe
      * @return $this
@@ -61,7 +68,7 @@ class TimeframesResponse
     
     /**
      * Add no timeframe (reason)
-     * 
+     *
      * @access public
      * @param NoTimeframe $timeframe
      * @return $this
@@ -74,7 +81,7 @@ class TimeframesResponse
     
     /**
      * Get timeframes collection
-     * 
+     *
      * @access public
      * @return array
      */
@@ -85,7 +92,7 @@ class TimeframesResponse
     
     /**
      * Get No timeframes collection
-     * 
+     *
      * @access public
      * @return array
      */

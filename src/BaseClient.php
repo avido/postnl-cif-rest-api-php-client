@@ -9,7 +9,7 @@ namespace Avido\PostNLCifClient;
     @copyright   Avido
 
     CIF Api for interacting with the PostNL Webservices
-    
+
     https://developer.postnl.nl/
 */
 
@@ -50,7 +50,7 @@ abstract class BaseClient
     private $testMode = null;
     
     /**
-     * Log 
+     * Log
      * @var Monolog\Logger
      */
     private $logger = null;
@@ -63,15 +63,15 @@ abstract class BaseClient
     
     /**
      * Construct PostNL CIF Rest API Client
-     * 
+     *
      * @param string $apiKey
      * @param boolean $test/sandbox
      * @param mixed Monolog\Handler|null $logger
      */
-    public function __construct($apiKey, $sanbox=false, $logger=null)
+    public function __construct($apiKey, $sandbox = false, $logger = null)
     {
         $this->setApiKey($apiKey)
-            ->setTestMode($sanbox);
+            ->setTestMode($sandbox);
         $this->setLogger($logger);
         
         date_default_timezone_set('europe/amsterdam');
@@ -79,7 +79,7 @@ abstract class BaseClient
     
     /**
      * Set API Key
-     * 
+     *
      * @access public
      * @param string $username
      * @return $this
@@ -92,7 +92,7 @@ abstract class BaseClient
 
     /**
      * Enable or disable testmode (default disabled)
-     * 
+     *
      * @access public
      * @param boolean $mode
      * @return $this
@@ -106,7 +106,7 @@ abstract class BaseClient
     
     /**
      * Set logger
-     * 
+     *
      * @access public
      * @param Monolog\Handler $handler
      * @return $this
@@ -123,7 +123,7 @@ abstract class BaseClient
     
     /**
      * Get Logger
-     * 
+     *
      * @access public
      * @return Monolog\Logger
      */
@@ -139,7 +139,7 @@ abstract class BaseClient
     
     /**
      * Check for defined logger
-     * 
+     *
      * @access public
      * @return boolean
      */
@@ -177,13 +177,13 @@ abstract class BaseClient
 
     /**
      * Post request
-     * 
+     *
      * @access protected
      * @param string $endpoint
      * @param string $xml
      * @return mixed Int($id) | false
      */
-    protected function post($endpoint = '', $xml=null)
+    protected function post($endpoint = '', $xml = null)
     {
         if ($endpoint === '') {
             throw new \BadMethodCallException("Missing endpoint");
@@ -205,7 +205,7 @@ abstract class BaseClient
      * @throws RequestException
      * @throws Exception
      */
-    protected function makeRequest($method = 'GET', $endpoint = '', $payload=null)
+    protected function makeRequest($method = 'GET', $endpoint = '', $payload = null)
     {
         if ($endpoint === '') {
             throw new \BadMethodCallException("Missing endpoint");
@@ -218,13 +218,13 @@ abstract class BaseClient
             /**
              * Middleware currently hijacks response body..
              * mapResponse temp fix to rewind body stream
-             * 
+             *
              * @see https://github.com/guzzle/guzzle/issues/1582
              */
             
-            $mapResponse = Middleware::mapResponse(function(ResponseInterface $response) {
-                $response->getBody()->rewind(); 
-                return $response; 
+            $mapResponse = Middleware::mapResponse(function (ResponseInterface $response) {
+                $response->getBody()->rewind();
+                return $response;
             });
             $stack->push($mapResponse);
             
@@ -286,7 +286,7 @@ abstract class BaseClient
     
     /**
      * Prepare request object with username, client id & version
-     * 
+     *
      * @access private
      * @param request object $request
      * @return request object

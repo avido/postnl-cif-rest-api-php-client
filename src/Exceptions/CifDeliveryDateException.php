@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Exceptions;
+
 /**
     @File:  CifDeliveryDateException.php
     @version 0.1.0
@@ -11,9 +12,9 @@ namespace Avido\PostNLCifClient\Exceptions;
 */
 use \Exception;
 
-class CifDeliveryDateException extends Exception 
+class CifDeliveryDateException extends Exception
 {
-    public function __construct($message = "", $code = 0, \Throwable $previous = null) 
+    public function __construct($message = "", $code = 0, \Throwable $previous = null)
     {
         if (!empty($message)) {
             $data = json_decode($message, true);

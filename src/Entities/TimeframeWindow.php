@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Entities;
+
 /**
   @File: TimeframeWindow.php
   @version 0.1.0
@@ -8,15 +9,14 @@ namespace Avido\PostNLCifClient\Entities;
   @copyright   Avido
   @Modified:
   @Description:
-        Timeframe window 
+        Timeframe window
   @Dependencies:
  */
 use Avido\PostNLCifClient\BaseModel;
 
-
 class TimeframeWindow extends BaseModel
 {
-    public function __construct($data = []) 
+    public function __construct($data = [])
     {
         if (isset($data['Options'])) {
             foreach ($data['Options'] as $str => $value) {
@@ -27,5 +27,4 @@ class TimeframeWindow extends BaseModel
         }
         parent::__construct($data);
     }
-    
 }

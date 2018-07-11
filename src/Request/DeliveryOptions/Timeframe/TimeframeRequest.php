@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Request\DeliveryOptions\Timeframe;
+
 /**
     @File: TimeframeRequest.php
     @version 0.1.0
@@ -26,7 +27,8 @@ class TimeframeRequest extends BaseRequest
             'start_date' => null,
             'end_date' => null,
             'postal_code' => null,
-            'interval' => null, //Filter for MyTime shipments (possible: 60/30); choose 60 if you only want ‘whole hour’ timeframes returned
+            'interval' => null, //Filter for MyTime shipments (possible: 60/30);
+                                    //choose 60 if you only want ‘whole hour’ timeframes returned
             'house_number' => null,
             'house_nr_ext' => null,
             'timeframe_range' => null,
@@ -59,6 +61,8 @@ class TimeframeRequest extends BaseRequest
     
     /**
      * Set Postal code
+     *
+     * @access public
      * @param string $postalcode
      * @return $this
      */
@@ -78,7 +82,7 @@ class TimeframeRequest extends BaseRequest
     
     /**
      * Set Housenumber
-     * 
+     *
      * @access public
      * @param string $house_number
      * @return $this
@@ -90,8 +94,8 @@ class TimeframeRequest extends BaseRequest
     }
     
     /**
-     * Set Housenumber
-     * 
+     * Set Housenumber Ext
+     *
      * @access public
      * @param string $house_number
      * @return $this
@@ -110,7 +114,7 @@ class TimeframeRequest extends BaseRequest
     
     /**
      * Set Street
-     * 
+     *
      * @access public
      * @param strung $street
      * @return $this
@@ -122,8 +126,8 @@ class TimeframeRequest extends BaseRequest
     }
     
     /**
-     * Set City 
-     * 
+     * Set City
+     *
      * @access public
      * @param string $city
      * @return $this
@@ -136,7 +140,7 @@ class TimeframeRequest extends BaseRequest
     
     /**
      * Set Country Code (ISO 3166-1 alpha-2.)
-     * 
+     *
      * @access public
      * @see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      * @param string $country_code
@@ -150,7 +154,7 @@ class TimeframeRequest extends BaseRequest
     
     /**
      * Set Delivery date
-     * 
+     *
      * @access public
      * @param string $delivery_date
      * @return $this
@@ -163,7 +167,7 @@ class TimeframeRequest extends BaseRequest
     
     /**
      * Set Opening Time
-     * 
+     *
      * @access public
      * @param string $opening_time
      * @return $this
@@ -175,8 +179,8 @@ class TimeframeRequest extends BaseRequest
     }
     
     /**
-     * Add delivery option 
-     * 
+     * Add delivery option
+     *
      * @access public
      * @param string $option
      * @return $this

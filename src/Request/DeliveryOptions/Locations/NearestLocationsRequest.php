@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Request\DeliveryOptions\Locations;
+
 /**
     @File: NearestLocationsRequest.php
     @version 0.1.0
@@ -20,7 +21,7 @@ class NearestLocationsRequest extends BaseRequest
     public function __construct()
     {
         parent::__construct($this->endpoint, $this->path, $this->version);
-        // or 
+        // or
 //        $this->setEndpoint('shipment')
 //        ->setPath('path')
 //            ->setVersion('2_1');
@@ -38,7 +39,7 @@ class NearestLocationsRequest extends BaseRequest
     
     /**
      * Set Country Code (ISO 3166-1 alpha-2.)
-     * 
+     *
      * @access public
      * @see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      * @param string $country_code
@@ -62,8 +63,8 @@ class NearestLocationsRequest extends BaseRequest
     }
     
     /**
-     * Set City 
-     * 
+     * Set City
+     *
      * @access public
      * @param string $city
      * @return $this
@@ -76,7 +77,7 @@ class NearestLocationsRequest extends BaseRequest
     
     /**
      * Set Street
-     * 
+     *
      * @access public
      * @param strung $street
      * @return $this
@@ -89,7 +90,7 @@ class NearestLocationsRequest extends BaseRequest
     
     /**
      * Set Housenumber
-     * 
+     *
      * @access public
      * @param string $house_number
      * @return $this
@@ -102,7 +103,7 @@ class NearestLocationsRequest extends BaseRequest
     
     /**
      * Set Delivery date
-     * 
+     *
      * @access public
      * @param string $delivery_date
      * @return $this
@@ -115,7 +116,7 @@ class NearestLocationsRequest extends BaseRequest
     
     /**
      * Set Opening Time
-     * 
+     *
      * @access public
      * @param string $opening_time
      * @return $this
@@ -127,8 +128,8 @@ class NearestLocationsRequest extends BaseRequest
     }
     
     /**
-     * Add delivery option 
-     * 
+     * Add delivery option
+     *
      * @access public
      * @param string $option
      * @return $this

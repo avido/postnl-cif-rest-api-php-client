@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Request\DeliveryOptions\Locations;
+
 /**
     @File: NearestLocationsAreaRequest.php
     @version 0.1.0
@@ -38,7 +39,7 @@ class NearestLocationsAreaRequest extends BaseRequest
     
     /**
      * Set Country Code (ISO 3166-1 alpha-2.)
-     * 
+     *
      * @access public
      * @see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      * @param string $country_code
@@ -52,7 +53,7 @@ class NearestLocationsAreaRequest extends BaseRequest
     
     /**
      * Set Latitude (array North, Easy, South, West)
-     * 
+     *
      * @param array $latitude
      * @return $this
      */
@@ -67,7 +68,7 @@ class NearestLocationsAreaRequest extends BaseRequest
 
     /**
      * Set Longitude (array North, Easy, South, West)
-     * 
+     *
      * @param array $longitude
      * @return $this
      */
@@ -82,7 +83,7 @@ class NearestLocationsAreaRequest extends BaseRequest
 
     /**
      * Set Latitude north
-     * 
+     *
      * @access public
      * @param float $latitude
      * @return $this
@@ -95,7 +96,7 @@ class NearestLocationsAreaRequest extends BaseRequest
 
     /**
      * Set Latitude east
-     * 
+     *
      * @access public
      * @param float $latitude
      * @return $this
@@ -108,7 +109,7 @@ class NearestLocationsAreaRequest extends BaseRequest
 
     /**
      * Set Latitude south
-     * 
+     *
      * @access public
      * @param float $latitude
      * @return $this
@@ -121,7 +122,7 @@ class NearestLocationsAreaRequest extends BaseRequest
 
     /**
      * Set Latitude west
-     * 
+     *
      * @access public
      * @param float $latitude
      * @return $this
@@ -134,7 +135,7 @@ class NearestLocationsAreaRequest extends BaseRequest
 
     /**
      * Set Longitude north
-     * 
+     *
      * @access public
      * @param float $longitude
      * @return $this
@@ -147,7 +148,7 @@ class NearestLocationsAreaRequest extends BaseRequest
 
     /**
      * Set Longitude east
-     * 
+     *
      * @access public
      * @param float $longitude
      * @return $this
@@ -160,7 +161,7 @@ class NearestLocationsAreaRequest extends BaseRequest
 
     /**
      * Set Longitude south
-     * 
+     *
      * @access public
      * @param float $longitude
      * @return $this
@@ -173,7 +174,7 @@ class NearestLocationsAreaRequest extends BaseRequest
 
     /**
      * Set Longitude west
-     * 
+     *
      * @access public
      * @param float $longitude
      * @return $this
@@ -186,7 +187,7 @@ class NearestLocationsAreaRequest extends BaseRequest
 
     /**
      * Set Delivery date
-     * 
+     *
      * @access public
      * @param string $delivery_date
      * @return $this
@@ -199,7 +200,7 @@ class NearestLocationsAreaRequest extends BaseRequest
     
     /**
      * Set Opening Time
-     * 
+     *
      * @access public
      * @param string $opening_time
      * @return $this
@@ -211,8 +212,8 @@ class NearestLocationsAreaRequest extends BaseRequest
     }
     
     /**
-     * Add delivery option 
-     * 
+     * Add delivery option
+     *
      * @access public
      * @param string $option
      * @return $this

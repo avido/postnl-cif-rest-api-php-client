@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Response\DeliveryOptions\Deliverydate;
+
 /**
   @File: DeliverydateResponse.php
   @version 0.1.0
@@ -17,7 +18,7 @@ use Avido\PostNLCifClient\Response\BaseResponse;
 
 class DeliverydateResponse extends BaseResponse
 {
-    public function __construct($data = []) 
+    public function __construct($data = [])
     {
         $options = [];
         

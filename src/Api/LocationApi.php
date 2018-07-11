@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Api;
+
 /**
   @File: Location.php
   @version 0.1.0
@@ -31,15 +32,15 @@ use Avido\PostNLCifClient\Request\DeliveryOptions\Locations\LocationRequest;
 // responses
 use Avido\PostNLCifClient\Response\DeliveryOptions\Locations\NearestLocationsResponse;
 
-class LocationApi extends BaseClient 
+class LocationApi extends BaseClient
 {
     /***********************************
      * Location Webservice API
-     * 
+     *
      *      - GetNearestLocations
      *      - GetLocationsInArea
      *      - GetLocation
-     * 
+     *
      * @see https://developer.postnl.nl/browse-apis/delivery-options/location-webservice/documentation/
      ***********************************/
     
@@ -47,7 +48,7 @@ class LocationApi extends BaseClient
      * Get Nearest Locations
      *
      * Get nearest postnl locations based on address data (postal / street)
-     * 
+     *
      * @access public
      * @param \Avido\PostNLCifClient\Request\DeliveryOptions\Location\NearestLocationsRequest $request
      * @return \Avido\PostNLCifClient\Response\DeliveryOptions\Location\NearestLocationsResponse
@@ -85,7 +86,7 @@ class LocationApi extends BaseClient
      * Get Nearest Locations Area
      *
      * Get nearest locations in an area specified by geolocations (norh, east, south, west)
-     * 
+     *
      * @access public
      * @param \Avido\PostNLCifClient\Request\DeliveryOptions\Location\NearestLocationsGeoRequest $request
      * @return \Avido\PostNLCifClient\Response\DeliveryOptions\Location\NearestLocationsResponse
@@ -104,7 +105,7 @@ class LocationApi extends BaseClient
      * Get Location Details
      *
      * Returns location information of the supplied location code.
-     * 
+     *
      * @access public
      * @param \Avido\PostNLCifClient\Request\DeliveryOptions\Location\LocationRequest $request
      * @return \Avido\PostNLCifClient\Entities\Location
