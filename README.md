@@ -82,11 +82,11 @@ This library is still in development, new releases / implementations will follow
 |-----------------------------------------------|:-------------:|:---------:|
 |**Barcode service**                            |               |           |
 | Barcode (generate)                            |      ✗        |   N/A     |
-|###Labelling webservice                        |               |           |
+|**Labelling webservice**                       |               |           |
 | Label (generate)                              |      ✗        |   N/A     |
-|###Confirming webservice                       |               |           |
+|**Confirming webservice**                      |               |           |
 | Confirm                                       |      ✗        |   N/A     |
-|###Shippingstatus webservice                   |               |           |
+|**Shippingstatus webservice**                  |               |           |
 | Status by barcode                             |      ✗        |   N/A     |
 | Status by reference id                        |      ✗        |   N/A     |
 | Status by reference id                        |      ✗        |   N/A     |
