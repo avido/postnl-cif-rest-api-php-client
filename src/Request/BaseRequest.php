@@ -53,6 +53,18 @@ class BaseRequest extends BaseModel
         'daytime'
     ];
     
+    private $deliveryDeliveryDateOptions = [
+        'daytime',
+        'evening',
+        'morning',
+        'noon',
+        'sunday',
+        'sameday',
+        'afternoon',
+        'mytime',
+        'pickup'
+    ];
+    
     public function __construct($endpoint=null, $path = null, $version=null)
     {
         if (!is_null($endpoint)) {
