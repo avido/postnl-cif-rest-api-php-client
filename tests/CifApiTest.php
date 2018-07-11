@@ -18,6 +18,7 @@ use Avido\PostNLCifClient\CifApi;
 // exceptions
 use Avido\PostNLCifClient\Exceptions\CifClientException;
 use Avido\PostNLCifClient\Exceptions\CifDeliveryDateException;
+use Avido\PostNLCifClient\Exceptions\CifLocationException;
 
 // entities
 use Avido\PostNLCifClient\Entities\Location;
@@ -103,7 +104,7 @@ class CifApiTest extends TestCase
      */
     public function testGetNearestLocationsExceptionMissingPostalCode()
     {
-        $this->expectException(CifClientException::class);
+        $this->expectException(CifLocationException::class);
         $request = new NearestLocationsRequest();
         $request->setCountryCode('NL')
             ->setPostalcode('')
@@ -145,7 +146,7 @@ class CifApiTest extends TestCase
      */
     public function testGetNearestLocationsGeoExceptionMissingLat()
     {
-        $this->expectException(CifClientException::class);
+        $this->expectException(CifLocationException::class);
         $request = new NearestLocationsGeoRequest();
         $request->setCountryCode('NL')
             ->setLatitude('')
@@ -189,6 +190,7 @@ class CifApiTest extends TestCase
         $request = new NearestLocationsAreaRequest();
         $request->setCountryCode('NL')
             ->setLatitude(['52.156439', '5.065254', '52.017473', '5.015643'])
+            ->setLongitude(['52.156439', '5.065254', '52.017473', '5.015643'])
             ->setDeliveryDate('01-01-2999')
             ->setOpeningTime('09:00:00')
             ->addDeliveryOptions('PG');

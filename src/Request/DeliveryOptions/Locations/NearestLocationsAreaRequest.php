@@ -26,6 +26,10 @@ class NearestLocationsAreaRequest extends BaseRequest
             'latitude_east' => null,
             'latitude_south' => null,
             'latitude_west' => null,
+            'longitude_north' => null,
+            'longitude_east' => null,
+            'longitude_south' => null,
+            'longitude_west' => null,
             'delivery_date' => null,
             'opening_time' => null,
             'delivery_options' => []
@@ -58,6 +62,21 @@ class NearestLocationsAreaRequest extends BaseRequest
         $this->setLatitudeEast(isset($latitude[1]) ? $latitude[1] : null);
         $this->setLatitudeSouth(isset($latitude[2]) ? $latitude[2] : null);
         $this->setLatitudeWest(isset($latitude[3]) ? $latitude[3] : null);
+        return $this;
+    }
+
+    /**
+     * Set Longitude (array North, Easy, South, West)
+     * 
+     * @param array $longitude
+     * @return $this
+     */
+    public function setLongitude(array $longitude)
+    {
+        $this->setLongitudeNorth(isset($longitude[0]) ? $longitude[0] : null);
+        $this->setLongitudeEast(isset($longitude[1]) ? $longitude[1] : null);
+        $this->setLongitudeSouth(isset($longitude[2]) ? $longitude[2] : null);
+        $this->setLongitudeWest(isset($longitude[3]) ? $longitude[3] : null);
         return $this;
     }
 
@@ -110,6 +129,58 @@ class NearestLocationsAreaRequest extends BaseRequest
     public function setLatitudeWest($latitude)
     {
         $this->arguments['latitude_west'] = $latitude;
+        return $this;
+    }
+
+    /**
+     * Set Longitude north
+     * 
+     * @access public
+     * @param float $longitude
+     * @return $this
+     */
+    public function setLongitudeNorth($longitude)
+    {
+        $this->arguments['longitude_north'] = $longitude;
+        return $this;
+    }
+
+    /**
+     * Set Longitude east
+     * 
+     * @access public
+     * @param float $longitude
+     * @return $this
+     */
+    public function setLongitudeEast($longitude)
+    {
+        $this->arguments['longitude_east'] = $longitude;
+        return $this;
+    }
+
+    /**
+     * Set Longitude south
+     * 
+     * @access public
+     * @param float $longitude
+     * @return $this
+     */
+    public function setLongitudeSouth($longitude)
+    {
+        $this->arguments['longitude_south'] = $longitude;
+        return $this;
+    }
+
+    /**
+     * Set Longitude west
+     * 
+     * @access public
+     * @param float $longitude
+     * @return $this
+     */
+    public function setLongitudeWest($longitude)
+    {
+        $this->arguments['longitude_west'] = $longitude;
         return $this;
     }
 
