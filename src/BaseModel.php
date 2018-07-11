@@ -10,6 +10,16 @@ namespace Avido\PostNLCifClient;
 
 class BaseModel
 {
+    private $data = [];
+    public function __construct()
+    {
+        $args = func_get_args();
+        if (empty($args[0])) {
+            $args[0] = [];
+        }
+        $this->setData($args[0]);
+    }
+    
     /**
      * Set/Get attribute wrapper
      *
@@ -21,8 +31,16 @@ class BaseModel
     {
         switch (substr($method, 0, 3)) {
             case 'get' :
-                $key = strtolower(substr($method,3));
+                $key = $this->underScore(strtolower(substr($method,3)));
                 return $this->getData($key, isset($args[0]) ? $args[0] : null);
+                break;
+            case 'set':
+                $key = $this->underScore(substr($method,3));
+                return $this->setData($key, isset($args[0]) ? $args[0] : null);
+                break;
+            case 'has':
+                $key = $this->underScore(strtolower(substr($method,3)));
+                return isset($this->data[$key]);
                 break;
         }
     }
@@ -34,8 +52,22 @@ class BaseModel
      */
     public function getData($key=null)
     {
-        $data = self::toArray();
+//        $data = self::toArray();
+        $data = $this->data;
         return isset($data[$key]) ? $data[$key] : null;
+    }
+    
+    public function setData($key, $value=null)
+    {
+        if (is_array($key)) {
+            foreach ($key as $dataKey => $dataValue) {
+                $this->setData($dataKey, $dataValue);
+            }
+        } else {
+            $key = lcfirst($this->underScore($key));
+            $this->data[$key] = $value;
+        }
+        return $this;
     }
     
     /**
@@ -59,5 +91,35 @@ class BaseModel
         }
         
         return $arrData;
+    }
+    
+    /**
+     * Camelcase string:
+     * Example:
+     *      Input: this_is_string
+     *      Output: thisIsString
+     * @param string $str
+     * @return string
+     */
+    public static function camelCase($str)
+    {
+        $str = strtolower($str);
+        $str = str_replace(" ", "_", $str);
+        return stristr($str,'_') ? str_replace(" ", "", ucwords(str_replace("_", " ", $str))) : $str;
+    }
+
+    /**
+     * Underscore string
+     * Example:
+     *      Input: ThisIsString
+     *      Output: this_is_string
+     * @param string $str
+     * @return string
+     */
+    public static function underScore($str)
+    {
+        #Varien_Profiler::start('underscore');
+        $result = strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $str));
+        return $result;
     }
 }

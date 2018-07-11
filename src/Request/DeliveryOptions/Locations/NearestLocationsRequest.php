@@ -1,7 +1,7 @@
 <?php
-namespace Avido\PostNLCifClient\Request\DeliveryOptions\Location;
+namespace Avido\PostNLCifClient\Request\DeliveryOptions\Locations;
 /**
-    @File: CreditRequest.php
+    @File: NearestLocationsRequest.php
     @version 0.1.0
     @Encoding:  UTF-8
     @Package: PostNL Cif Rest API PHP Client
@@ -17,18 +17,6 @@ class NearestLocationsRequest extends BaseRequest
     private $path = 'locations/nearest';
     private $version = '2_1';
 
-    // arguments
-    private $arguments = [
-        'country_code' => null,
-        'postalcode' => null,
-        'city' => null,
-        'street' => null,
-        'house_number' => null,
-        'delivery_date' => null,
-        'opening_time' => null,
-        'delivery_options' => []
-    ];
-    
     public function __construct()
     {
         parent::__construct($this->endpoint, $this->path, $this->version);
@@ -36,6 +24,16 @@ class NearestLocationsRequest extends BaseRequest
 //        $this->setEndpoint('shipment')
 //        ->setPath('path')
 //            ->setVersion('2_1');
+        $this->arguments = [
+            'country_code' => null,
+            'postal_code' => null,
+            'city' => null,
+            'street' => null,
+            'house_number' => null,
+            'delivery_date' => null,
+            'opening_time' => null,
+            'delivery_options' => []
+        ];
     }
     
     /**
@@ -59,7 +57,7 @@ class NearestLocationsRequest extends BaseRequest
      */
     public function setPostalcode($postalcode)
     {
-        $this->arguments['postalcode'] = $postalcode;
+        $this->arguments['postal_code'] = $postalcode;
         return $this;
     }
     
@@ -141,18 +139,6 @@ class NearestLocationsRequest extends BaseRequest
             $this->arguments['delivery_options'][] = $option;
         }
         return $this;
-    }
-    
-    /**
-     * Get Arguments for request
-     * @return array
-     */
-    public function getArguments()
-    {
-        // reformat delivery options
-        $arguments = $this->arguments;
-        $arguments['delivery_options'] = $this->getDeliveryOptions();
-        return (array)$arguments;
     }
     
     public function getDeliveryOptions()

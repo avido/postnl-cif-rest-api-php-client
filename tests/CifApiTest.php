@@ -14,7 +14,17 @@ namespace Avido\PostNLCifClient;
 
 use PHPUnit\Framework\TestCase;
 use Avido\PostNLCifClient\CifApi;
-use Avido\PostNLCifClient\Request\DeliveryOptions\Location\NearestLocationsRequest;
+use Avido\PostNLCifClient\Exceptions\CifClientException;
+
+// entities
+use Avido\PostNLCifClient\Entities\Location;
+
+// locations
+use Avido\PostNLCifClient\Request\DeliveryOptions\Locations\NearestLocationsRequest;
+use Avido\PostNLCifClient\Request\DeliveryOptions\Locations\NearestLocationsGeoRequest;
+use Avido\PostNLCifClient\Request\DeliveryOptions\Locations\NearestLocationsAreaRequest;
+use Avido\PostNLCifClient\Request\DeliveryOptions\Locations\LocationRequest;
+
 
 class CifApiTest extends TestCase 
 {
@@ -32,6 +42,22 @@ class CifApiTest extends TestCase
         $this->client = new CifApi($apiKey, true);
     }
 
+    public function testGetNearestLocationsInstance()
+    {
+        $request = new NearestLocationsRequest();
+        $request->setCountryCode('NL')
+            ->setPostalcode('2132WT')
+            ->setCity('Hoofddorp')
+            ->setStreet('Siriusdreef')
+            ->setHouseNumber(42)
+            ->setDeliveryDate('01-01-2999')
+            ->setOpeningTime('09:00:00')
+            ->addDeliveryOptions('PG');
+        $response = $this->client->getAPI('location')->getNearestLocations($request);
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\DeliveryOptions\Locations\NearestLocationsResponse', $response);
+    }
+    
+    
     public function testGetNearestLocations()
     {
         $request = new NearestLocationsRequest();
@@ -43,8 +69,87 @@ class CifApiTest extends TestCase
             ->setDeliveryDate('01-01-2999')
             ->setOpeningTime('09:00:00')
             ->addDeliveryOptions('PG');
-        $response = $this->client->getNearestLocations($request);
-        die("STOP");
-        $this->assertEquals(500, $response->getCode());
+        $response = $this->client->getAPI('location')->getNearestLocations($request);
+        $this->assertTrue(count($response->getLocations()) >0);
     }
+    
+    public function testGetNearestLocationsExceptionMissingPostalCode()
+    {
+        $this->expectException(CifClientException::class);
+        $request = new NearestLocationsRequest();
+        $request->setCountryCode('NL')
+            ->setPostalcode('')
+            ->setCity('Hoofddorp')
+            ->setStreet('Siriusdreef')
+            ->setHouseNumber(42)
+            ->setDeliveryDate('01-01-2999')
+            ->setOpeningTime('09:00:00')
+            ->addDeliveryOptions('PG');
+        $response = $this->client->getAPI('location')->getNearestLocations($request);
+        $this->assertTrue(count($response->getLocations()) >0);
+    }
+    
+    public function testGetNearestLocationsGeoInstance()
+    {
+        $request = new NearestLocationsGeoRequest();
+        $request->setCountryCode('NL')
+            ->setLatitude('52.2864669620795')
+            ->setLongitude('4.68239055845954')
+            ->setDeliveryDate('01-01-2999')
+            ->setOpeningTime('09:00:00')
+            ->addDeliveryOptions('PG');
+        $response = $this->client->getAPI('location')->getNearestLocationsGeo($request);
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\DeliveryOptions\Locations\NearestLocationsResponse', $response);
+    }
+    
+    public function testGetNearestLocationsGeoExceptionMissingLat()
+    {
+        $this->expectException(CifClientException::class);
+        $request = new NearestLocationsGeoRequest();
+        $request->setCountryCode('NL')
+            ->setLatitude('')
+            ->setLongitude('4.68239055845954')
+            ->setDeliveryDate('01-01-2999')
+            ->setOpeningTime('09:00:00')
+            ->addDeliveryOptions('PG');
+        $response = $this->client->getAPI('location')->getNearestLocationsGeo($request);
+        $this->assertTrue(count($response->getLocations()) >0);
+    }
+    
+    public function testGetNearestLocationsGeo()
+    {
+        $request = new NearestLocationsGeoRequest();
+        $request->setCountryCode('NL')
+            ->setLatitude('52.2864669620795')
+            ->setLongitude('4.68239055845954')
+            ->setDeliveryDate('01-01-2999')
+            ->setOpeningTime('09:00:00')
+            ->addDeliveryOptions('PG');
+        $response = $this->client->getAPI('location')->getNearestLocationsGeo($request);
+        $this->assertTrue(count($response->getLocations()) >0);
+    }
+  
+    public function testGetNearestLocationsArea()
+    {
+        $request = new NearestLocationsAreaRequest();
+        $request->setCountryCode('NL')
+            ->setLatitude(['52.156439', '5.065254', '52.017473', '5.015643'])
+            ->setDeliveryDate('01-01-2999')
+            ->setOpeningTime('09:00:00')
+            ->addDeliveryOptions('PG');
+        $response = $this->client->getAPI('location')->getNearestLocationsArea($request);
+        $this->assertTrue(count($response->getLocations()) >0);
+    }
+  
+
+    public function testGetLocation()
+    {
+        $request = new LocationRequest();
+        $request->setLocationCode('161503')
+            ->setRetailNetworkId('PNPNL-01');
+        $response = $this->client->getAPI('location')->getLocation($request);
+        $this->assertInstanceOf('Avido\PostNLCifClient\Entities\Location', $response);
+    }
+  
+    
 }

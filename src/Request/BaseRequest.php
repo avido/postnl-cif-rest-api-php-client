@@ -31,6 +31,12 @@ class BaseRequest extends BaseModel
     private $version = null;
   
     /**
+     * Request arguments
+     * @var array 
+     */
+    protected $arguments = [];
+    
+    /**
      * Valid Delivery Options
      * @var array
      */
@@ -112,6 +118,31 @@ class BaseRequest extends BaseModel
      */
     protected function isValidDeliveryOption($option)
     {
-        return (bool)in_array(strtoupper($option, $this->deliveryOptions)) ? true : false;
+        return (bool)in_array(strtoupper($option), $this->deliveryOptions) ? true : false;
+    }
+    
+    public function getArguments()
+    {
+        // reformat delivery options
+        $arguments = $this->arguments;
+        $arguments['delivery_options'] = $this->getDeliveryOptions();
+        $arguments = $this->prepRequestArguments($arguments);
+        return (array)$arguments;
+    }
+    
+    /**
+     * Camelcase and ucfirst argument keys
+     * 
+     * @access protected
+     * @param array $arguments
+     * @return array
+     */
+    protected function prepRequestArguments($arguments)
+    {
+        $return = [];
+        foreach ($arguments as $key => $val) {
+            $return[ucfirst($this->camelCase($key))] = $val;
+        }
+        return $return;
     }
 }
