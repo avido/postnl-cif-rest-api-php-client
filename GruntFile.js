@@ -37,13 +37,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-phpcs');
     grunt.registerTask('cs', ['phpcs']);
 
-    // PHP documentor.
-    grunt.loadNpmTasks('grunt-phpdocumentor');
-    grunt.registerTask('phpdoc', ['phpdocumentor']);
+    // PHP documentor. buggy
+//    grunt.loadNpmTasks('grunt-phpdocumentor');
+//    grunt.registerTask('phpdoc', ['phpdocumentor']);
 
-    // Apigen
-    grunt.loadNpmTasks('grunt-exec');
-    grunt.registerTask('doc', ['exec:apigen']);
+    // Apigen buggy
+//    grunt.loadNpmTasks('grunt-exec');
+//    grunt.registerTask('doc', ['exec:apigen']);
 
     // Default task, running linter and codesniffer.
     grunt.registerTask('default', ['phplint:good', 'phpcs']);
