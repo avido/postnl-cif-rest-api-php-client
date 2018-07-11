@@ -91,7 +91,8 @@ class CifApi
         
         date_default_timezone_set('europe/amsterdam');
         // add default clients.
-        $this->addAPI('location', 'Api\\LocationApi');
+        $this->addAPI('location', 'Api\\LocationApi')
+            ->addAPI('timeframe', 'Api\\TimeframeApi');
     }
     
     private function addAPI($name, $instance)

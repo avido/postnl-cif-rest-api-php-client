@@ -46,6 +46,13 @@ class BaseRequest extends BaseModel
         'KEL'           // Customer own location (in Dutch: Klant Eigen Locatie)
     ];
     
+    private $deliveryTimeframeOptions = [
+        'morning',
+        'evening',
+        'sameday',
+        'daytime'
+    ];
+    
     public function __construct($endpoint=null, $path = null, $version=null)
     {
         if (!is_null($endpoint)) {
@@ -116,9 +123,16 @@ class BaseRequest extends BaseModel
      * @param string $option
      * @return boolean
      */
-    protected function isValidDeliveryOption($option)
+    protected function isValidDeliveryOption($option, $type='location')
     {
-        return (bool)in_array(strtoupper($option), $this->deliveryOptions) ? true : false;
+        switch ($type) {
+            case 'timeframe':
+                $valid = $this->deliveryTimeframeOptions;
+                break;
+            default:
+                $valid = $this->deliveryOptions;
+        }
+        return (bool)in_array(strtoupper($option), $valid) ? true : false;
     }
     
     public function getArguments()

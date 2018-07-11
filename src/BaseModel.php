@@ -71,26 +71,24 @@ class BaseModel
     }
     
     /**
-     * Return array of protected/public properties
-     * 
-     * @access public
+     * Convert object attributes to array
+     *
+     * @return array
+     */
+    public function __toArray()
+    {
+        return $this->data;
+    }
+
+    /**
+     * Public wrapper for __toArray
+     *
      * @return array
      */
     public function toArray()
     {
-        //Instantiate the reflection object
-        $oReflector = new \ReflectionClass(get_class($this));
-
-        //Now get all the properties from class A in to $properties array
-        $arrProperties = $oReflector->getProperties();
-        $arrData = array();
-        //Now go through the $properties array and populate each property
-        foreach ($arrProperties as $oProperty) {
-            $sProperty = $oProperty->getName();
-            $arrData[$sProperty] = $this->{$sProperty};
-        }
-        
-        return $arrData;
+        $tmp = $this->__toArray();
+        return $tmp;
     }
     
     /**
