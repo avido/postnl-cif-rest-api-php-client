@@ -1,0 +1,33 @@
+{
+    "name": "avido/postnl-cif-rest-api-php-client",
+    "type": "library",
+    "description": "A PHP Client for the Post NL Webservices",
+    "keywords": [
+        "api",
+        "php",
+        "postnl",
+        "webservices",
+        "cif"
+    ],
+    "homepage": "https://github.com/avido/postnl-cif-rest-api-php-client",
+    "license": "MIT",
+    "authors": [{
+        "name": "Sebastiaan Blaas",
+        "email": "sebastiaan@avido.nl"
+    }],
+    "require": {
+        "php": ">=5.6.0",
+        "guzzlehttp/guzzle": "^6.2",
+        "monolog/monolog": "^1.23"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "squizlabs/php_codesniffer": "2.*",
+        "apigen/apigen": "^4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Avido\\PostNLCifClient\\": "src/"
+        }
+    }
+}
