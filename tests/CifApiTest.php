@@ -19,6 +19,7 @@ use Avido\PostNLCifClient\CifApi;
 use Avido\PostNLCifClient\Exceptions\CifClientException;
 use Avido\PostNLCifClient\Exceptions\CifDeliveryDateException;
 use Avido\PostNLCifClient\Exceptions\CifLocationException;
+use Avido\PostNLCifClient\Exceptions\CifTimeframeException;
 
 // entities
 use Avido\PostNLCifClient\Entities\Location;
@@ -241,6 +242,33 @@ class CifApiTest extends TestCase
         
         $response = $this->client->getAPI('timeframe')->getTimeframes($request);
         $this->assertInstanceOf('Avido\PostNLCifClient\Response\DeliveryOptions\Timeframe\TimeframesResponse', $response);
+    }
+    
+    /**
+     * Time frame test
+     * 
+     * Test timeframe exception
+     * 
+     * @group timeframe
+     */
+    public function testTimeframeException()
+    {
+        $this->expectException(CifTimeframeException::class);
+        
+        $request = new TimeframeRequest();
+        $request->setAllowSundaySorting(false)
+            ->setPostalCode('2132WT')
+            ->setHouseNumber(42)
+            ->setHouseNumberExt('a')
+            ->setStreet('Siriusdreef')
+            ->setCity('Hoofddorp')
+            ->setCountryCode('NL')
+            ->addDeliveryOption('Daytime')
+            ->addDeliveryOption('Evening');
+//            ->addDeliveryOption('Sameday')
+//            ->addDeliveryOption('Morning');
+        
+        $response = $this->client->getAPI('timeframe')->getTimeframes($request);
     }
     
     /**

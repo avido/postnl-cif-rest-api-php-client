@@ -257,20 +257,9 @@ abstract class BaseClient
         } catch (RequestException $e) {
             // get response body
             $response = $e->getResponse()->getBody()->getContents();
-//            die($response);
             // PostNL doesn't seem to make up their mind about the error format.
             // therefore set the json as exception response. So each API can handle the error format
             throw new CifClientException($response);
-//            if (!empty($response)) {
-//                $decode = json_decode($response, true);
-//                if (isset($decode[0])) {
-//                    $error = (count($decode) > 0) ? array_shift($decode) : [];
-//                } else {
-//                    $error = $decode;
-//                }
-//                $errorMessage = isset($error['ErrorMsg']) ? $error['ErrorMsg'] : '';
-//                $errorNumber = isset($error['ErrorNumber']) ? $error['ErrorNumber'] : 0;
-//                throw new CifClientException($errorMessage, $errorNumber);
         } catch (ClientException $e) {
             die("E");
             throw $e;
