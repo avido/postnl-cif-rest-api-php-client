@@ -20,7 +20,7 @@
     ],
     "scripts": {
         "test": "grunt test"
-    }
+    },
     "license": "MIT",
     "homepage": "https://github.com/avido/postnl-cif-rest-api-php-client#readme",
     "devDependencies": {
