@@ -46,5 +46,6 @@ module.exports = function(grunt) {
 //    grunt.registerTask('doc', ['exec:apigen']);
 
     // Default task, running linter and codesniffer.
+    grunt.registerTask('test', ['phplint:good', 'phpcs']);
     grunt.registerTask('default', ['phplint:good', 'phpcs']);
 };
