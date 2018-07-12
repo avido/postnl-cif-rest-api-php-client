@@ -1,6 +1,5 @@
-matrix:
-  include:
-    - language: node_js
-      - '10.0.0'
-      before_install: npm install -g grunt-cli
-      install: npm install
+language: node_js
+node_js:
+  - "0.10"
+before_script:
+  - npm install grunt-cli -g
