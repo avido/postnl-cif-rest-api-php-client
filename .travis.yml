@@ -1,11 +1,6 @@
 matrix:
   include:
-    - language: php
-      dist: trusty
-      php:
-        - '5.6'
-        - '7.0'
-        - '7.1'
-      script:
-        - phpunit --exclude-group=no-ci-test
-      install: composer install --dev
+    - language: node_js
+      - '10.0.0'
+      before_install: npm install -g grunt-cli
+      install: npm install
