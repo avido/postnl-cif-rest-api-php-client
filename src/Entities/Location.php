@@ -50,9 +50,20 @@ class Location extends BaseModel
             // reformat opening hours
             $openingHours = [];
             foreach ($data['OpeningHours'] as $day => $time) {
+                if (!isset($openingHours[strtolower($day)])) {
+                    $openingHours[strtolower($day)] = [];
+                }
                 if (isset($time['string'])) {
-                    list($from, $till) = explode("-", $time['string']);
-                    $openingHours[strtolower($day)] = [$from => $till];
+                    // multiple times?
+                    if (is_array($time['string'])) {
+                        foreach ($time['string'] as $item) {
+                            list($from, $till) = explode("-", $item);
+                            $openingHours[strtolower($day)][] = [$from => $till];
+                        }
+                    } else {
+                        list($from, $till) = explode("-", $time['string']);
+                        $openingHours[strtolower($day)][] = [$from => $till];
+                    }
                 }
             }
             $this->setOpeningHours($openingHours);
