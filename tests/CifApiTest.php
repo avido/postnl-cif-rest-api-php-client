@@ -52,7 +52,7 @@ class CifApiTest extends TestCase
     {
         // retrieve username from phpunit.xml config
         $apiKey = getenv('APIKEY');
-        $this->client = new CifApi($apiKey, false);
+        $this->client = new CifApi($apiKey, true);
     }
 
     /**

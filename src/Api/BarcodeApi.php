@@ -20,14 +20,8 @@ use Avido\PostNLCifClient\BaseClient;
 use Avido\PostNLCifClient\Exceptions\CifClientException;
 use Avido\PostNLCifClient\Exceptions\CifBarcodeException;
 
-// entities 
-//use Avido\PostNLCifClient\Entities\Location;
-
 // requests
 use Avido\PostNLCifClient\Request\SendTrack\Barcode\BarcodeRequest;
-//use Avido\PostNLCifClient\Request\DeliveryOptions\Locations\NearestLocationsGeoRequest;
-//use Avido\PostNLCifClient\Request\DeliveryOptions\Locations\NearestLocationsAreaRequest;
-//use Avido\PostNLCifClient\Request\DeliveryOptions\Locations\LocationRequest;
 
 // responses
 use Avido\PostNLCifClient\Response\SendTrack\Barcode\BarcodeResponse;
@@ -43,8 +37,6 @@ class BarcodeApi extends BaseClient
      ***********************************/
     
     /**
-     * Get Barcode
-     *
      * Get Barcode
      *
      * @access public
