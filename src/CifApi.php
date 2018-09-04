@@ -77,7 +77,8 @@ class CifApi
         // add default clients.
         $this->addAPI('location', 'Api\\LocationApi')
             ->addAPI('timeframe', 'Api\\TimeframeApi')
-            ->addAPI('deliverydate', 'Api\\DeliverydateApi');
+            ->addAPI('deliverydate', 'Api\\DeliverydateApi')
+            ->addAPI('barcode', 'Api\\BarcodeApi');
     }
     
     private function addAPI($name, $instance)
@@ -90,7 +91,7 @@ class CifApi
     public function getAPI($name)
     {
         if (!isset($this->apiClients[$name])) {
-            throw new \Exception("No client found with name '{$name}'");
+            throw new \Exception("No API client found with name '{$name}'");
         }
         return $this->apiClients[$name];
     }
