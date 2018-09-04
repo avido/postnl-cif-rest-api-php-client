@@ -20,6 +20,7 @@ use Avido\PostNLCifClient\Exceptions\CifClientException;
 use Avido\PostNLCifClient\Exceptions\CifDeliveryDateException;
 use Avido\PostNLCifClient\Exceptions\CifLocationException;
 use Avido\PostNLCifClient\Exceptions\CifTimeframeException;
+use Avido\PostNLCifClient\Exceptions\CifBarcodeException;
 
 // entities
 use Avido\PostNLCifClient\Entities\Location;
@@ -35,6 +36,9 @@ use Avido\PostNLCifClient\Request\DeliveryOptions\Timeframe\TimeframeRequest;
 use Avido\PostNLCifClient\Request\DeliveryOptions\Deliverydate\DeliverydateRequest;
 use Avido\PostNLCifClient\Request\DeliveryOptions\Deliverydate\ShippingdateRequest;
 
+// send & track
+// barcode
+use Avido\PostNLCifClient\Request\SendTrack\Barcode\BarcodeRequest;
 
 class CifApiTest extends TestCase 
 {
@@ -48,7 +52,6 @@ class CifApiTest extends TestCase
     {
         // retrieve username from phpunit.xml config
         $apiKey = getenv('APIKEY');
-        
         $this->client = new CifApi($apiKey, true);
     }
 
@@ -480,6 +483,41 @@ class CifApiTest extends TestCase
         
         $response = $this->client->getAPI('deliverydate')->getShippingDate($request);
         $this->assertNotNull($response->getShippingDate());
+    }
+    
+    /**
+     * Get Barcode Test
+     *
+     * @group barcode
+     */
+    public function testBarcode()
+    {
+        $request = new BarcodeRequest();
+        $request->setCustomerCode('<!-- your customercode -->')
+            ->setCustomerNumber('<!-- your customernumber -->')
+            ->setType('3S')
+            ->setSerie('000000000-99999999');
+                
+        $response = $this->client->getAPI('barcode')->getBarcode($request);
+        $this->assertNotNull($response->getBarcode());
+    }
+    
+    /**
+     * Get Barcode Exception Test
+     *
+     * @group barcode
+     */
+    public function testBarcodeException()
+    {
+        $this->expectException(CifBarcodeException::class);
+        $request = new BarcodeRequest();
+        $request->setCustomerCode('<!-- your customercode -->')
+            ->setCustomerNumber('<!-- your customernumber -->')
+            ->setType('3S')
+            ->setSerie('000000000-99999999');
+                
+        $response = $this->client->getAPI('barcode')->getBarcode($request);
+        $this->assertNotNull($response->getBarcode());
     }
     
 }
