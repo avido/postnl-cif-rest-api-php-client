@@ -1,38 +1,148 @@
 <?php
-namespace Avido\PostNLCifClient\Request\SendTrack\Barcode;
+namespace Avido\PostNLCifClient\Request\SendTrack\Labelling;
 
 /**
-    @File: BarcodeRequest.php
+    @File: LabelRequest.php
     @version 0.1.0
     @Encoding:  UTF-8
     @Package: PostNL Cif Rest API PHP Client
-    @see https://developer.postnl.nl/browse-apis/send-and-track/barcode-webservice/documentation-soap/
+    @see https://developer.postnl.nl/browse-apis/send-and-track/labelling-webservice/documentation/
     @copyright   Avido
 
-    Barcode Request Object
+    Label Request Object
+    Example Post Body:
+ {
+  "Customer": {
+    "Address": {
+      "AddressType": "02",
+      "City": "Hoofddorp",
+      "CompanyName": "PostNL",
+      "Countrycode": "NL",
+      "HouseNr": "42",
+      "Street": "Siriusdreef",
+      "Zipcode": "2132WT"
+    },
+    "CollectionLocation": "1234506",
+    "ContactPerson": "Janssen",
+    "CustomerCode": "DEVC",
+    "CustomerNumber": "11223344",
+    "Email": "email@company.com",
+    "Name": "Janssen"
+  },
+  "Message": {
+    "MessageID": "1",
+    "MessageTimeStamp": "29-06-2016 12:00:00",
+    "Printertype": "GraphicFile|PDF"
+  },
+  "Shipments": {
+    "Addresses": [
+      {
+        "AddressType": "01",
+        "City": "Utrecht",
+        "Countrycode": "NL",
+        "FirstName": "Peter",
+        "HouseNr": "9",
+        "HouseNrExt": "a bis",
+        "Name": "de Ruiter",
+        "Street": "Bilderdijkstraat",
+        "Zipcode": "3532VA"
+      }
+    ],
+    "Barcode": "3SDEVC201611210",
+    "Contacts": [
+      {
+        "ContactType": "01",
+        "Email": "receiver@email.com",
+        "SMSNr": "+31612345678",
+        "TelNr": "+31301234567"
+      }
+    ],
+    "DeliveryAddress": "01",
+    "Dimension": {
+      "Weight": "2000"
+    },
+    "ProductCodeDelivery": "3085"
+  }
+}
 */
 
 use Avido\PostNLCifClient\Request\BaseRequest;
+use Avido\PostNLCifClient\Entities\Address;
+use Avido\PostNLCifClient\Entities\Customer;
+use Avido\PostNLCifClient\Entities\Shipment;
 
-class BarcodeRequest extends BaseRequest
+class LabelRequest extends BaseRequest
 {
     private $endpoint = 'shipment';
     private $path = 'barcode';
     private $version = '1_1';
 
+    // body entities
+    private $customer = null;
+    private $message = null;
+    private $shipments = [];
+    
+            
+    private $bodyEntities = [
+        'Customer' => [
+            'Address' => null,
+            'CollectionLocation' => null,
+            'ContactPerson' => null,
+            'CustomerCode' => null,
+            'CustomerNumber' => null,
+            'Email' => null,
+            'Name' => null,
+        ],
+        'Message' => [
+            'MessageID' => null,
+            'MessageTimeStamp' => null,
+            'Printertype' => null
+        ],
+        'Shipments' => [
+            'Addresses' => []
+        ],
+        'Barcode' => null,
+        'Contacts' => [],
+        'DeliveryAddress' => null,
+        'Dimension' => null,
+        'ProductCodeDelivery' => null
+    ];
+    
+    private $address = null;
+    
     public function __construct()
     {
         parent::__construct($this->endpoint, $this->path, $this->version);
-        // or
-//        $this->setEndpoint('shipment')
-//        ->setPath('path')
-//            ->setVersion('2_1');
         $this->arguments = [
-            'customer_code' => null,
-            'customer_number' => null,
-            'type' => null,
-            'serie' => null
+            'confirm' => null
         ];
+    }
+    
+    
+    /**
+     * Set Address
+     *
+     * @access public
+     * @param \Avido\PostNLCifClient\Entities\Address $address
+     * @return $this
+     */
+    public function setAddress(Address $address)
+    {
+        $this->address = $address;
+        return $this;
+    }
+    
+    /**
+     * Set Customer 
+     *
+     * @access public
+     * @param \Avido\PostNLCifClient\Entities\Customer $customer
+     * @return $this
+     */
+    public function setCustomer(Customer $customer)
+    {
+        $this->customer = $customer;
+        return $this;
     }
     
     /**

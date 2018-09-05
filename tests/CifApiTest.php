@@ -21,6 +21,8 @@ use Avido\PostNLCifClient\Exceptions\CifDeliveryDateException;
 use Avido\PostNLCifClient\Exceptions\CifLocationException;
 use Avido\PostNLCifClient\Exceptions\CifTimeframeException;
 use Avido\PostNLCifClient\Exceptions\CifBarcodeException;
+use Avido\PostNLCifClient\Exceptions\invalidBarcodeTypeException;
+
 
 // entities
 use Avido\PostNLCifClient\Entities\Location;
@@ -50,9 +52,13 @@ class CifApiTest extends TestCase
     
     public function setUp()
     {
-        // retrieve username from phpunit.xml config
+        // retrieve variables from phpunit.xml config
         $apiKey = getenv('APIKEY');
-        $this->client = new CifApi($apiKey, true);
+        $customerCode = getenv('CUST_CODE');
+        $customerNumber = getenv('CUST_NUMBER');
+        $collectionLocation = getenv('COLLECTION_LOCATION');
+        
+        $this->client = new CifApi($apiKey, $customerNumber, $customerCode, $collectionLocation, true);
     }
 
     /**
@@ -492,32 +498,42 @@ class CifApiTest extends TestCase
      */
     public function testBarcode()
     {
-        $request = new BarcodeRequest();
-        $request->setCustomerCode('<!-- your customercode -->')
-            ->setCustomerNumber('<!-- your customernumber -->')
-            ->setType('3S')
-            ->setSerie('000000000-99999999');
-                
-        $response = $this->client->getAPI('barcode')->getBarcode($request);
+        $type = '3S';
+//        $serie = '000000000-99999999';
+        // Serie will be automatically detected based on $type and $domestic 
+        $serie = null; 
+        $domestic = true;
+        $response = $this->client->getAPI('barcode')->getBarcode($type, $serie, $domestic);
         $this->assertNotNull($response->getBarcode());
     }
     
     /**
-     * Get Barcode Exception Test
+     * Get Barcode Invalid Type Exception Test
      *
      * @group barcode
      */
     public function testBarcodeException()
     {
-        $this->expectException(CifBarcodeException::class);
-        $request = new BarcodeRequest();
-        $request->setCustomerCode('<!-- your customercode -->')
-            ->setCustomerNumber('<!-- your customernumber -->')
-            ->setType('3S')
-            ->setSerie('000000000-99999999');
-                
-        $response = $this->client->getAPI('barcode')->getBarcode($request);
-        $this->assertNotNull($response->getBarcode());
+        $this->expectException(invalidBarcodeTypeException::class);
+        $type = '3Sss'; // invalid type
+        $serie = null; 
+        $domestic = true;
+        $response = $this->client->getAPI('barcode')->getBarcode($type, $serie, $domestic);
     }
     
+    /**
+     * Get Barcode API Exception Test
+     * Raise API Exception by forcing invalid series
+     *
+     * @group barcode
+     */
+    public function testBarcodeApiException()
+    {
+        $this->expectException(CifBarcodeException::class);
+        $type = '3S';
+        $serie = 0;
+        $domestic = true;
+        $response = $this->client->getAPI('barcode')->getBarcode($type, $serie, $domestic);
+    }
 }
+

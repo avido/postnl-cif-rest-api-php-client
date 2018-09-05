@@ -27,7 +27,19 @@ use Monolog\Handler\NullHandler;
 
 abstract class BaseClient
 {
-    const LIBVERSION = "0.1.0"; // Avido PostNL CIF Rest API Lib Version
+    /**
+     * Avido PostNL CIF Rest API Lib Version
+     * @var constant 
+     */
+    const LIBVERSION = "0.1.0"; 
+    
+    
+    /**
+     * Logger channel
+     * @var constant 
+     */
+    const LOGGER_CHANNEL = "PostNLApiClient";
+    
     
     /**
      * API Endpoints
@@ -43,6 +55,25 @@ abstract class BaseClient
      */
     private $apiKey = null;
 
+    /**
+     * Customer number as known at PostNL Pakketten
+     * @var string
+     */
+    private $customerNumber = null;
+    
+    /**
+     * Customer code as known at PostNL Pakketten
+     * @var string
+     */
+    private $customerCode = null;
+    
+    /**
+     * Code of delivery location at PostNL Pakketten
+     * @var string
+     */
+    private $collectionLocation = null;
+    
+    
     /**
      * Indicates test mode (sandbox)
      * @var bool
@@ -65,12 +96,24 @@ abstract class BaseClient
      * Construct PostNL CIF Rest API Client
      *
      * @param string $apiKey
-     * @param boolean $test/sandbox
+     * @param string $customerNumber
+     * @param string $customerCode 
+     * @param string $collectionLocation
+     * @param boolean $sandbox
      * @param mixed Monolog\Handler|null $logger
      */
-    public function __construct($apiKey, $sandbox = false, $logger = null)
+    public function __construct(
+        $apiKey, 
+        $customerNumber = null, 
+        $customerCode = null, 
+        $collectionLocation = null, 
+        $sandbox = false, 
+        $logger = null)
     {
         $this->setApiKey($apiKey)
+            ->setCustomerNumber($customerNumber)
+            ->setCustomerCode($customerCode)
+            ->setCollectionLocation($collectionLocation)
             ->setTestMode($sandbox);
         $this->setLogger($logger);
         
@@ -81,7 +124,7 @@ abstract class BaseClient
      * Set API Key
      *
      * @access public
-     * @param string $username
+     * @param string $apiKey
      * @return $this
      */
     public function setApiKey($apiKey)
@@ -103,8 +146,79 @@ abstract class BaseClient
         return $this;
     }
 
+    /**
+     * Set Customer Number
+     *
+     * @access public
+     * @param string $customer_number
+     * @return $this
+     */
+    public function setCustomerNumber($customer_number)
+    {
+        $this->customerNumber = (string)$customer_number;
+        return $this;
+    }
     
     /**
+     * Get Customer Number
+     *
+     * @access public
+     * @return string
+     */
+    public function getCustomerNumber()
+    {
+        return (string)$this->customerNumber;
+    }
+    
+    /**
+     * Set Customer Code
+     *
+     * @access public
+     * @param string $customer_code
+     * @return $this
+     */
+    public function setCustomerCode($customer_code)
+    {
+        $this->customerCode = (string)$customer_code;
+        return $this;
+    }
+    
+    /**
+     * Get Customer Code
+     *
+     * @access public
+     * @return string
+     */
+    public function getCustomerCode()
+    {
+        return (string)$this->customerCode;
+    }
+    
+    /**
+     * Set Collection Location
+     *
+     * @access public
+     * @param string $collection_location
+     * @return $this
+     */
+    public function setCollectionLocation($collection_location)
+    {
+        $this->collectionLocation = (string)$collection_location;
+        return $this;
+    }
+    
+    /**
+     * Get Collection Location
+     *
+     * @access public
+     * @return string
+     */
+    public function getCollectionLocation()
+    {
+        return (string)$this->collectionLocation;
+    }
+    
+   /**
      * Set logger
      *
      * @access public
@@ -114,7 +228,7 @@ abstract class BaseClient
     public function setLogger($handler)
     {
         if (!is_null($handler)) {
-            $this->logger = new Logger('BillinkApiClient'); //initialize the logger
+            $this->logger = new Logger(self::LOGGER_CHANNEL); //initialize the logger
             $this->logger->pushHandler($handler);
         }
         
@@ -131,7 +245,7 @@ abstract class BaseClient
     {
         if (is_null($this->logger)) {
             // return dummy
-            $this->logger = new Logger('BillinkApiClient');
+            $this->logger = new Logger(self::LOGGER_CHANNEL);
             $this->logger->pushHandler(new NullHandler);
         }
         return $this->logger;
@@ -159,20 +273,19 @@ abstract class BaseClient
      * @access protected
      * @param string $endpoint
      * @param array $parameters
-     * @param boolean $rawReturn (true, skip json decode)
      * @return array
      */
-    protected function get($endpoint = '', array $parameters = [], $rawReturn = false)
+    protected function get($endpoint = '', array $parameters = [])
     {
         if ($endpoint === '') {
             throw new \BadMethodCallException("Missing endpoint");
         }
-        $endpoint = $this->endpoint($endpoint);
+        $requestEndpoint = $this->endpoint($endpoint);
         
         if (count($parameters) > 0) {
-            $endpoint .= "?" . http_build_query($parameters);
+            $requestEndpoint .= "?" . http_build_query($parameters);
         }
-        return $this->makeRequest('GET', $endpoint);
+        return $this->makeRequest('GET', $requestEndpoint);
     }
 
     /**
@@ -188,8 +301,7 @@ abstract class BaseClient
         if ($endpoint === '') {
             throw new \BadMethodCallException("Missing endpoint");
         }
-        $endpoint = $this->endpoint($endpoint);
-        return $this->makeRequest('POST', $endpoint, ['body' => $xml]);
+        return $this->makeRequest('POST', $this->endpoint($endpoint), ['body' => $xml]);
     }
 
     /**
@@ -261,10 +373,8 @@ abstract class BaseClient
             // therefore set the json as exception response. So each API can handle the error format
             throw new CifClientException($response);
         } catch (ClientException $e) {
-            die("E");
             throw $e;
         } catch (\Exception $e) {
-            die("C");
             throw $e;
         }
     }
@@ -282,21 +392,5 @@ abstract class BaseClient
             $endpoint = "/{$endpoint}";
         }
         return (($this->testMode) ? self::API_ADDRESS_TEST : self::API_ADDRESS_LIVE) . $endpoint;
-    }
-    
-    /**
-     * Prepare request object with username, client id & version
-     *
-     * @access private
-     * @param request object $request
-     * @return request object
-     */
-    private function prepare($request)
-    {
-        // get data
-        $request->setVersion(self::VERSION)
-            ->setUsername($this->username)
-            ->setClientId($this->client_id);
-        return $request;
     }
 }

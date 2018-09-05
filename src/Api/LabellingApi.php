@@ -2,7 +2,7 @@
 namespace Avido\PostNLCifClient\Api;
 
 /**
-  @File: BarcodeApi.php
+  @File: LabellingApi.php
   @version 0.1.0
   @Encoding:  UTF-8
   @Date:  Sep 4, 2018
@@ -10,7 +10,7 @@ namespace Avido\PostNLCifClient\Api;
   @copyright   Budgetlens B.V.
   @Modified:
   @Description:
-        Barcode API
+        Labelling API
   @Dependencies:
         BaseClient
  */
@@ -18,32 +18,32 @@ use Avido\PostNLCifClient\BaseClient;
 
 // exceptions
 use Avido\PostNLCifClient\Exceptions\CifClientException;
-use Avido\PostNLCifClient\Exceptions\CifBarcodeException;
+use Avido\PostNLCifClient\Exceptions\CifLabellingException;
 
 // requests
-use Avido\PostNLCifClient\Request\SendTrack\Barcode\BarcodeRequest;
+use Avido\PostNLCifClient\Request\SendTrack\Labelling\LabelRequest;
 
 // responses
-use Avido\PostNLCifClient\Response\SendTrack\Barcode\BarcodeResponse;
+use Avido\PostNLCifClient\Response\SendTrack\Labelling\LabelResponse;
 
-class BarcodeApi extends BaseClient
+class LabellingApi extends BaseClient
 {
     /***********************************
-     * Barcode Webservice API
+     * Labelling Webservice API
      *
-     *      - GetBarcode
+     *      - GenerateLabel
      *
-     * @see https://developer.postnl.nl/browse-apis/send-and-track/barcode-webservice/documentation-soap/
+     * @see https://developer.postnl.nl/browse-apis/send-and-track/labelling-webservice/documentation/
      ***********************************/
     
     /**
-     * Get Barcode
+     * Get Label
      *
      * @access public
-     * @param \Avido\PostNLCifClient\Request\SendTrack\Barcode\BarcodeRequest $request
-     * @return \Avido\PostNLCifClient\Response\SendTrack\Barcode\BarcodeResponse
+     * @param \Avido\PostNLCifClient\Request\SendTrack\Labelling\LabelRequest $request
+     * @return \Avido\PostNLCifClient\Response\SendTrack\Labelling\LabelResponse
      */
-    public function getBarcode(BarcodeRequest $request)
+    public function getLabel(LabelRequest $request)
     {
         try {
             $resp = $this->get($request->getEndpoint(), $request->getArguments());

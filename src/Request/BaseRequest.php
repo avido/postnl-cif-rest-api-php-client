@@ -38,6 +38,12 @@ class BaseRequest extends BaseModel
     protected $arguments = [];
     
     /**
+     * Post Body
+     * @var string
+     */
+    protected $body = null;
+    
+    /**
      * Valid Delivery Options
      * @var array
      */
@@ -129,6 +135,16 @@ class BaseRequest extends BaseModel
         return (string)"{$this->endpoint}/v{$this->version}/{$this->path}";
     }
     
+    /**
+     * Get Post Body
+     *
+     * @access public
+     * @return string
+     */
+    public function getBody()
+    {
+        return (string)$this->body;
+    }
     /**
      * Validate Delivery Option
      *
