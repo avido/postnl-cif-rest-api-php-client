@@ -99,6 +99,16 @@ class BaseRequest extends BaseModel
     }
     
     /**
+     * Indicates request is filled completely.
+     *
+     * @access public
+     * @return boolean (default true)
+     */
+    public function okay()
+    {
+        return true;
+    }
+    /**
      * Set endpoint
      *
      * @access protected

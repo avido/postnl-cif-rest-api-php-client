@@ -98,7 +98,8 @@ class CifApi
             ->addAPI('timeframe', 'Api\\TimeframeApi')
             ->addAPI('deliverydate', 'Api\\DeliverydateApi')
             ->addAPI('barcode', 'Api\\BarcodeApi')
-            ->addAPI('labelling', 'Api\\LabellingApi');
+            ->addAPI('labelling', 'Api\\LabellingApi')
+            ->addAPI('confirming', 'Api\\ConfirmingApi');
     }
     
     /**

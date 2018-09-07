@@ -24,11 +24,17 @@ use Avido\PostNLCifClient\Entities\Label;
 use Avido\PostNLCifClient\Entities\Customs;
 use Avido\PostNLCifClient\Entities\Group;
 use Avido\PostNLCifClient\Entities\ProductOption;
+use Avido\PostNLCifClient\Entities\Warning;
 
 use InvalidArgumentException;
 
 class Shipment extends BaseEntity
 {
+    /**
+     * Warnings (possible present after confirm call)
+     * @var array
+     */
+    protected $Warnings = [];
     /**
      *List of 1 or more Address type elements. At least 1 address type is mandatory
      * @see Entities/Address
@@ -1072,10 +1078,6 @@ class Shipment extends BaseEntity
     }
     
     
-    
-    
-    
-    
     public function toArray() 
     {
         $return = [
@@ -1117,40 +1119,6 @@ class Shipment extends BaseEntity
             $return['ProductOptions'] = $this->getProductOptions()->toArray();
         }
         return $return;
-        return [
-            'Addresses' => $this->getAddressesArray(),
-            'Amounts'=> '', //$this->getAmount()->toA
-            'Barcode' => $this->getBarcode(),
-            'CollectionTimeStampStart'=> '',
-            'CollectionTimeStampEnd'=> '',
-            'Contacts' => $this->getContactsArray(),
-            'Content'=> '',
-            'CostCenter'=> '',
-            'CustomerOrderNumber'=> '',
-            'Customs'=> '', 
-            'DeliveryAddress' => "01",
-            'DeliveryDate'=> '',
-            'DeliveryTimeStampStart'=> '',
-            'DeliveryTimeStampEnd'=> '',
-            'Dimension' => $this->getDimensions()->toArray(),
-            'DownPartnerBarcode'=> '',
-            'DownPartnerID'=> '',
-            'DownPartnerLocation'=> '',
-            'Groups'=> '',
-            'IDType'=> '',
-            'IDNumber'=> '',
-            'IDExpiration'=> '',
-            'ProductCodeCollect'=> '',
-            'ProductCodeDelivery' => $this->getProductCodeDelivery(),
-            'ProductOptions'=> '',
-            'ReceiverDateOfBirth'=> '',
-            'Reference'=> '',
-            'ReferenceCollect'=> '',
-            'Remark'=> '',
-            'ReturnBarcode'=> '',
-            'ReturnReference'=> '',
-            'TimeslotID'=> ''
-        ];
     }
     
     /**
