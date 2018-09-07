@@ -25,9 +25,23 @@ use Psr\Http\Message\ResponseInterface;
 use Monolog\Logger;
 use Monolog\Handler\NullHandler;
 
+use Avido\PostNLCifClient\Entities\Customer;
+
 abstract class BaseClient
 {
-    const LIBVERSION = "0.1.0"; // Avido PostNL CIF Rest API Lib Version
+    /**
+     * Avido PostNL CIF Rest API Lib Version
+     * @var constant 
+     */
+    const LIBVERSION = "0.1.0"; 
+    
+    
+    /**
+     * Logger channel
+     * @var constant 
+     */
+    const LOGGER_CHANNEL = "PostNLApiClient";
+    
     
     /**
      * API Endpoints
@@ -43,6 +57,25 @@ abstract class BaseClient
      */
     private $apiKey = null;
 
+    /**
+     * Customer number as known at PostNL Pakketten
+     * @var string
+     */
+    private $customerNumber = null;
+    
+    /**
+     * Customer code as known at PostNL Pakketten
+     * @var string
+     */
+    private $customerCode = null;
+    
+    /**
+     * Code of delivery location at PostNL Pakketten
+     * @var string
+     */
+    private $collectionLocation = null;
+    
+    
     /**
      * Indicates test mode (sandbox)
      * @var bool
@@ -65,12 +98,24 @@ abstract class BaseClient
      * Construct PostNL CIF Rest API Client
      *
      * @param string $apiKey
-     * @param boolean $test/sandbox
+     * @param string $customerNumber
+     * @param string $customerCode 
+     * @param string $collectionLocation
+     * @param boolean $sandbox
      * @param mixed Monolog\Handler|null $logger
      */
-    public function __construct($apiKey, $sandbox = false, $logger = null)
+    public function __construct(
+        $apiKey, 
+        $customerNumber = null, 
+        $customerCode = null, 
+        $collectionLocation = null, 
+        $sandbox = false, 
+        $logger = null)
     {
         $this->setApiKey($apiKey)
+            ->setCustomerNumber($customerNumber)
+            ->setCustomerCode($customerCode)
+            ->setCollectionLocation($collectionLocation)
             ->setTestMode($sandbox);
         $this->setLogger($logger);
         
@@ -81,7 +126,7 @@ abstract class BaseClient
      * Set API Key
      *
      * @access public
-     * @param string $username
+     * @param string $apiKey
      * @return $this
      */
     public function setApiKey($apiKey)
@@ -103,19 +148,89 @@ abstract class BaseClient
         return $this;
     }
 
+    /**
+     * Set Customer Number
+     *
+     * @access public
+     * @param string $customer_number
+     * @return $this
+     */
+    public function setCustomerNumber($customer_number)
+    {
+        $this->customerNumber = (string)$customer_number;
+        return $this;
+    }
     
     /**
+     * Get Customer Number
+     *
+     * @access public
+     * @return string
+     */
+    public function getCustomerNumber()
+    {
+        return (string)$this->customerNumber;
+    }
+    
+    /**
+     * Set Customer Code
+     *
+     * @access public
+     * @param string $customer_code
+     * @return $this
+     */
+    public function setCustomerCode($customer_code)
+    {
+        $this->customerCode = (string)$customer_code;
+        return $this;
+    }
+    
+    /**
+     * Get Customer Code
+     *
+     * @access public
+     * @return string
+     */
+    public function getCustomerCode()
+    {
+        return (string)$this->customerCode;
+    }
+    
+    /**
+     * Set Collection Location
+     *
+     * @access public
+     * @param string $collection_location
+     * @return $this
+     */
+    public function setCollectionLocation($collection_location)
+    {
+        $this->collectionLocation = (string)$collection_location;
+        return $this;
+    }
+    
+    /**
+     * Get Collection Location
+     *
+     * @access public
+     * @return string
+     */
+    public function getCollectionLocation()
+    {
+        return (string)$this->collectionLocation;
+    }
+    
+   /**
      * Set logger
      *
      * @access public
      * @param Monolog\Handler $handler
      * @return $this
      */
-    public function setLogger($handler)
+    public function setLogger($logger = null)
     {
-        if (!is_null($handler)) {
-            $this->logger = new Logger('BillinkApiClient'); //initialize the logger
-            $this->logger->pushHandler($handler);
+        if (!is_null($logger)) {
+            $this->logger = $logger;
         }
         
         return $this;
@@ -131,7 +246,7 @@ abstract class BaseClient
     {
         if (is_null($this->logger)) {
             // return dummy
-            $this->logger = new Logger('BillinkApiClient');
+            $this->logger = new Logger(self::LOGGER_CHANNEL);
             $this->logger->pushHandler(new NullHandler);
         }
         return $this->logger;
@@ -159,20 +274,19 @@ abstract class BaseClient
      * @access protected
      * @param string $endpoint
      * @param array $parameters
-     * @param boolean $rawReturn (true, skip json decode)
      * @return array
      */
-    protected function get($endpoint = '', array $parameters = [], $rawReturn = false)
+    protected function get($endpoint = '', array $parameters = [])
     {
         if ($endpoint === '') {
             throw new \BadMethodCallException("Missing endpoint");
         }
-        $endpoint = $this->endpoint($endpoint);
+        $requestEndpoint = $this->endpoint($endpoint);
         
         if (count($parameters) > 0) {
-            $endpoint .= "?" . http_build_query($parameters);
+            $requestEndpoint .= "?" . http_build_query($parameters);
         }
-        return $this->makeRequest('GET', $endpoint);
+        return $this->makeRequest('GET', $requestEndpoint);
     }
 
     /**
@@ -180,16 +294,15 @@ abstract class BaseClient
      *
      * @access protected
      * @param string $endpoint
-     * @param string $xml
+     * @param string $body
      * @return mixed Int($id) | false
      */
-    protected function post($endpoint = '', $xml = null)
+    protected function post($endpoint = '', $body = null)
     {
         if ($endpoint === '') {
             throw new \BadMethodCallException("Missing endpoint");
         }
-        $endpoint = $this->endpoint($endpoint);
-        return $this->makeRequest('POST', $endpoint, ['body' => $xml]);
+        return $this->makeRequest('POST', $this->endpoint($endpoint), ['body' => $body, 'headers' => ['Content-type' => 'application/json']]);
     }
 
     /**
@@ -214,7 +327,14 @@ abstract class BaseClient
             // create stack middleware
             $stack = HandlerStack::create();
             
-
+            $tapMiddleware = Middleware::tap(function ($request) {
+                echo "content type: " . $request->getHeaderLine('Content-Type') . PHP_EOL;
+                echo "Request Body: " . PHP_EOL;
+                // application/json
+                echo $request->getBody();
+                // {"foo":"bar"}
+            });            
+//        $stack->push($tapMiddleware);
             /**
              * Middleware currently hijacks response body..
              * mapResponse temp fix to rewind body stream
@@ -228,21 +348,24 @@ abstract class BaseClient
             });
             $stack->push($mapResponse);
             
-            $stack->push(
-                Middleware::log(
-                    $this->getLogger(),
-                    new MessageFormatter($this->logMessageFormat)
-                )
-            );
+//            $stack->push(
+//                Middleware::log(
+//                    $this->getLogger(),
+//                    new MessageFormatter($this->logMessageFormat)
+//                )
+//            );
             
             $client = new \GuzzleHttp\Client([
                 'handler' => $stack
             ]);
-            $payload['headers'] = [
+            $payload['headers'] = array_merge($this->getHttpHeaders(), (isset($payload['headers']) ? $payload['headers'] : []));
+            $headers = [
                 'User-Agent' => 'Avido/PostNL-Cif-Rest-Api-Client-' . self::LIBVERSION,
                 'apikey' => $this->apiKey
             ];
+//            $payload['debug'] = true;
             $res = $client->request($method, $endpoint, $payload);
+               
             $json = $res->getBody()->getContents();
             if ($json) {
                 $response = json_decode($json, true);
@@ -261,10 +384,14 @@ abstract class BaseClient
             // therefore set the json as exception response. So each API can handle the error format
             throw new CifClientException($response);
         } catch (ClientException $e) {
-            die("E");
+            // log the request ?
+//            // get the body
+//            $body = $e->getRequest()->getBody();
+//            // rewind pointer
+//            $body->rewind();
+//            print_r($body->getContents());
             throw $e;
         } catch (\Exception $e) {
-            die("C");
             throw $e;
         }
     }
@@ -285,18 +412,30 @@ abstract class BaseClient
     }
     
     /**
-     * Prepare request object with username, client id & version
+     * Get Customer Entity
+     *
+     * @access public
+     * @return Avido\PostNLCifClient\Entities\Customer
+     */
+    public function getCustomer()
+    {
+        return Customer::create()
+            ->setCustomerCode($this->customerCode)
+            ->setCustomerNumber($this->customerNumber)
+            ->setCollectionLocation($this->collectionLocation);
+    }
+    
+    /**
+     * Get Default http headers for http connection to PostNL
      *
      * @access private
-     * @param request object $request
-     * @return request object
+     * @return array
      */
-    private function prepare($request)
+    private function getHttpHeaders()
     {
-        // get data
-        $request->setVersion(self::VERSION)
-            ->setUsername($this->username)
-            ->setClientId($this->client_id);
-        return $request;
+        return [
+            'User-Agent' => 'Avido/PostNL-Cif-Rest-Api-Client-' . self::LIBVERSION,
+            'apikey' => $this->apiKey
+        ];
     }
 }

@@ -11,6 +11,7 @@ namespace Avido\PostNLCifClient\Entities;
   @Description:
         Location
   @Dependencies:
+    Base Entity
  */
 use Avido\PostNLCifClient\BaseModel;
 

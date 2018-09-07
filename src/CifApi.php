@@ -12,22 +12,16 @@ namespace Avido\PostNLCifClient;
 
     https://developer.postnl.nl/
 */
-
-use Avido\PostNLCifClient\Exceptions\CifClientException;
-
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\MessageFormatter;
-use Psr\Http\Message\ResponseInterface;
-
 use Monolog\Logger;
 use Monolog\Handler\NullHandler;
 
 class CifApi
 {
-    const LIBVERSION = "0.1.0"; // Avido PostNL CIF Rest API Lib Version
+    /**
+     * Logger channel
+     * @var constant 
+     */
+    const LOGGER_CHANNEL = "PostNLApiClient";
     
     /**
      * PostNL API Key
@@ -36,6 +30,24 @@ class CifApi
      */
     private $apiKey = null;
 
+    /**
+     * Customer number as known at PostNL Pakketten
+     * @var string
+     */
+    private $customerNumber = null;
+    
+    /**
+     * Customer code as known at PostNL Pakketten
+     * @var string
+     */
+    private $customerCode = null;
+    
+    /**
+     * Code of delivery location at PostNL Pakketten
+     * @var string
+     */
+    private $collectionLocation = null;
+    
     /**
      * Indicates test mode (sandbox)
      * @var bool
@@ -49,12 +61,6 @@ class CifApi
     private $logger = null;
 
     /**
-     *Log message format
-     * @var string
-     */
-    private $logMessageFormat = "[{method}] - {uri} *|* {\n} <<REQUEST>> {req_body} *|* <<RESPONSE>> {res_body}";
-    
-    /**
      * Available API's
      * @var array (format: [clientkey => instance]
      */
@@ -64,30 +70,61 @@ class CifApi
      * Construct PostNL CIF Rest API Client
      *
      * @param string $apiKey
+     * @param string $customerNumber
+     * @param string $customerCode 
+     * @param string $collectionLocation
      * @param boolean $test/sandbox
      * @param mixed Monolog\Handler|null $logger
      */
-    public function __construct($apiKey, $sandbox = false, $logger = null)
+    public function __construct(
+            $apiKey, 
+            $customerNumber = null,
+            $customerCode = null, 
+            $collectionLocation = null, 
+            $sandbox = false, 
+            $logger = null)
     {
         $this->setApiKey($apiKey)
+            ->setCustomerNumber($customerNumber)
+            ->setCustomerCode($customerCode)
+            ->setCollectionLocation($collectionLocation)
             ->setTestMode($sandbox);
         $this->setLogger($logger);
         
         date_default_timezone_set('europe/amsterdam');
+        
         // add default clients.
         $this->addAPI('location', 'Api\\LocationApi')
             ->addAPI('timeframe', 'Api\\TimeframeApi')
             ->addAPI('deliverydate', 'Api\\DeliverydateApi')
-            ->addAPI('barcode', 'Api\\BarcodeApi');
+            ->addAPI('barcode', 'Api\\BarcodeApi')
+            ->addAPI('labelling', 'Api\\LabellingApi');
     }
     
+    /**
+     * Add PostNL Webservices API
+     *
+     * @see https://developer.postnl.nl/browse-apis/
+     * @access private
+     * @param string $name
+     * @param string $instance
+     * @return $this
+     */
     private function addAPI($name, $instance)
     {
         $client = "Avido\\PostNLCifClient\\{$instance}";
-        $this->apiClients[$name] = new $client($this->apiKey, $this->testMode);
+        $this->apiClients[$name] = new $client($this->apiKey, $this->customerNumber, $this->customerCode, $this->collectionLocation, $this->testMode, $this->getLogger());
         return $this;
     }
     
+    /**
+     * Get PostNL Webservices API Instance
+     *
+     * @access public
+     * @param string  $name
+     * @return API instance
+     * @throws \Exception
+     */
     public function getAPI($name)
     {
         if (!isset($this->apiClients[$name])) {
@@ -95,11 +132,12 @@ class CifApi
         }
         return $this->apiClients[$name];
     }
+    
     /**
      * Set API Key
      *
      * @access public
-     * @param string $username
+     * @param string $apiKey
      * @return $this
      */
     public function setApiKey($apiKey)
@@ -108,6 +146,46 @@ class CifApi
         return $this;
     }
 
+  
+    /**
+     * Set Customer Number
+     *
+     * @access public
+     * @param string $customer_number
+     * @return $this
+     */
+    public function setCustomerNumber($customer_number)
+    {
+        $this->customerNumber = (string)$customer_number;
+        return $this;
+    }
+    
+    /**
+     * Set Customer Code
+     *
+     * @access public
+     * @param string $customer_code
+     * @return $this
+     */
+    public function setCustomerCode($customer_code)
+    {
+        $this->customerCode = (string)$customer_code;
+        return $this;
+    }
+    
+    /**
+     * Set Collection Location
+     *
+     * @access public
+     * @param string $collection_location
+     * @return $this
+     */
+    public function setCollectionLocation($collection_location)
+    {
+        $this->collectionLocation = (string)$collection_location;
+        return $this;
+    }
+    
     /**
      * Enable or disable testmode (default disabled)
      *
@@ -132,7 +210,7 @@ class CifApi
     public function setLogger($handler)
     {
         if (!is_null($handler)) {
-            $this->logger = new Logger('BillinkApiClient'); //initialize the logger
+            $this->logger = new Logger(self::LOGGER_CHANNEL); //initialize the logger
             $this->logger->pushHandler($handler);
         }
         
@@ -149,7 +227,7 @@ class CifApi
     {
         if (is_null($this->logger)) {
             // return dummy
-            $this->logger = new Logger('BillinkApiClient');
+            $this->logger = new Logger(self::LOGGER_CHANNEL);
             $this->logger->pushHandler(new NullHandler);
         }
         return $this->logger;

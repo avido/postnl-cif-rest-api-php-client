@@ -10,6 +10,8 @@ namespace Avido\PostNLCifClient\Request;
 */
 
 use Avido\PostNLCifClient\BaseModel;
+use Avido\PostNLCifClient\Entities\Customer;
+use Avido\PostNLCifClient\Entities\message;
 
 class BaseRequest extends BaseModel
 {
@@ -36,6 +38,23 @@ class BaseRequest extends BaseModel
      * @var array
      */
     protected $arguments = [];
+    
+    /**
+     * Post Body
+     * @var string
+     */
+    protected $body = null;
+    
+    /**
+     *Message Entity
+     * @var Avido\PostNLCifClient\Entities\Message
+     */
+    protected $message = null;
+    /**
+     *Customer Entity
+     * @var Avido\PostNLCifClient\Entities\Customer
+     */
+    protected $customer = null;
     
     /**
      * Valid Delivery Options
@@ -129,6 +148,66 @@ class BaseRequest extends BaseModel
         return (string)"{$this->endpoint}/v{$this->version}/{$this->path}";
     }
     
+    
+    /**
+     * Set Customer Entity
+     *
+     * @access public
+     * @param Avido\PostNLCifClient\Entities\Customer $customer
+     * @return $this
+     */
+    public function setCustomer(Customer $customer)
+    {
+        $this->customer = $customer;
+        return $this;
+    }
+    
+    /**
+     * Get Customer Entity
+     *
+     * @access public
+     * @return Avido\PostNLCifClient\Entities\Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    
+    /**
+     * Set Message Entity
+     *
+     * @access public
+     * @param Avido\PostNLCifClient\Entities\Message $message
+     * @return $this
+     */
+    public function setMessage(Message $message)
+    {
+        $this->message = $message;
+        return $this;
+    }
+    
+    /**
+     * Get Message Entity
+     *
+     * @access public
+     * @return Avido\PostNLCifClient\Entities\Message
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+    
+    /**
+     * Get Post Body
+     *
+     * @access public
+     * @return string
+     */
+    public function getBody()
+    {
+        return (string)$this->body;
+    }
     /**
      * Validate Delivery Option
      *
