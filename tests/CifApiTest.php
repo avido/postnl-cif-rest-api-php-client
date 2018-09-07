@@ -20,6 +20,7 @@ use Avido\PostNLCifClient\Exceptions\CifClientException;
 use Avido\PostNLCifClient\Exceptions\CifDeliveryDateException;
 use Avido\PostNLCifClient\Exceptions\CifLocationException;
 use Avido\PostNLCifClient\Exceptions\CifTimeframeException;
+use Avido\PostNLCifClient\Exceptions\CifConfirmingException;
 use Avido\PostNLCifClient\Exceptions\CifBarcodeException;
 use Avido\PostNLCifClient\Exceptions\invalidBarcodeTypeException;
 
@@ -56,6 +57,8 @@ use Avido\PostNLCifClient\Request\DeliveryOptions\Deliverydate\ShippingdateReque
 use Avido\PostNLCifClient\Request\SendTrack\Barcode\BarcodeRequest;
 // label
 use Avido\PostNLCifClient\Request\SendTrack\Labelling\LabelRequest;
+use Avido\PostNLCifClient\Request\SendTrack\Confirming\ConfirmRequest;
+
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -525,6 +528,7 @@ class CifApiTest extends TestCase
         $domestic = true;
         $response = $this->client->getAPI('barcode')->getBarcode($type, $serie, $domestic);
         $this->assertNotNull($response->getBarcode());
+        return $response->getBarcode();
     }
     
     /**
@@ -561,7 +565,7 @@ class CifApiTest extends TestCase
      * 
      * @group label
      */
-    public function testLabelRequestWithoutConfirm()
+    public function testLabelRequestWithoutConfirm($barcode)
     {
         $printer = 'GraphicFile|PDF';
         $productCodeDelivery = 3085;
@@ -598,13 +602,13 @@ class CifApiTest extends TestCase
             ->setCountrycode('NL');
         
         // request barcode for shipment (depends)
-        $type = '3S';
-        $barcode = $this->client->getAPI('barcode')->getBarcode($type);
+//        $type = '3S';
+//        $barcode = $this->client->getAPI('barcode')->getBarcode($type);
         
         // create shipment instance.
         $shipment = Shipment::create()
             ->addAddress($receiver)
-            ->setBarcode($barcode->getBarcode())
+            ->setBarcode($barcode)
             ->addContact(Contact::create()
                 ->setContactType('01')
                 ->setEmail('test@test.nl')
@@ -906,5 +910,127 @@ class CifApiTest extends TestCase
         
         return $customer;
     }
+    
+    /**
+     * Test shipment confirm
+     * 
+     * @group confirm
+     */
+    public function testConfirmShipment()
+    {
+        $productCodeDelivery = 3085;
+        // test helper
+        $customer = $this->getCustomerEntity();
+        
+        $request = new ConfirmRequest();
+        $request->setCustomer($customer);
+        
+        $barcode = "3STBJG970139141";
+        // receiver address
+        $receiver = Address::create()
+            ->setAddressType('01')
+            ->setFirstname('Henk')
+            ->setName('Janssen')
+            ->setCompanyname('Test Company')
+            ->setStreet('Siriusdreef')
+            ->setHouseNumber(42)
+            ->setHousenumberExt('A')
+            ->setZipcode('2132WT')
+            ->setCity('Hoofddorp')
+            ->setCountrycode('NL');
+        //sender
+        $sender = Address::create()
+            ->setAddressType('02')
+            ->setFirstname('Henk')
+            ->setName('Janssen Zender')
+            ->setCompanyname('Shipment Company')
+            ->setStreet('Siriusdreef')
+            ->setHouseNumber(42)
+            ->setHousenumberExt('A')
+            ->setZipcode('2132WT')
+            ->setCity('Hoofddorp')
+            ->setCountrycode('NL');
+        
+        // create shipment instance.
+        $shipment = Shipment::create()
+            ->addAddress($receiver)
+            ->setBarcode($barcode)
+            ->addContact(Contact::create()
+                ->setContactType('01')
+                ->setEmail('test@test.nl')
+                ->setSmsNumber('0612345678')
+                ->setPhonenumber('0123456789')
+            )
+            ->setDimension(Dimension::create()
+                ->setWeight(100) // grams
+            )
+            ->setProductCodeDelivery($productCodeDelivery)
+            ->setReference('Ship Unit test')
+            ->setRemark('Ship Unit test');
+        $request->setShipment($shipment);
+        $response = $this->client->getAPI('confirming')->confirm($request, false);
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\Confirming\ConfirmResponse', $response);        
+    }
+    
+    /**
+     * Test shipment confirm
+     * 
+     * @group confirm
+     */
+    public function testConfirmShipmentException()
+    {
+        $this->expectException(CifConfirmingException::class);
+        
+        $productCodeDelivery = 3085;
+        // test helper
+        $customer = $this->getCustomerEntity();
+        
+        $request = new ConfirmRequest();
+        $request->setCustomer($customer);
+        
+        $barcode = "3STBJG970139141";
+        // receiver address
+        $receiver = Address::create()
+            ->setAddressType('01')
+            ->setFirstname('Henk')
+            ->setName('Janssen')
+            ->setCompanyname('Test Company')
+            ->setStreet('Siriusdreef')
+            ->setHouseNumber(42)
+            ->setHousenumberExt('A')
+            ->setZipcode('2132WT')
+            ->setCity('Hoofddorp')
+            ->setCountrycode('NL');
+        //sender
+        $sender = Address::create()
+            ->setAddressType('02')
+            ->setFirstname('Henk')
+            ->setName('Janssen Zender')
+            ->setCompanyname('Shipment Company')
+            ->setStreet('Siriusdreef')
+            ->setHouseNumber(42)
+            ->setHousenumberExt('A')
+            ->setZipcode('2132WT')
+            ->setCity('Hoofddorp')
+            ->setCountrycode('NL');
+        
+        // create shipment instance.
+        $shipment = Shipment::create()
+//            ->addAddress($receiver)
+            ->setBarcode($barcode)
+            ->addContact(Contact::create()
+                ->setContactType('01')
+                ->setEmail('test@test.nl')
+                ->setSmsNumber('0612345678')
+                ->setPhonenumber('0123456789')
+            )
+            ->setDimension(Dimension::create()
+                ->setWeight(100) // grams
+            )
+            ->setProductCodeDelivery($productCodeDelivery)
+            ->setReference('Ship Unit test')
+            ->setRemark('Ship Unit test');
+        $request->setShipment($shipment);
+        $response = $this->client->getAPI('confirming')->confirm($request, false);
+    }
 }
-
