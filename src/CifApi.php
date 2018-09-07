@@ -113,7 +113,7 @@ class CifApi
     private function addAPI($name, $instance)
     {
         $client = "Avido\\PostNLCifClient\\{$instance}";
-        $this->apiClients[$name] = new $client($this->apiKey, $this->customerNumber, $this->customerCode, $this->collectionLocation, $this->testMode);
+        $this->apiClients[$name] = new $client($this->apiKey, $this->customerNumber, $this->customerCode, $this->collectionLocation, $this->testMode, $this->getLogger());
         return $this;
     }
     

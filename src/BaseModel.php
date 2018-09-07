@@ -9,9 +9,41 @@ namespace Avido\PostNLCifClient;
     @copyright   Avido
 */
 
+use ReflectionClass;
+
 class BaseModel
 {
     private $data = [];
+    
+    /**
+     * Create a class instance static without calling the constructor.
+     *
+     * @access public static
+     * @return $this
+     */
+    public static function create()
+    {
+        $reflection = new ReflectionClass(get_called_class());
+        return $reflection->newInstanceWithoutConstructor();
+    }
+    
+    public function initFromArray($data=[])
+    {
+        //Instantiate the reflection object
+        $oReflector = new \ReflectionClass(get_class($this));
+
+        // get all the properties from class A in to $properties array
+        $properties = [];
+        foreach ($oReflector->getProperties() as $property) {
+            $properties[$property->getName()] = $property;
+        }
+        foreach ($data as $key => $val) {
+            if (!isset($properties[$key]) || ($properties[$key]->isPublic() || $properties[$key]->isProtected())) {
+                $this->{$key} = $val;
+            }
+        }
+        return $this;
+    }
     
     public function __construct()
     {

@@ -11,13 +11,13 @@ namespace Avido\PostNLCifClient\Entities;
   @Description:
         Customer Entity
   @Dependencies:
-        BaseModel
+        BaseEntity
  */
 
-use Avido\PostNLCifClient\BaseModel;
+use Avido\PostNLCifClient\Entities\BaseEntity;
 use Avido\PostNLCifClient\Entities\Address;
 
-class Customer extends BaseModel
+class Customer extends BaseEntity
 {
     private $Address = null;
     /**
@@ -39,9 +39,26 @@ class Customer extends BaseModel
     private $Email = null;
     private $Name = null;
     
-    public function __construct($data = [])
+    public function __construct(
+        $customer_code = null, 
+        $customer_number = null, 
+        $collection_location = null,
+        $contact_person = null,
+        $email = null,
+        $customer_name = null, 
+        $address = null
+    )
     {
         parent::__construct($data);
+        $this->setCustomerCode($customer_code)
+            ->setCustomerNumber($customer_number)
+            ->setCollectionLocation($collection_location)
+            ->setContactPerson($contact_person)
+            ->setEmail($email)
+            ->setName($customer_name);
+        if (!is_null($address)) {
+            $this->setAddress($address);
+        }
     }
     
     /**
@@ -58,6 +75,18 @@ class Customer extends BaseModel
     }
     
     /**
+     * Get Address 
+     *
+     * @access public
+     * @return Avido\PostNLCifClient\Entities\Address
+     */
+    public function getAddress()
+    {
+        return $this->Address;
+    }
+    
+    
+    /**
      * Set Collection Location
      *
      * @access public
@@ -66,9 +95,21 @@ class Customer extends BaseModel
      */
     public function setCollectionLocation($collection_location)
     {
-        $this->CollectionLocation = $collection_location;
+        $this->CollectionLocation = (string)$collection_location;
         return $this;
     }
+    
+    /**
+     * Get Collection Location
+     *
+     * @access public
+     * @return string
+     */
+    public function getCollectionLocation()
+    {
+        return (string)$this->CollectionLocation;
+    }
+    
     
     /**
      * Set Contact Person
@@ -79,8 +120,43 @@ class Customer extends BaseModel
      */
     public function setContactPerson($contact_person)
     {
-        $this->ContactPerson = $contact_person;
+        $this->ContactPerson = (string)$contact_person;
         return $this;
+    }
+    
+    /**
+     * Get Contact Person
+     *
+     * @access public
+     * @return string
+     */
+    public function getContactPerson()
+    {
+        return (string)$this->ContactPerson;
+    }
+
+    /**
+     * Set Customer Code
+     *
+     * @access public
+     * @param string $customer_code
+     * @return $this
+     */
+    public function setCustomerCode($customer_code)
+    {
+        $this->CustomerCode = (string)$customer_code;
+        return $this;
+    }
+    
+    /**
+     * Get Customer Code
+     *
+     * @access public
+     * @return string
+     */
+    public function getCustomerCode()
+    {
+        return (string)$this->CustomerCode;
     }
     
     /**
@@ -92,21 +168,19 @@ class Customer extends BaseModel
      */
     public function setCustomerNumber($customer_number)
     {
-        $this->CustomerNumber = $customer_number;
+        $this->CustomerNumber = (string)$customer_number;
         return $this;
     }
     
     /**
-     * Set Customer Code
+     * Get Customer Number
      *
      * @access public
-     * @param string $customer_code
-     * @return $this
+     * @return string
      */
-    public function setCustomerCode($customer_code)
+    public function getCustomerNumber()
     {
-        $this->CustomerCode = $customer_code;
-        return $this;
+        return (string)$this->CustomerNumber;
     }
     
     /**
@@ -118,8 +192,19 @@ class Customer extends BaseModel
      */
     public function setEmail($email)
     {
-        $this->Email = $email;
+        $this->Email = (string)$email;
         return $this;
+    }
+    
+    /**
+     * Get Email Address
+     *
+     * @access public
+     * @return string
+     */
+    public function getEmail()
+    {
+        return (string)$this->Email;
     }
     
     /**
@@ -131,63 +216,8 @@ class Customer extends BaseModel
      */
     public function setName($name)
     {
-        $this->Name = $name;
+        $this->Name = (string)$name;
         return $this;
-    }
-    
-    /**
-     * Get Address 
-     *
-     * @access public
-     * @return Avido\PostNLCifClient\Entities\Address
-     */
-    public function getAddress()
-    {
-        return $this->Address;
-    }
-    
-    /**
-     * Get Collection Location
-     *
-     * @access public
-     * @return string
-     */
-    public function getCollectionLocation()
-    {
-        return $this->CollectionLocation;
-    }
-    
-    /**
-     * Get Contact Person
-     *
-     * @access public
-     * @return string
-     */
-    public function getContactPerson()
-    {
-        return $this->ContactPerson;
-    }
-
-    /**
-     * Get Customer Code
-     *
-     * @access public
-     * @return string
-     */
-    public function getCustomerCode()
-    {
-        return $this->CustomerCode;
-    }
-    
-    /**
-     * Get Email Address
-     *
-     * @access public
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->Email;
     }
     
     /**
@@ -198,6 +228,25 @@ class Customer extends BaseModel
      */
     public function getName()
     {
-        return $this->Name;
+        return (string)$this->Name;
+    }
+    
+    /**
+     * Return Customer Entity as array
+     *
+     * @access public
+     * @return array
+     */
+    public function toArray() 
+    {
+        return [
+            'Address' => !is_null($this->getAddress()) ? $this->getAddress()->toArray() : null,
+            'CollectionLocation' => $this->getCollectionLocation(),
+            'ContactPerson' => $this->getContactPerson(),
+            'CustomerCode' => $this->getCustomerCode(),
+            'CustomerNumber' => $this->getCustomerNumber(),
+            'Email' => $this->getEmail(),
+            'Name' => $this->getName()
+        ];
     }
 }

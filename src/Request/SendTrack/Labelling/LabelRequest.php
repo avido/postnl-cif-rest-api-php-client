@@ -70,46 +70,19 @@ use Avido\PostNLCifClient\Request\BaseRequest;
 use Avido\PostNLCifClient\Entities\Address;
 use Avido\PostNLCifClient\Entities\Customer;
 use Avido\PostNLCifClient\Entities\Shipment;
+use Avido\PostNLCifClient\Entities\LabelMessage;
 
 class LabelRequest extends BaseRequest
 {
     private $endpoint = 'shipment';
-    private $path = 'barcode';
-    private $version = '1_1';
+    private $path = 'label';
+    private $version = '2_1';
 
+    private $printer = null;
     // body entities
-    private $customer = null;
-    private $message = null;
     private $shipments = [];
     
             
-    private $bodyEntities = [
-        'Customer' => [
-            'Address' => null,
-            'CollectionLocation' => null,
-            'ContactPerson' => null,
-            'CustomerCode' => null,
-            'CustomerNumber' => null,
-            'Email' => null,
-            'Name' => null,
-        ],
-        'Message' => [
-            'MessageID' => null,
-            'MessageTimeStamp' => null,
-            'Printertype' => null
-        ],
-        'Shipments' => [
-            'Addresses' => []
-        ],
-        'Barcode' => null,
-        'Contacts' => [],
-        'DeliveryAddress' => null,
-        'Dimension' => null,
-        'ProductCodeDelivery' => null
-    ];
-    
-    private $address = null;
-    
     public function __construct()
     {
         parent::__construct($this->endpoint, $this->path, $this->version);
@@ -118,95 +91,79 @@ class LabelRequest extends BaseRequest
         ];
     }
     
-    
     /**
-     * Set Address
+     * Get Printer for PDF generation
      *
      * @access public
-     * @param \Avido\PostNLCifClient\Entities\Address $address
+     * @see https://developer.postnl.nl/browse-apis/send-and-track/labelling-webservice/documentation/ #Printertypes
+     * @param string $printer
      * @return $this
      */
-    public function setAddress(Address $address)
+    public function setPrinter($printer)
     {
-        $this->address = $address;
+        $this->printer = (string)$printer;
         return $this;
     }
     
     /**
-     * Set Customer 
+     * Get Printer
      *
      * @access public
-     * @param \Avido\PostNLCifClient\Entities\Customer $customer
+     * @return string
+     */
+    public function getPrinter()
+    {
+        return (string)$this->printer;
+    }
+    /**
+     * Add Shipment
+     *
+     * @access public
+     * @param \Avido\PostNLCifClient\Entities\Shipment $shipment
      * @return $this
      */
-    public function setCustomer(Customer $customer)
+    public function addShipment(Shipment $shipment)
     {
-        $this->customer = $customer;
+        $this->shipments[] = $shipment;
         return $this;
     }
     
+    public function getMessage()
+    {
+        $message = LabelMessage::create()
+            ->setMessageId('01')
+            ->setPrinterType($this->getPrinter());
+        return $message;
+    }
     /**
-     * Set Customer Code
-     *
-     * Customer code as known at PostNL Pakketten
+     * Get Label Request Json encoded body
      *
      * @access public
-     * @param string $customer_code
-     * @return $this
+     * @return string
      */
-    public function setCustomerCode($customer_code)
+    public function getBody()
     {
-        $this->arguments['customer_code'] = $customer_code;
-        return $this;
+        $body = [
+            'Customer' => $this->getCustomer()->toArray(),
+            'Message' => $this->getMessage()->toArray(),
+            'Shipments' => $this->getShipmentsArray()
+        ];
+        $body= json_encode($body);
+        return $body;
     }
     
     /**
-     * Set Customer Number
-     *
-     * Customer number as known at PostNL Pakketten
+     * Get Shipments array
      *
      * @access public
-     * @param string $customer_number
-     * @return $this
+     * @return array
      */
-    public function setCustomerNumber($customer_number)
+    public function getShipmentsArray()
     {
-        $this->arguments['customer_number'] = $customer_number;
-        return $this;
-    }
-    
-    /**
-     * Set Type of barcode
-     *
-     * Accepted values: 2S, 3S, CC, CP, CD, CF 
-     * see documention page for more detailed information
-     *
-     * @access public
-     * @see https://developer.postnl.nl/browse-apis/send-and-track/barcode-webservice/documentation-soap/
-     * @param string $type
-     * @return $this
-     */
-    public function setType($type)
-    {
-        $this->arguments['type'] = $type;
-        return $this;
-    }
-    
-    /**
-     * Set Barcode Serie
-     *
-     * Barcode serie in the format '###000000-###000000’, for example 100000-20000. The range must 
-     * consist of a minimal difference of 100.000. Minimum length of the serie is 6 characters; maximum 
-     * length is 9 characters. It is allowed to add extra leading zeros at the beginning of the serie. 
-     * See Guidelines for more information.
-     *
-     * @access public
-     * @param string $serie
-     * @return $this
-     */
-    public function setSerie($serie)
-    {
-        $this->arguments['serie'] = $serie;
-        return $this;
+        $return = [];
+        foreach ($this->shipments as $shipment) {
+            $return[] = $shipment->toArray();
+        }
+        return $return;
     }
 }

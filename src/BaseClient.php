@@ -25,6 +25,8 @@ use Psr\Http\Message\ResponseInterface;
 use Monolog\Logger;
 use Monolog\Handler\NullHandler;
 
+use Avido\PostNLCifClient\Entities\Customer;
+
 abstract class BaseClient
 {
     /**
@@ -225,11 +227,10 @@ abstract class BaseClient
      * @param Monolog\Handler $handler
      * @return $this
      */
-    public function setLogger($handler)
+    public function setLogger($logger = null)
     {
-        if (!is_null($handler)) {
-            $this->logger = new Logger(self::LOGGER_CHANNEL); //initialize the logger
-            $this->logger->pushHandler($handler);
+        if (!is_null($logger)) {
+            $this->logger = $logger;
         }
         
         return $this;
@@ -293,15 +294,15 @@ abstract class BaseClient
      *
      * @access protected
      * @param string $endpoint
-     * @param string $xml
+     * @param string $body
      * @return mixed Int($id) | false
      */
-    protected function post($endpoint = '', $xml = null)
+    protected function post($endpoint = '', $body = null)
     {
         if ($endpoint === '') {
             throw new \BadMethodCallException("Missing endpoint");
         }
-        return $this->makeRequest('POST', $this->endpoint($endpoint), ['body' => $xml]);
+        return $this->makeRequest('POST', $this->endpoint($endpoint), ['body' => $body, 'headers' => ['Content-type' => 'application/json']]);
     }
 
     /**
@@ -326,7 +327,14 @@ abstract class BaseClient
             // create stack middleware
             $stack = HandlerStack::create();
             
-
+            $tapMiddleware = Middleware::tap(function ($request) {
+                echo "content type: " . $request->getHeaderLine('Content-Type') . PHP_EOL;
+                echo "Request Body: " . PHP_EOL;
+                // application/json
+                echo $request->getBody();
+                // {"foo":"bar"}
+            });            
+//        $stack->push($tapMiddleware);
             /**
              * Middleware currently hijacks response body..
              * mapResponse temp fix to rewind body stream
@@ -340,21 +348,24 @@ abstract class BaseClient
             });
             $stack->push($mapResponse);
             
-            $stack->push(
-                Middleware::log(
-                    $this->getLogger(),
-                    new MessageFormatter($this->logMessageFormat)
-                )
-            );
+//            $stack->push(
+//                Middleware::log(
+//                    $this->getLogger(),
+//                    new MessageFormatter($this->logMessageFormat)
+//                )
+//            );
             
             $client = new \GuzzleHttp\Client([
                 'handler' => $stack
             ]);
-            $payload['headers'] = [
+            $payload['headers'] = array_merge($this->getHttpHeaders(), (isset($payload['headers']) ? $payload['headers'] : []));
+            $headers = [
                 'User-Agent' => 'Avido/PostNL-Cif-Rest-Api-Client-' . self::LIBVERSION,
                 'apikey' => $this->apiKey
             ];
+//            $payload['debug'] = true;
             $res = $client->request($method, $endpoint, $payload);
+               
             $json = $res->getBody()->getContents();
             if ($json) {
                 $response = json_decode($json, true);
@@ -373,6 +384,12 @@ abstract class BaseClient
             // therefore set the json as exception response. So each API can handle the error format
             throw new CifClientException($response);
         } catch (ClientException $e) {
+            // log the request ?
+//            // get the body
+//            $body = $e->getRequest()->getBody();
+//            // rewind pointer
+//            $body->rewind();
+//            print_r($body->getContents());
             throw $e;
         } catch (\Exception $e) {
             throw $e;
@@ -392,5 +409,33 @@ abstract class BaseClient
             $endpoint = "/{$endpoint}";
         }
         return (($this->testMode) ? self::API_ADDRESS_TEST : self::API_ADDRESS_LIVE) . $endpoint;
+    }
+    
+    /**
+     * Get Customer Entity
+     *
+     * @access public
+     * @return Avido\PostNLCifClient\Entities\Customer
+     */
+    public function getCustomer()
+    {
+        return Customer::create()
+            ->setCustomerCode($this->customerCode)
+            ->setCustomerNumber($this->customerNumber)
+            ->setCollectionLocation($this->collectionLocation);
+    }
+    
+    /**
+     * Get Default http headers for http connection to PostNL
+     *
+     * @access private
+     * @return array
+     */
+    private function getHttpHeaders()
+    {
+        return [
+            'User-Agent' => 'Avido/PostNL-Cif-Rest-Api-Client-' . self::LIBVERSION,
+            'apikey' => $this->apiKey
+        ];
     }
 }

@@ -11,12 +11,12 @@ namespace Avido\PostNLCifClient\Entities;
   @Description:
         Shipment Dimension Entity
   @Dependencies:
-        BaseModel
+        BaseEntity
  */
 
-use Avido\PostNLCifClient\BaseModel;
+use Avido\PostNLCifClient\Entities\BaseEntity;
 
-class Dimension extends BaseModel
+class Dimension extends BaseEntity
 {
     private $Height = null;
     private $Length = null;
@@ -48,6 +48,18 @@ class Dimension extends BaseModel
     }
     
     /**
+     * Get Height in milimeters (mm)
+     *
+     * @access public
+     * @return int
+     */
+    public function getHeight()
+    {
+        return (int)$this->Height;
+    }
+    
+    
+    /**
      * Set Length in milimeters (mm)
      *
      * @access public
@@ -58,6 +70,17 @@ class Dimension extends BaseModel
     {
         $this->Length = (int)$length;
         return $this;
+    }
+    
+    /**
+     * Get Length in milimeters (mm)
+     *
+     * @access public
+     * @return int
+     */
+    public function getLength()
+    {
+        return (int)$this->Length;
     }
     
     /**
@@ -74,6 +97,17 @@ class Dimension extends BaseModel
     }
     
     /**
+     * Get Volume in cm (cm3), mandatory for E@H-products
+     *
+     * @access public
+     * @return int
+     */
+    public function getVolume()
+    {
+        return (int)$this->Volume;
+    }
+    
+    /**
      * Set Weight in grams
      *
      * @access public
@@ -84,6 +118,17 @@ class Dimension extends BaseModel
     {
         $this->Weight = (int)$weight;
         return $this;
+    }
+    
+    /**
+     * Get Weight in grams
+     *
+     * @access public
+     * @return int
+     */
+    public function getWeight()
+    {
+        return (int)$this->Weight;
     }
     
     /**
@@ -100,50 +145,6 @@ class Dimension extends BaseModel
     }
     
     /**
-     * Get Height in milimeters (mm)
-     *
-     * @access public
-     * @return int
-     */
-    public function getHeight()
-    {
-        return (int)$this->Height;
-    }
-    
-    /**
-     * Get Length in milimeters (mm)
-     *
-     * @access public
-     * @return int
-     */
-    public function getLength()
-    {
-        return (int)$this->Length;
-    }
-    
-    /**
-     * Get Volume in cm (cm3), mandatory for E@H-products
-     *
-     * @access public
-     * @return int
-     */
-    public function getVolume()
-    {
-        return (int)$this->Volume;
-    }
-    
-    /**
-     * Get Weight in grams
-     *
-     * @access public
-     * @return int
-     */
-    public function getWeight()
-    {
-        return (int)$this->Weight;
-    }
-    
-    /**
      * Get Width in milimeters (mm)
      *
      * @access public
@@ -152,5 +153,22 @@ class Dimension extends BaseModel
     public function getWidth()
     {
         return (int)$this->Width;
+    }
+    
+    /**
+     * Output dimensions entity as array
+     *
+     * @access public
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'Height' => $this->getHeight(),
+            'Length' => $this->getLength(),
+            'Volume' => $this->getVolume(),
+            'Weight' => $this->getWeight(),
+            'Width' => $this->getWidth()
+        ];
     }
 }

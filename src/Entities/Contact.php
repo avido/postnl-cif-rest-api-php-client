@@ -11,12 +11,12 @@ namespace Avido\PostNLCifClient\Entities;
   @Description:
         Shipment Contact Entity
   @Dependencies:
-        BaseModel
+        BaseEntity
  */
 
-use Avido\PostNLCifClient\BaseModel;
+use Avido\PostNLCifClient\Entities\BaseEntity;
 
-class Contact extends BaseModel
+class Contact extends BaseEntity
 {
     /**
      * Type of the contact. This is a code. You can find the possible values at Guidelines
@@ -67,6 +67,17 @@ class Contact extends BaseModel
     }
     
     /**
+     * Get Contact Type
+     *
+     * @access public
+     * @return string
+     */
+    public function getContactType()
+    {
+        return (string)$this->ContactType;
+    }
+    
+    /**
      * Set Email
      *
      * @access public
@@ -80,6 +91,18 @@ class Contact extends BaseModel
     }
     
     /**
+     * Get Email
+     *
+     * @access public
+     * @return string
+     */
+    public function getEmail()
+    {
+        return (string)$this->Email;
+    }
+    
+    
+    /**
      * Set Sms number
      *
      * @access public
@@ -90,6 +113,17 @@ class Contact extends BaseModel
     {
         $this->SMSNr = (string)$number;
         return $this;
+    }
+    
+    /**
+     * Get Sms number
+     *
+     * @access public
+     * @return string
+     */
+    public function getSmsNumber()
+    {
+        return (string)$this->SMSNr;
     }
     
     /**
@@ -106,39 +140,6 @@ class Contact extends BaseModel
     }
     
     /**
-     * Get Contact Type
-     *
-     * @access public
-     * @return string
-     */
-    public function getContactType()
-    {
-        return (string)$this->ContactType;
-    }
-    
-    /**
-     * Get Email
-     *
-     * @access public
-     * @return string
-     */
-    public function getEmail()
-    {
-        return (string)$this->Email;
-    }
-    
-    /**
-     * Get Sms number
-     *
-     * @access public
-     * @return string
-     */
-    public function getSmsNumber()
-    {
-        return (string)$this->SMSNr;
-    }
-    
-    /**
      * Get Phonenumber
      *
      * @access public
@@ -147,5 +148,21 @@ class Contact extends BaseModel
     public function getPhonenumber()
     {
         return (string)$this->TelNr;
+    }
+    
+    /**
+     * Output contact entity as array
+     *
+     * @access public
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'ContactType' => $this->getContactType(),
+            'Email' => $this->getEmail(),
+            'SMSNr' => $this->getSmsNumber(),
+            'TelNr' => $this->getPhonenumber()
+        ];
     }
 }
