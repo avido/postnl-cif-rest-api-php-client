@@ -31,132 +31,100 @@ class Address extends BaseEntity
      * @see https://developer.postnl.nl/browse-apis/send-and-track/labelling-webservice/documentation/
      * @var string 
      */
-    private $AddressType = null;
+    protected $AddressType = null;
     /**
      * Area of the address
      * @var string
      */
-    private $Area = null;
+    protected $Area = null;
     /**
      * Building name of the address
      * @var string
      */
-    private $Buildingname = null;
+    protected $Buildingname = null;
     /**
      * City of the address
      * @var string
      */
-    private $City = null;
+    protected $City = null;
     /**
      * This field has a dependency with the field Name. One of both fields must be filled mandatory; using 
      * both fields is also allowed. Mandatory when AddressType is 09.
      * @var string
      */
-    private $CompanyName = null;
+    protected $CompanyName = null;
     /**
      * The ISO2 country codes
      * @var string
      */
-    private $Countrycode = null;
+    protected $Countrycode = null;
     /**
      * Send to specific department of a company.
      * @var string
      */
-    private $Department = null;
+    protected $Department = null;
     /**
      * Door code of address. Mandatory for some international shipments.
      * @var string
      */
-    private $Doorcode = null;
+    protected $Doorcode = null;
     /**
      * Please add FirstName and Name (lastname) of the receiver to improve the parcel tracking experience of 
      * your customer.
      * @var string
      */
-    private $Firstname = null;
+    protected $Firstname = null;
     /**
      * Send to specific floor of a company
      * @var string
      */
-    private $Floor = null;
+    protected $Floor = null;
     /**
      * Mandatory for shipments to Benelux. Max. length is 5 characters (only for Benelux addresses). 
      * For Benelux addresses,this field should always be numeric.
      * @var int 
      */
-    private $HouseNr = null;
+    protected $HouseNr = null;
     /**
      * House number extension
      * @var string
      */
-    private $HouseNrExt = null;
+    protected $HouseNrExt = null;
     /**
      * Last name of person. This field has a dependency with the field CompanyName. One of both fields must 
      * be filled mandatory; using both fields is also allowed. Remark: please add FirstName and Name (lastname) 
      * of the receiver to improve the parcel tracking experience of your customer.
      * @var string
      */
-    private $Name = null;
+    protected $Name = null;
     /**
      * Region of the address
      * @var string
      */
-    private $Region = null;
+    protected $Region = null;
     /**
      * This field has a dependency with the field StreetHouseNrExt. One of both fields must be filled 
      * mandatory; using both fields is also allowed.
      * @var string
      */
-    private $Street = null;
+    protected $Street = null;
     /**
      * Combination of Street, HouseNr and HouseNrExt. 
      * Please see Guidelines for the explanation.
      * @var string
      */
-    private $StreetHouseNrExt = null;
+    protected $StreetHouseNrExt = null;
     /**
      * Zipcode of the address. Mandatory for shipments to Benelux. Max length (NL) 6 characters,(BE;LU)
      * 4 numeric characters
      * @var type 
      */
-    private $Zipcode = null;
+    protected $Zipcode = null;
     
-   public function __construct(
-        $address_type = null,
-        $firstname = null,
-        $name = null,
-        $companyname = null,
-        $street = null,
-        $housenumber = null,
-        $housenumber_ext = null,
-        $zipcode = null,
-        $city = null,
-        $countrycode = null,
-        $area = null,
-        $buildingname = null,
-        $department = null,
-        $doorcode = null,
-        $floor = null,
-        $region = null
-    )
+    // REBUILD
+    public function __construct($data=[])
     {
-        parent::__construct();
-        $this->setAddressType($address_type)
-            ->setFirstname($firstname)
-            ->setName($name)
-            ->setCompanyname($companyname)
-            ->setStreet($street)
-            ->setHousenumber($housenumber)
-            ->setHousenumberExt($housenumber_ext)
-            ->setZipcode($zipcode)
-            ->setCity($city)
-            ->setCountrycode($countrycode)
-            ->setArea($area)
-            ->setBuildingname($buildingname)
-            ->setDepartment($department)
-            ->setDoorcode($doorcode)
-            ->setFloor($floor)
-            ->setRegion($region);
+        parent::__construct($data);
     }
     
     /**
