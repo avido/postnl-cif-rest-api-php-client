@@ -23,22 +23,22 @@ class Group extends BaseEntity
     const GROUP_TYPE_SINGLE = "04";
     
     /**
-     * Group sort that determines the type of group that is indicated. This is a code. 
-     * Possible values: 
-     * 01 = Collection request 
-     * 03 = Multiple parcels in one shipment (multicolli) 
+     * Group sort that determines the type of group that is indicated. This is a code.
+     * Possible values:
+     * 01 = Collection request
+     * 03 = Multiple parcels in one shipment (multicolli)
      * 04 = Single parcel in one shipment (default)
      * @var String
      */
     protected $GroupType = null;
     /**
-     * Sequence number of the collo within the complete shipment (e.g. collo 2 of 4) 
+     * Sequence number of the collo within the complete shipment (e.g. collo 2 of 4)
      * Mandatory for multicollo shipments
      * @var Int
      */
     protected $GroupSequence = null;
     /**
-     * Total number of colli in the shipment (in case of multicolli shipments) 
+     * Total number of colli in the shipment (in case of multicolli shipments)
      * Mandatory for multicollo shipments
      * @var Int
      */
@@ -49,7 +49,7 @@ class Group extends BaseEntity
      */
     protected $MainBarcode = null;
     
-    public function __construct($data=[])
+    public function __construct($data = [])
     {
         parent::__construct($data);
     }
@@ -61,7 +61,7 @@ class Group extends BaseEntity
      * @param string $type
      * @return $this
      */
-    public function setGroupType($type='04')
+    public function setGroupType($type = '04')
     {
         $this->GroupType = (string)$type;
         return $this;

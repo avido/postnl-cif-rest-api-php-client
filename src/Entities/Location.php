@@ -50,7 +50,7 @@ class Location extends BaseEntity
      */
     protected $Address = null;
     /**
-     * One or more delivery options. See the Guidelines for possible values. 
+     * One or more delivery options. See the Guidelines for possible values.
      * @var Array
      */
     protected $DeliveryOptions = null;
@@ -173,7 +173,7 @@ class Location extends BaseEntity
     
     /**
      * Set Distance
-     * 
+     *
      * @access public
      * @param int $distance
      * @return $this

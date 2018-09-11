@@ -52,7 +52,7 @@ class Customs extends BaseEntity
      */
     protected $InvoiceNr = null;
     /**
-     * Determines what to do when the shipment cannot be delivered the first time (if this is set to true, the 
+     * Determines what to do when the shipment cannot be delivered the first time (if this is set to true, the
      * shipment will be returned after the first failed attempt)
      * If false, package will be 'destroyed' if not deliverable
      * @var Boolean
@@ -64,7 +64,7 @@ class Customs extends BaseEntity
      */
     protected $Currency = null;
     /**
-     * Type of shipment,possible values: 
+     * Type of shipment,possible values:
      * Gift,
      * Documents,
      * Commercial Goods,
@@ -80,7 +80,7 @@ class Customs extends BaseEntity
     protected $Content = [];
     
     
-    public function __construct($data=[])
+    public function __construct($data = [])
     {
         parent::__construct($data);
     }
@@ -231,7 +231,7 @@ class Customs extends BaseEntity
     }
     
     /**
-     * Handle Shipment as Non Deliverable 
+     * Handle Shipment as Non Deliverable
      *
      * @access public
      * @param boolean $handle_non_deliverable
@@ -309,7 +309,7 @@ class Customs extends BaseEntity
      * @param array $contents
      * @return $this
      */
-    public function setContent($contents=[])
+    public function setContent($contents = [])
     {
         $this->Content = (array)$contents;
         return $this;

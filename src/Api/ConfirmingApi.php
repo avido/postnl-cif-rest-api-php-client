@@ -37,7 +37,7 @@ class ConfirmingApi extends BaseClient
      * @see https://developer.postnl.nl/browse-apis/send-and-track/labelling-webservice/documentation/
      ***********************************/
     
-    public function confirm(ConfirmRequest $request, $confirm=false)
+    public function confirm(ConfirmRequest $request, $confirm = false)
     {
         if (!$request->okay()) {
             throw new \Exception("Incomplete request");
@@ -45,7 +45,9 @@ class ConfirmingApi extends BaseClient
         try {
             $resp = $this->post($request->getEndpoint(), $request->getBody());
             $pop = array_pop($resp);
-            return new ConfirmResponse(isset($pop['ConfirmingResponseShipment']) ? $pop['ConfirmingResponseShipment'] : []);
+            return new ConfirmResponse(isset($pop['ConfirmingResponseShipment']) ?
+                $pop['ConfirmingResponseShipment'] :
+                []);
         } catch (CifClientException $e) {
             throw new CifConfirmingException($e->getMessage());
         }

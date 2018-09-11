@@ -40,15 +40,14 @@ class Customer extends BaseEntity
     private $Name = null;
     
     public function __construct(
-        $customer_code = null, 
-        $customer_number = null, 
+        $customer_code = null,
+        $customer_number = null,
         $collection_location = null,
         $contact_person = null,
         $email = null,
-        $customer_name = null, 
+        $customer_name = null,
         $address = null
-    )
-    {
+    ) {
         parent::__construct($data);
         $this->setCustomerCode($customer_code)
             ->setCustomerNumber($customer_number)
@@ -75,7 +74,7 @@ class Customer extends BaseEntity
     }
     
     /**
-     * Get Address 
+     * Get Address
      *
      * @access public
      * @return Avido\PostNLCifClient\Entities\Address
@@ -237,7 +236,7 @@ class Customer extends BaseEntity
      * @access public
      * @return array
      */
-    public function toArray() 
+    public function toArray()
     {
         return [
             'Address' => !is_null($this->getAddress()) ? $this->getAddress()->toArray() : null,

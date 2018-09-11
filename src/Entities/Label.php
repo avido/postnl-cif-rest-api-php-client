@@ -21,7 +21,7 @@ class Label extends BaseModel
     protected $Content = null;
     protected $Labeltype = null;
     
-    public function __construct($data=[])
+    public function __construct($data = [])
     {
         parent::__construct();
         parent::initFromArray($data);
@@ -41,7 +41,7 @@ class Label extends BaseModel
     }
     
     /**
-     * Get Content 
+     * Get Content
      *
      * @access public
      * @return string/base64bin
@@ -58,7 +58,7 @@ class Label extends BaseModel
      * @param string $labeltype
      * @return $this
      */
-    public function setLabeltype($labeltype) 
+    public function setLabeltype($labeltype)
     {
         $this->Labeltype = (string)$labeltype;
         return $this;

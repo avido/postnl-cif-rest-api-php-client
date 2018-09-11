@@ -24,13 +24,13 @@ class CustomsContent extends BaseEntity
      */
     private $Description = null;
     /**
-     * A unique code for a product. Together with HS number this is mandatory for 
+     * A unique code for a product. Together with HS number this is mandatory for
      * product code 4992(Direct Parcel to China).
      * @var String
      */
     private $EAN = null;
     /**
-     * Webshop URL of the product which is being shipped. Mandatory for 
+     * Webshop URL of the product which is being shipped. Mandatory for
      * product code 4992(Direct Parcel to China).
      * @var String
      */
@@ -62,7 +62,7 @@ class CustomsContent extends BaseEntity
     protected $CountryOfOrigin = null;
     
     
-    public function __construct($data=[])
+    public function __construct($data = [])
     {
         parent::__construct($data);
     }

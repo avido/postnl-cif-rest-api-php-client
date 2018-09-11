@@ -17,7 +17,7 @@ use ReflectionClass;
 
 abstract class BaseEntity
 {
-    public function __construct($data=[])
+    public function __construct($data = [])
     {
         if (is_array($data)) {
             $this->initFromArray($data);
@@ -31,7 +31,7 @@ abstract class BaseEntity
      * @param type $data
      * @return $this
      */
-    public function initFromArray($data=[])
+    public function initFromArray($data = [])
     {
         //Instantiate the reflection object
         $oReflector = new ReflectionClass(get_class($this));

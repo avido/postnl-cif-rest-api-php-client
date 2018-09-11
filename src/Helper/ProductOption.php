@@ -1,5 +1,6 @@
 <?php
 namespace Avido\PostNLCifClient\Helper;
+
 /**
   @File: ProductOption.php
   @version 0.1.0
@@ -83,7 +84,7 @@ class ProductOption
         return (bool)$this->isSunday;
     }
     /**
-     * Indicates product code is Cash On Delivery 
+     * Indicates product code is Cash On Delivery
      *
      * @access public
      * @return boolean

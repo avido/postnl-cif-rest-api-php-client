@@ -27,7 +27,7 @@ class BaseModel
         return $reflection->newInstanceWithoutConstructor();
     }
     
-    public function initFromArray($data=[])
+    public function initFromArray($data = [])
     {
         //Instantiate the reflection object
         $oReflector = new \ReflectionClass(get_class($this));

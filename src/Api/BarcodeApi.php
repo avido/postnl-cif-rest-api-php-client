@@ -7,7 +7,7 @@ namespace Avido\PostNLCifClient\Api;
   @Encoding:  UTF-8
   @Date:  Sep 4, 2018
   @Package: postnl-cif-rest-api-php-client
-  @copyright   Budgetlens B.V.
+  @copyright   Avido
   @Modified:
   @Description:
         Barcode API
@@ -19,7 +19,7 @@ use Avido\PostNLCifClient\BaseClient;
 // exceptions
 use Avido\PostNLCifClient\Exceptions\CifClientException;
 use Avido\PostNLCifClient\Exceptions\CifBarcodeException;
-use Avido\PostNLCifClient\Exceptions\invalidBarcodeTypeException;
+use Avido\PostNLCifClient\Exceptions\InvalidBarcodeTypeException;
 // requests
 use Avido\PostNLCifClient\Request\SendTrack\Barcode\BarcodeRequest;
 
@@ -54,7 +54,7 @@ class BarcodeApi extends BaseClient
     public function getBarcode($type, $serie = null, $domestic = true)
     {
         if (!in_array($type, $this->availableBarcodeTypes)) {
-            throw new invalidBarcodeTypeException($type);
+            throw new InvalidBarcodeTypeException($type);
         }
         if (is_null($serie)) {
             switch ($type) {

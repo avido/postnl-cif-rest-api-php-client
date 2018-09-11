@@ -2,7 +2,7 @@
 namespace Avido\PostNLCifClient\Exceptions;
 
 /**
-    @File:  unknownProductCodeException.php
+    @File:  UnknownProductCodeException.php
     @version 0.1.0
     @Encoding:  UTF-8
     @Package: PostNL Cif Rest API PHP Client
@@ -12,7 +12,7 @@ namespace Avido\PostNLCifClient\Exceptions;
 */
 use \Exception;
 
-class unknownProductCodeException extends Exception
+class UnknownProductCodeException extends Exception
 {
     public function __construct($code)
     {

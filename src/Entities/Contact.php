@@ -20,7 +20,7 @@ class Contact extends BaseEntity
 {
     /**
      * Type of the contact. This is a code. You can find the possible values at Guidelines
-     * Possible values: 01 (receiver) 
+     * Possible values: 01 (receiver)
      * @see https://developer.postnl.nl/browse-apis/send-and-track/labelling-webservice/documentation/
      * @var String
      */
@@ -44,7 +44,7 @@ class Contact extends BaseEntity
      */
     private $TelNr = null;
     
-    public function __construct($type=null, $email=null, $sms=null, $tel=null)
+    public function __construct($type = null, $email = null, $sms = null, $tel = null)
     {
         parent::__construct();
         $this->setContactType($type)
@@ -60,7 +60,7 @@ class Contact extends BaseEntity
      * @param string $type
      * @return $this
      */
-    public function setContactType($type='01')
+    public function setContactType($type = '01')
     {
         $this->ContactType = (string)$type;
         return $this;
