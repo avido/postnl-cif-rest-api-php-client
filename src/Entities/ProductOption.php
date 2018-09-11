@@ -25,14 +25,14 @@ class ProductOption extends BaseEntity
      */
     protected $Characteristic = null;
     /**
-     * The product option code for this ProductOption. Mandatory for some products, 
+     * The product option code for this ProductOption. Mandatory for some products,
      * please see the Products page
      * @see https://developer.postnl.nl/browse-apis/send-and-track/products/
      * @var Int
      */
     protected $Option = null;
     
-    public function __construct($data=[])
+    public function __construct($data = [])
     {
         parent::__construct($data);
     }

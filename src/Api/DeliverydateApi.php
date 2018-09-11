@@ -6,7 +6,7 @@ namespace Avido\PostNLCifClient\Api;
   @version 0.1.0
   @Encoding:  UTF-8
   @Package: postnl-cif-rest-api-php-client
-  @copyright   Budgetlens B.V.
+  @copyright   Avido
   @Modified:
   @Description:
         Delivery date calculation API

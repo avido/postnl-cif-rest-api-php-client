@@ -7,7 +7,7 @@ namespace Avido\PostNLCifClient\Api;
   @Encoding:  UTF-8
   @Date:  Jul 10, 2018
   @Package: postnl-cif-rest-api-php-client
-  @copyright   Budgetlens B.V.
+  @copyright   Avido
   @Modified:
   @Description:
         Timeframe API

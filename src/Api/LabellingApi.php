@@ -7,7 +7,7 @@ namespace Avido\PostNLCifClient\Api;
   @Encoding:  UTF-8
   @Date:  Sep 4, 2018
   @Package: postnl-cif-rest-api-php-client
-  @copyright   Budgetlens B.V.
+  @copyright   Avido
   @Modified:
   @Description:
         Labelling API
@@ -42,7 +42,7 @@ class LabellingApi extends BaseClient
      * @see https://developer.postnl.nl/browse-apis/send-and-track/labelling-webservice/documentation/
      ***********************************/
     
-    public function getLabel(LabelRequest $request, $confirm=false)
+    public function getLabel(LabelRequest $request, $confirm = false)
     {
         try {
             $resp = $this->post($request->getEndpoint() . "?confirm=false", $request->getBody());
@@ -63,8 +63,8 @@ class LabellingApi extends BaseClient
      *
      * @access public
      * @param \Avido\PostNLCifClient\Entities\Shipment $shipment
-     * @param string $printer 
-     * @param boolean $confirm 
+     * @param string $printer
+     * @param boolean $confirm
      * @return \Avido\PostNLCifClient\Response\SendTrack\Labelling\LabelResponse
      */
     public function getLabelBAK(Shipment $shipment, $printer = 'GraphicFile|PDF', $confirm = false)
@@ -74,8 +74,7 @@ class LabellingApi extends BaseClient
                 ->setCustomerCode($this->getCustomerCode())
                 ->setCustomerNumber($this->getCustomerNumber())
                 ->setCollectionLocation($this->getCollectionLocation())
-                ->setAddress(Address::create()
-                    ->setAddressType('02')
+                ->setAddress(Address::create()->setAddressType('02')
                     ->setCity('Hoofddorp')
                     ->setCompanyname('PostNL')
                     ->setCountrycode('NL')

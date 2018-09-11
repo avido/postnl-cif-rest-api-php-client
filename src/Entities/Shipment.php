@@ -74,11 +74,11 @@ class Shipment extends BaseEntity
      */
     protected $Labels = [];
     /**
-     * List of 0 or more AmountType elements. 
-     * An amount represents a value of the shipment. 
-     * Amount type 01 mandatory for COD-shipments, 
-     * Amount type 02 mandatory for domestic insured shipments. 
-     * Amount type 04 mandatory for Commercial route China (productcode 4992). 
+     * List of 0 or more AmountType elements.
+     * An amount represents a value of the shipment.
+     * Amount type 01 mandatory for COD-shipments,
+     * Amount type 02 mandatory for domestic insured shipments.
+     * Amount type 04 mandatory for Commercial route China (productcode 4992).
      * Amount type 12 mandatory for Inco terms DDP Commercial route China (productcode 4992)
      * @see Entities/Amount
      * @var array
@@ -117,24 +117,24 @@ class Shipment extends BaseEntity
     protected $Customs = null;
     
     /**
-     * The delivery date of the shipment. We strongly advice to use the DeliveryDate service to get this date 
-     * when using delivery options like Evening/Morning/Sameday delivery etc. For those products, this field is 
-     * mandatory (please regard the Guidelines section). 
+     * The delivery date of the shipment. We strongly advice to use the DeliveryDate service to get this date
+     * when using delivery options like Evening/Morning/Sameday delivery etc. For those products, this field is
+     * mandatory (please regard the Guidelines section).
      * Format: dd-MM-yyyy hh:mm:ss
      * @var String
      */
     protected $DeliveryDate = null;
     
     /**
-     * The delivery date and the specific starting time of the shipment delivery. This can be retrieved from the 
-     * DeliveryDate webservice using the MyTime delivery option. 
+     * The delivery date and the specific starting time of the shipment delivery. This can be retrieved from the
+     * DeliveryDate webservice using the MyTime delivery option.
      * Format: dd-MM-yyyy hh:mm:ss
      * @var String
      */
     protected $DeliveryTimeStampStart = null;
     /**
-     * The delivery date and the specific end time of the shipment delivery. This can be retrieved from the 
-     * DeliveryDate webservice using the MyTime delivery option. 
+     * The delivery date and the specific end time of the shipment delivery. This can be retrieved from the
+     * DeliveryDate webservice using the MyTime delivery option.
      * Format: dd-MM-yyyy hh:mm:ss
      * @var String
      */
@@ -150,15 +150,15 @@ class Shipment extends BaseEntity
      */
     protected $DownPartnerID = null;
     /**
-     * Identification of the location of the downstream network partner of PostNL Pakketten. 
+     * Identification of the location of the downstream network partner of PostNL Pakketten.
      * Mandatory for Pickup at PostNl Location Belgium: LD-01
      * @var String
      */
     protected $DownPartnerLocation = null;
     
     /**
-     * List of 0 or more Group types with data, grouping multiple shipments together. Mandatory for 
-     * multicollo shipments. 
+     * List of 0 or more Group types with data, grouping multiple shipments together. Mandatory for
+     * multicollo shipments.
      * @var Entities/Groups
      */
     protected $Groups = null;
@@ -172,11 +172,11 @@ class Shipment extends BaseEntity
     protected $IDType = null;
     /**
      * Document number of the ID document. Mandatory for ID Check products
-     * @var String 
+     * @var String
      */
     protected $IDNumber = null;
     /**
-     * Expiration date of the ID document. 
+     * Expiration date of the ID document.
      * Mandatory for ID Check products
      * @var String
      */
@@ -202,7 +202,7 @@ class Shipment extends BaseEntity
     protected $ReceiverDateOfBirth = null;
     
     /**
-     * Your own reference of the shipment. Mandatory for Extra@Home shipments; for E@H this is used to 
+     * Your own reference of the shipment. Mandatory for Extra@Home shipments; for E@H this is used to
      * create your order number, so this should be unique for each request.
      * @var String
      */
@@ -256,7 +256,7 @@ class Shipment extends BaseEntity
      * @access public
      * @param array $amounts
      */
-    public function setAmounts($amounts=[])
+    public function setAmounts($amounts = [])
     {
         $tmp = [];
         foreach ($amounts as $amount) {
@@ -308,7 +308,7 @@ class Shipment extends BaseEntity
     /**
      * Set Delivery Address
      *
-     * Delivery address specification. 
+     * Delivery address specification.
      * This field is mandatory when AddressType on the Address is 09.
      *
      * @access public
@@ -425,7 +425,7 @@ class Shipment extends BaseEntity
      * @param array $contacts
      * @return $this
      */
-    public function setContacts($contacts=[])
+    public function setContacts($contacts = [])
     {
         $tmp = [];
         foreach ($contacts as $contact) {
@@ -448,7 +448,7 @@ class Shipment extends BaseEntity
         return (array)$this->ContactPerson;
     }
 
-    public function setLabels($labels=[])
+    public function setLabels($labels = [])
     {
         $tmp = [];
         foreach ($labels as $label) {
@@ -700,7 +700,7 @@ class Shipment extends BaseEntity
     }
     
     /**
-     * Set DownPartnerBarcode 
+     * Set DownPartnerBarcode
      *
      * @access public
      * @param string $barcode
@@ -796,7 +796,7 @@ class Shipment extends BaseEntity
     }
     
     /**
-     * Set ID Type 
+     * Set ID Type
      *
      * @access public
      * @param int  $type
@@ -1077,8 +1077,7 @@ class Shipment extends BaseEntity
         return (string)$this->TimeslotID;
     }
     
-    
-    public function toArray() 
+    public function toArray()
     {
         $return = [
             'Addresses' => $this->getAddressesArray(),

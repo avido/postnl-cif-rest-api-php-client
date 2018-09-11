@@ -25,11 +25,11 @@ class Address extends BaseEntity
      * 02 - sender
      * 03 - Alternative sender address
      * 04 - Collection address
-     * 08 - Return address (When using the ‘label in the box return label’, it is mandatory to use an 
+     * 08 - Return address (When using the ‘label in the box return label’, it is mandatory to use an
      *                              Antwoordnummer in AddressType 08. This cannot be a regular address.)
      * 09 - Delivery address (for use with Pick up at PostNL location)
      * @see https://developer.postnl.nl/browse-apis/send-and-track/labelling-webservice/documentation/
-     * @var string 
+     * @var string
      */
     protected $AddressType = null;
     /**
@@ -48,7 +48,7 @@ class Address extends BaseEntity
      */
     protected $City = null;
     /**
-     * This field has a dependency with the field Name. One of both fields must be filled mandatory; using 
+     * This field has a dependency with the field Name. One of both fields must be filled mandatory; using
      * both fields is also allowed. Mandatory when AddressType is 09.
      * @var string
      */
@@ -69,7 +69,7 @@ class Address extends BaseEntity
      */
     protected $Doorcode = null;
     /**
-     * Please add FirstName and Name (lastname) of the receiver to improve the parcel tracking experience of 
+     * Please add FirstName and Name (lastname) of the receiver to improve the parcel tracking experience of
      * your customer.
      * @var string
      */
@@ -80,9 +80,9 @@ class Address extends BaseEntity
      */
     protected $Floor = null;
     /**
-     * Mandatory for shipments to Benelux. Max. length is 5 characters (only for Benelux addresses). 
+     * Mandatory for shipments to Benelux. Max. length is 5 characters (only for Benelux addresses).
      * For Benelux addresses,this field should always be numeric.
-     * @var int 
+     * @var int
      */
     protected $HouseNr = null;
     /**
@@ -91,8 +91,8 @@ class Address extends BaseEntity
      */
     protected $HouseNrExt = null;
     /**
-     * Last name of person. This field has a dependency with the field CompanyName. One of both fields must 
-     * be filled mandatory; using both fields is also allowed. Remark: please add FirstName and Name (lastname) 
+     * Last name of person. This field has a dependency with the field CompanyName. One of both fields must
+     * be filled mandatory; using both fields is also allowed. Remark: please add FirstName and Name (lastname)
      * of the receiver to improve the parcel tracking experience of your customer.
      * @var string
      */
@@ -103,13 +103,13 @@ class Address extends BaseEntity
      */
     protected $Region = null;
     /**
-     * This field has a dependency with the field StreetHouseNrExt. One of both fields must be filled 
+     * This field has a dependency with the field StreetHouseNrExt. One of both fields must be filled
      * mandatory; using both fields is also allowed.
      * @var string
      */
     protected $Street = null;
     /**
-     * Combination of Street, HouseNr and HouseNrExt. 
+     * Combination of Street, HouseNr and HouseNrExt.
      * Please see Guidelines for the explanation.
      * @var string
      */
@@ -117,12 +117,12 @@ class Address extends BaseEntity
     /**
      * Zipcode of the address. Mandatory for shipments to Benelux. Max length (NL) 6 characters,(BE;LU)
      * 4 numeric characters
-     * @var type 
+     * @var type
      */
     protected $Zipcode = null;
     
     // REBUILD
-    public function __construct($data=[])
+    public function __construct($data = [])
     {
         parent::__construct($data);
     }

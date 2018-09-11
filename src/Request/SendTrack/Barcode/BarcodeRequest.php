@@ -68,7 +68,7 @@ class BarcodeRequest extends BaseRequest
     /**
      * Set Type of barcode
      *
-     * Accepted values: 2S, 3S, CC, CP, CD, CF 
+     * Accepted values: 2S, 3S, CC, CP, CD, CF
      * see documention page for more detailed information
      *
      * @access public
@@ -85,9 +85,9 @@ class BarcodeRequest extends BaseRequest
     /**
      * Set Barcode Serie
      *
-     * Barcode serie in the format '###000000-###000000’, for example 100000-20000. The range must 
-     * consist of a minimal difference of 100.000. Minimum length of the serie is 6 characters; maximum 
-     * length is 9 characters. It is allowed to add extra leading zeros at the beginning of the serie. 
+     * Barcode serie in the format '###000000-###000000’, for example 100000-20000. The range must
+     * consist of a minimal difference of 100.000. Minimum length of the serie is 6 characters; maximum
+     * length is 9 characters. It is allowed to add extra leading zeros at the beginning of the serie.
      * See Guidelines for more information.
      *
      * @access public

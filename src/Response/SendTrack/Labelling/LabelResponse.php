@@ -25,10 +25,10 @@ class LabelResponse extends BaseResponse
      *
      * @access public
      * @param array $shipments shipments(/labels) generated
-     * @param array $merged_labels if multiple shipments are requested merged labels will contain label 
+     * @param array $merged_labels if multiple shipments are requested merged labels will contain label
      *                      information about the merged shipments
      */
-    public function __construct($shipments=[], $merged_labels=[])
+    public function __construct($shipments = [], $merged_labels = [])
     {
         parent::__construct();
         $this->setShipments($shipments)
@@ -49,7 +49,7 @@ class LabelResponse extends BaseResponse
      * @param array $labels
      * @return $this
      */
-    public function setMergedLabels($labels=[])
+    public function setMergedLabels($labels = [])
     {
         $this->merged_labels = (array)$labels;
         return $this;
@@ -73,7 +73,7 @@ class LabelResponse extends BaseResponse
      * @param array $shipments
      * @return $this
      */
-    public function setShipments($shipments=[])
+    public function setShipments($shipments = [])
     {
         // update array to use shipment entity
         foreach ($shipments as $shipment) {

@@ -19,7 +19,7 @@ class CifApi
 {
     /**
      * Logger channel
-     * @var constant 
+     * @var constant
      */
     const LOGGER_CHANNEL = "PostNLApiClient";
     
@@ -71,19 +71,19 @@ class CifApi
      *
      * @param string $apiKey
      * @param string $customerNumber
-     * @param string $customerCode 
+     * @param string $customerCode
      * @param string $collectionLocation
      * @param boolean $test/sandbox
      * @param mixed Monolog\Handler|null $logger
      */
     public function __construct(
-            $apiKey, 
-            $customerNumber = null,
-            $customerCode = null, 
-            $collectionLocation = null, 
-            $sandbox = false, 
-            $logger = null)
-    {
+        $apiKey,
+        $customerNumber = null,
+        $customerCode = null,
+        $collectionLocation = null,
+        $sandbox = false,
+        $logger = null
+    ) {
         $this->setApiKey($apiKey)
             ->setCustomerNumber($customerNumber)
             ->setCustomerCode($customerCode)
@@ -114,7 +114,13 @@ class CifApi
     private function addAPI($name, $instance)
     {
         $client = "Avido\\PostNLCifClient\\{$instance}";
-        $this->apiClients[$name] = new $client($this->apiKey, $this->customerNumber, $this->customerCode, $this->collectionLocation, $this->testMode, $this->getLogger());
+        $this->apiClients[$name] = new $client($this->apiKey,
+            $this->customerNumber,
+            $this->customerCode,
+            $this->collectionLocation,
+            $this->testMode,
+            $this->getLogger()
+        );
         return $this;
     }
     

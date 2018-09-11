@@ -31,14 +31,14 @@ abstract class BaseClient
 {
     /**
      * Avido PostNL CIF Rest API Lib Version
-     * @var constant 
+     * @var constant
      */
-    const LIBVERSION = "0.1.0"; 
+    const LIBVERSION = "0.1.0";
     
     
     /**
      * Logger channel
-     * @var constant 
+     * @var constant
      */
     const LOGGER_CHANNEL = "PostNLApiClient";
     
@@ -99,19 +99,19 @@ abstract class BaseClient
      *
      * @param string $apiKey
      * @param string $customerNumber
-     * @param string $customerCode 
+     * @param string $customerCode
      * @param string $collectionLocation
      * @param boolean $sandbox
      * @param mixed Monolog\Handler|null $logger
      */
     public function __construct(
-        $apiKey, 
-        $customerNumber = null, 
-        $customerCode = null, 
-        $collectionLocation = null, 
-        $sandbox = false, 
-        $logger = null)
-    {
+        $apiKey,
+        $customerNumber = null,
+        $customerCode = null,
+        $collectionLocation = null,
+        $sandbox = false,
+        $logger = null
+    ) {
         $this->setApiKey($apiKey)
             ->setCustomerNumber($customerNumber)
             ->setCustomerCode($customerCode)
@@ -302,7 +302,11 @@ abstract class BaseClient
         if ($endpoint === '') {
             throw new \BadMethodCallException("Missing endpoint");
         }
-        return $this->makeRequest('POST', $this->endpoint($endpoint), ['body' => $body, 'headers' => ['Content-type' => 'application/json']]);
+        return $this->makeRequest(
+            'POST',
+            $this->endpoint($endpoint),
+            ['body' => $body, 'headers' => ['Content-type' => 'application/json']]
+        );
     }
 
     /**
@@ -333,7 +337,7 @@ abstract class BaseClient
                 // application/json
                 echo $request->getBody();
                 // {"foo":"bar"}
-            });            
+            });
 //        $stack->push($tapMiddleware);
             /**
              * Middleware currently hijacks response body..
@@ -358,11 +362,10 @@ abstract class BaseClient
             $client = new \GuzzleHttp\Client([
                 'handler' => $stack
             ]);
-            $payload['headers'] = array_merge($this->getHttpHeaders(), (isset($payload['headers']) ? $payload['headers'] : []));
-            $headers = [
-                'User-Agent' => 'Avido/PostNL-Cif-Rest-Api-Client-' . self::LIBVERSION,
-                'apikey' => $this->apiKey
-            ];
+            $payload['headers'] = array_merge(
+                $this->getHttpHeaders(),
+                (isset($payload['headers']) ? $payload['headers'] : [])
+            );
 //            $payload['debug'] = true;
             $res = $client->request($method, $endpoint, $payload);
                

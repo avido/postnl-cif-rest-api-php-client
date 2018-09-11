@@ -19,12 +19,13 @@ use Avido\PostNLCifClient\Entities\BaseEntity;
 class Amount extends BaseEntity
 {
     /**
-     * List of 0 or more AmountType elements. An amount represents a value of the shipment. 
-        Amount type 01 mandatory for COD-shipments, Amount type 02 mandatory for domestic insured shipments. 
-        Amount type 04 mandatory for Commercial route China (productcode 4992) 
+     * List of 0 or more AmountType elements. An amount represents a value of the shipment.
+        Amount type 01 mandatory for COD-shipments, Amount type 02 mandatory for
+                                domestic insured shipments.
+        Amount type 04 mandatory for Commercial route China (productcode 4992)
         Amount type 12 mandatory for Inco terms DDP Commercial route China (productcode 4992)*
      * @see https://developer.postnl.nl/browse-apis/send-and-track/labelling-webservice/documentation/
-     * @var string 
+     * @var string
      */
     protected $AmountType = null;
     /**
@@ -33,7 +34,7 @@ class Amount extends BaseEntity
      */
     protected $AccountName = null;
     /**
-     * BIC number,optional for COD shipments (mandatory for bank account number other than originating in 
+     * BIC number,optional for COD shipments (mandatory for bank account number other than originating in
      * The Netherlands
      * @var string
      */
@@ -59,13 +60,14 @@ class Amount extends BaseEntity
      */
     protected $TransactionNumber = null;
     /**
-     * Money value in EUR (unless value Currency is specified for another currency). Value format (N6.2): #####0.00 (2 digits behind decimal dot) 
+     * Money value in EUR (unless value Currency is specified for another currency).
+     * Value format (N6.2): #####0.00 (2 digits behind decimal dot)
         Mandatory for COD, Insured products and Commercial route China.
      * @var string
      */
     protected $Value = null;
     
-    public function __construct($data=[])
+    public function __construct($data = [])
     {
         parent::__construct($data);
     }

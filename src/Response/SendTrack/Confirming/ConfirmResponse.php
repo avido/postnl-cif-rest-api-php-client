@@ -28,9 +28,9 @@ class ConfirmResponse extends BaseResponse
     /**
      *
      * @access public
-     * @param array $confirmResponse confirmation response
+     * @param array $data confirmation response
      */
-    public function __construct($data=[])
+    public function __construct($data = [])
     {
         parent::__construct();
         $this->initFromArray($data);

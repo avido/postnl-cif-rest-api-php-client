@@ -19,7 +19,8 @@ use Avido\PostNLCifClient\Entities\Message;
 class LabelMessage extends Message
 {
     /**
-     * Printer type that will be used to process the label, e.g. Zebra printer or PDF See Guidelines for the available printer types.
+     * Printer type that will be used to process the label, e.g. Zebra printer or PDF See
+     * Guidelines for the available printer types.
      * @var string
      */
     private $Printertype = null;
@@ -62,7 +63,8 @@ class LabelMessage extends Message
      * @access public
      * @return array
      */
-    public function toArray() {
+    public function toArray()
+    {
         $arr = parent::toArray();
         $arr['Printertype'] = $this->getPrinterType();
         return $arr;

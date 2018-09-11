@@ -24,7 +24,7 @@ class Dimension extends BaseEntity
     private $Weight = null;
     private $Width = null;
     
-    public function __construct($weight=0, $height=null, $length=null, $width=null, $volume=null)
+    public function __construct($weight = 0, $height = null, $length = null, $width = null, $volume = null)
     {
         parent::__construct();
         $this->setWeight($weight)

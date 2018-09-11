@@ -30,7 +30,8 @@ class Message extends BaseEntity
      */
     private $MessageTimeStamp = null;
     /**
-     * Printer type that will be used to process the label, e.g. Zebra printer or PDF See Guidelines for the available printer types.
+     * Printer type that will be used to process the label, e.g. Zebra printer or PDF See
+     * Guidelines for the available printer types.
      * @var string
      */
     private $Printertype = null;
