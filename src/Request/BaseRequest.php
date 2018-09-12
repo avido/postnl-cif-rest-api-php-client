@@ -234,7 +234,7 @@ class BaseRequest extends BaseModel
             default:
                 $valid = $this->deliveryOptions;
         }
-        return (bool)in_array(strtoupper($option), $valid) ? true : false;
+        return (bool)in_array(strtolower($option), $valid) ? true : false;
     }
     
     public function getArguments()

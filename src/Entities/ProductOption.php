@@ -32,9 +32,28 @@ class ProductOption extends BaseEntity
      */
     protected $Option = null;
     
-    public function __construct($data = [])
+    private $predefinedTypes = [
+        'pge' => [
+            'characteristic' => '118',
+            'option' => '002'
+        ],
+        'evening' => [
+            'characteristic' => '118',
+            'option' => '006'
+        ],
+        'sunday' => [
+            'characteristic' => '118',
+            'option' => '008'
+        ]
+    ];
+    
+    public function __construct($type = null)
     {
-        parent::__construct($data);
+        parent::__construct();
+        if (isset($this->predefinedTypes[$type])) {
+            $this->setCharacteristic($this->predefinedTypes[$type]['characteristic'])
+                ->setOption($this->predefinedTypes[$type]['option']);
+        }
     }
     
     /**
@@ -46,7 +65,7 @@ class ProductOption extends BaseEntity
      */
     public function setCharacteristic($characteristic)
     {
-        $this->Characteristic = (int)$characteristic;
+        $this->Characteristic = sprintf("%03d", (int)$characteristic);
         return $this;
     }
     
@@ -58,7 +77,7 @@ class ProductOption extends BaseEntity
      */
     public function getCharacteristic()
     {
-        return (int)$this->Characteristic;
+        return sprintf("%03d", (int)$this->Characteristic);
     }
     
     /**
@@ -70,7 +89,7 @@ class ProductOption extends BaseEntity
      */
     public function setOption($option)
     {
-        $this->Option = (int)$option;
+        $this->Option = sprintf("%03d", (int)$option);
         return $this;
     }
     
@@ -82,6 +101,6 @@ class ProductOption extends BaseEntity
      */
     public function getOption()
     {
-        return (int)$this->Option;
+        return sprintf("%03d", (int)$this->Option);
     }
 }

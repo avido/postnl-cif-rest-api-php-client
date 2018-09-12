@@ -12,14 +12,23 @@ namespace Avido\PostNLCifClient\Entities;
         Timeframe
   @Dependencies:
  */
-use Avido\PostNLCifClient\BaseModel;
+use Avido\PostNLCifClient\Entities\BaseEntity;
 
 use Avido\PostNLCifClient\Entities\TimeframeWindow;
 use Avido\PostNLCifClient\Util\Date;
 
-class Timeframe extends BaseModel
+class Timeframe extends BaseEntity
 {
-    private $timeframes = [];
+    /**
+     * Date
+     * @var string
+     */
+    protected $Date = null;
+    /**
+     * Available timeframes
+     * @var array
+     */
+    protected $timeframes = [];
     
     // date
     // timeframes : collection of timeframewindow entitiy
@@ -53,7 +62,7 @@ class Timeframe extends BaseModel
         if (!$date instanceof Date) {
             $date = new Date($date);
         }
-        $this->setData('date', $date);
+        $this->Date = $date;
         return $this;
     }
     
@@ -69,7 +78,7 @@ class Timeframe extends BaseModel
             $return[] = $window->toArray();
         }
         return [
-            'date' => $this->getDate()->format("Y-m-d"),
+            'date' => $this->Date->format("Y-m-d"),
             'timeframes' => $return
         ];
     }

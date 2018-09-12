@@ -18,6 +18,12 @@ use Avido\PostNLCifClient\Entities\BaseEntity;
 
 class Customs extends BaseEntity
 {
+    const TYPE_GIFT = "Gift";
+    const TYPE_DOCUMENTS = "Documents";
+    const TYPE_COMMERICAL_GOODS = "Commerical Goods";
+    const TYPE_COMMERICAL_SAMPLE = "Commerical Sample";
+    const TYPE_RETURNED_GOODS = "Returned Goods";
+
     /**
      * At least one of the three types Certificate, Invoice or License is mandatory for Commercial Goods,
      * Commercial Sample and Returned Goods

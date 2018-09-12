@@ -17,8 +17,7 @@ namespace Avido\PostNLCifClient\Api;
 use Avido\PostNLCifClient\BaseClient;
 
 // exceptions
-use Avido\PostNLCifClient\Exceptions\CifClientException;
-use Avido\PostNLCifClient\Exceptions\CifLocationException;
+//use Avido\PostNLCifClient\Exceptions\CifClientException;
 
 // entities 
 use Avido\PostNLCifClient\Entities\Location;
@@ -55,12 +54,8 @@ class LocationApi extends BaseClient
      */
     public function getNearestLocations(NearestLocationsRequest $request)
     {
-        try {
-            $resp = $this->get($request->getEndpoint(), $request->getArguments());
-            return new NearestLocationsResponse($resp);
-        } catch (CifClientException $e) {
-            throw new CifLocationException($e->getMessage());
-        }
+        $resp = $this->get($request->getEndpoint(), $request->getArguments());
+        return new NearestLocationsResponse($resp);
     }
     
     /**
@@ -73,12 +68,8 @@ class LocationApi extends BaseClient
      */
     public function getNearestLocationsGeo(NearestLocationsGeoRequest $request)
     {
-        try {
-            $resp = $this->get($request->getEndpoint(), $request->getArguments());
-            return new NearestLocationsResponse($resp);
-        } catch (CifClientException $e) {
-            throw new CifLocationException($e->getMessage());
-        }
+        $resp = $this->get($request->getEndpoint(), $request->getArguments());
+        return new NearestLocationsResponse($resp);
     }
     
     
@@ -93,12 +84,8 @@ class LocationApi extends BaseClient
      */
     public function getNearestLocationsArea(NearestLocationsAreaRequest $request)
     {
-        try {
-            $resp = $this->get($request->getEndpoint(), $request->getArguments());
-            return new NearestLocationsResponse($resp);
-        } catch (CifClientException $e) {
-            throw new CifLocationException($e->getMessage());
-        }
+        $resp = $this->get($request->getEndpoint(), $request->getArguments());
+        return new NearestLocationsResponse($resp);
     }
 
     /**
@@ -108,17 +95,14 @@ class LocationApi extends BaseClient
      *
      * @access public
      * @param \Avido\PostNLCifClient\Request\DeliveryOptions\Location\LocationRequest $request
-     * @return \Avido\PostNLCifClient\Entities\Location
+     * @return mixed \Avido\PostNLCifClient\Entities\Location|null
      */
     public function getLocation(LocationRequest $request)
     {
-        try {
-            $resp = $this->get($request->getEndpoint(), $request->getArguments());
-            if (isset($resp['GetLocationsResult']) && isset($resp['GetLocationsResult']['ResponseLocation'])) {
-                return new Location($resp['GetLocationsResult']['ResponseLocation']);
-            }
-        } catch (CifClientException $e) {
-            throw new CifLocationException($e->getMessage());
+        $resp = $this->get($request->getEndpoint(), $request->getArguments());
+        if (isset($resp['GetLocationsResult']) && isset($resp['GetLocationsResult']['ResponseLocation'])) {
+            return new Location($resp['GetLocationsResult']['ResponseLocation']);
         }
+        return null;
     }
 }

@@ -17,8 +17,7 @@ namespace Avido\PostNLCifClient\Api;
 use Avido\PostNLCifClient\BaseClient;
 
 // exceptions
-use Avido\PostNLCifClient\Exceptions\CifClientException;
-use Avido\PostNLCifClient\Exceptions\CifConfirmingException;
+//use Avido\PostNLCifClient\Exceptions\CifClientException;
 
 // requests
 use Avido\PostNLCifClient\Request\SendTrack\Confirming\ConfirmRequest;
@@ -42,14 +41,10 @@ class ConfirmingApi extends BaseClient
         if (!$request->okay()) {
             throw new \Exception("Incomplete request");
         }
-        try {
-            $resp = $this->post($request->getEndpoint(), $request->getBody());
-            $pop = array_pop($resp);
-            return new ConfirmResponse(isset($pop['ConfirmingResponseShipment']) ?
-                $pop['ConfirmingResponseShipment'] :
-                []);
-        } catch (CifClientException $e) {
-            throw new CifConfirmingException($e->getMessage());
-        }
+        $resp = $this->post($request->getEndpoint(), $request->getBody());
+        $pop = array_pop($resp);
+        return new ConfirmResponse(isset($pop['ConfirmingResponseShipment']) ?
+            $pop['ConfirmingResponseShipment'] :
+            []);
     }
 }
