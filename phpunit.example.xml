@@ -2,8 +2,9 @@
     <php>
         <env name="APIKEY" value="--YOUR APIKEY--"/>
         <env name="CUST_CODE" value="--CUSTOMER CODE PROVIDED BY POST NL--" />
-        <env name="CUST_NUMBER" value="CUSTOMER NUMBER PROVIDED BY POST NL--" />
-        <env name="COLLECTION_LOCATION" value="COLLECTION LOCATION PROVIDED BY POST NL--" />
+        <env name="CUST_CODE_GLOBAL_PACK" value="--CUSTOMER CODE FOR GLOBAL PACK SHIPMENTS PROVIDED BY POST NL--" />
+        <env name="CUST_NUMBER" value="--CUSTOMER NUMBER PROVIDED BY POST NL--" />
+        <env name="COLLECTION_LOCATION" value="--COLLECTION LOCATION PROVIDED BY POST NL--" />
     </php>
     <testsuites>
         <testsuite name="The project's test suite">
