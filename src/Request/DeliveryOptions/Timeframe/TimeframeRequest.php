@@ -197,4 +197,11 @@ class TimeframeRequest extends BaseRequest
     {
         return implode(",", $this->arguments['options']);
     }
+    
+    public function getArguments()
+    {
+        $arguments = parent::getArguments();
+        $arguments['Options'] = $this->getDeliveryOptions();
+        return $arguments;
+    }
 }

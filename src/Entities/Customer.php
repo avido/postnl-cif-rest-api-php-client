@@ -19,45 +19,29 @@ use Avido\PostNLCifClient\Entities\Address;
 
 class Customer extends BaseEntity
 {
-    private $Address = null;
+    protected $Address = null;
     /**
      * Code of delivery location at PostNL Pakketten
      * @var string
      */
-    private $CollectionLocation = null;
-    private $ContactPerson = null;
+    protected $CollectionLocation = null;
+    protected $ContactPerson = null;
     /**
      * Customer code as known at PostNL Pakketten
      * @var string
      */
-    private $CustomerCode = null;
+    protected $CustomerCode = null;
     /**
      * Customer number as known at PostNL Pakketten
      * @var string
      */
-    private $CustomerNumber = null;
-    private $Email = null;
-    private $Name = null;
+    protected $CustomerNumber = null;
+    protected $Email = null;
+    protected $Name = null;
     
-    public function __construct(
-        $customer_code = null,
-        $customer_number = null,
-        $collection_location = null,
-        $contact_person = null,
-        $email = null,
-        $customer_name = null,
-        $address = null
-    ) {
+    public function __construct($data = [])
+    {
         parent::__construct($data);
-        $this->setCustomerCode($customer_code)
-            ->setCustomerNumber($customer_number)
-            ->setCollectionLocation($collection_location)
-            ->setContactPerson($contact_person)
-            ->setEmail($email)
-            ->setName($customer_name);
-        if (!is_null($address)) {
-            $this->setAddress($address);
-        }
     }
     
     /**

@@ -18,12 +18,17 @@ use Avido\PostNLCifClient\Entities\BaseEntity;
 
 class Amount extends BaseEntity
 {
+    const TYPE_COD = "01";
+    const TYPE_INSURED = "02";
+    const TYPE_CHINA_ROUTE = "04";
+    const TYPE_CHINA_INCO_DDP = "12";
+    
     /**
      * List of 0 or more AmountType elements. An amount represents a value of the shipment.
-        Amount type 01 mandatory for COD-shipments, Amount type 02 mandatory for
-                                domestic insured shipments.
-        Amount type 04 mandatory for Commercial route China (productcode 4992)
-        Amount type 12 mandatory for Inco terms DDP Commercial route China (productcode 4992)*
+     * Amount type 01 mandatory for COD-shipments,
+     * Amount type 02 mandatory for domestic insured shipments.
+     * Amount type 04 mandatory for Commercial route China (productcode 4992)
+     * Amount type 12 mandatory for Inco terms DDP Commercial route China (productcode 4992)*
      * @see https://developer.postnl.nl/browse-apis/send-and-track/labelling-webservice/documentation/
      * @var string
      */

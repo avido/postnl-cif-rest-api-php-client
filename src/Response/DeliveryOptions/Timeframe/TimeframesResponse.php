@@ -46,8 +46,13 @@ class TimeframesResponse
             isset($data['Timeframes']['Timeframe']) &&
             is_array($data['Timeframes']['Timeframe'])
         ) {
-            foreach ($data['Timeframes']['Timeframe'] as $item) {
-                $timeframe = new Timeframe($item);
+            if (isset($data['Timeframes']['Timeframe'][0])) {
+                foreach ($data['Timeframes']['Timeframe'] as $item) {
+                    $timeframe = new Timeframe($item);
+                    $this->add($timeframe);
+                }
+            } else {
+                $timeframe = new Timeframe($data['Timeframes']['Timeframe']);
                 $this->add($timeframe);
             }
         }

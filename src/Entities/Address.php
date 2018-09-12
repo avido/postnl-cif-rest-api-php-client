@@ -18,6 +18,13 @@ use Avido\PostNLCifClient\Entities\BaseEntity;
 
 class Address extends BaseEntity
 {
+    const RECEIVER = "01";
+    const SENDER = "02";
+    const ALTERNATIVE_SENDER = "03";
+    const COLLECTION_ADDRESS = "04";
+    const RETURN_ADDRESS = "08";
+    const PICKUP_LOCATION = "09";
+    
     /**
      * Type of the address.
      * Valid options:

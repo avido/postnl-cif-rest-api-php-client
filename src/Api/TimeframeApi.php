@@ -15,8 +15,7 @@ namespace Avido\PostNLCifClient\Api;
         BaseClient
  */
 // exceptions
-use Avido\PostNLCifClient\Exceptions\CifClientException;
-use Avido\PostNLCifClient\Exceptions\CifTimeframeException;
+//use Avido\PostNLCifClient\Exceptions\CifClientException;
 
 use Avido\PostNLCifClient\BaseClient;
 
@@ -50,11 +49,7 @@ class TimeframeApi extends BaseClient
      */
     public function getTimeframes(TimeframeRequest $request)
     {
-        try {
-            $resp = $this->get($request->getEndpoint(), $request->getArguments());
-            return new TimeframesResponse($resp);
-        } catch (CifClientException $e) {
-            throw new CifTimeframeException($e->getMessage());
-        }
+        $resp = $this->get($request->getEndpoint(), $request->getArguments());
+        return new TimeframesResponse($resp);
     }
 }

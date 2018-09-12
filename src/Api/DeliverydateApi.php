@@ -16,8 +16,7 @@ namespace Avido\PostNLCifClient\Api;
 use Avido\PostNLCifClient\BaseClient;
 
 // exception
-use Avido\PostNLCifClient\Exceptions\CifClientException;
-use Avido\PostNLCifClient\Exceptions\CifDeliveryDateException;
+//use Avido\PostNLCifClient\Exceptions\CifClientException;
 
 // entities 
 //use Avido\PostNLCifClient\Entities\Location;
@@ -52,13 +51,8 @@ class DeliverydateApi extends BaseClient
      */
     public function getDeliveryDate(DeliverydateRequest $request)
     {
-        try {
-            $resp = $this->get($request->getEndpoint(), $request->getArguments());
-            return new DeliverydateResponse($resp);
-        } catch (CifClientException $e) {
-            // throw delivery exception (auto decodes json)
-            throw new CifDeliveryDateException($e->getMessage());
-        }
+        $resp = $this->get($request->getEndpoint(), $request->getArguments());
+        return new DeliverydateResponse($resp);
     }
     
     /**
@@ -72,12 +66,7 @@ class DeliverydateApi extends BaseClient
      */
     public function getShippingDate(ShippingdateRequest $request)
     {
-        try {
-            $resp = $this->get($request->getEndpoint(), $request->getArguments());
-            return new ShippingdateResponse($resp);
-        } catch (CifClientException $e) {
-            // throw delivery exception (auto decodes json)
-            throw new CifDeliveryDateException($e->getMessage());
-        }
+        $resp = $this->get($request->getEndpoint(), $request->getArguments());
+        return new ShippingdateResponse($resp);
     }
 }
