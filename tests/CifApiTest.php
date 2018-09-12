@@ -1252,7 +1252,8 @@ class CifApiTest extends TestCase
         // request barcode for shipment (depends)
         $type = 'CD';
         // update customer information for Global Pack shipment
-        $this->client->getAPI('barcode')->setCustomerCode('6305');
+        $customerCode = getenv('CUST_CODE_GLOBAL_PACK');
+        $this->client->getAPI('barcode')->setCustomerCode($customerCode);
         
         $tmp= $this->client->getAPI('barcode')->getBarcode($type, null, false)->getBarcode();
 //        $tmp = '3STBJG274863219';
@@ -1354,7 +1355,8 @@ class CifApiTest extends TestCase
         // request barcode for shipment (depends)
         $type = 'CD';
         // update customer information for Global Pack shipment
-        $this->client->getAPI('barcode')->setCustomerCode('6305');
+        $customerCode = getenv('CUST_CODE_GLOBAL_PACK');
+        $this->client->getAPI('barcode')->setCustomerCode($customerCode);
         
         $tmp= $this->client->getAPI('barcode')->getBarcode($type, null, false)->getBarcode();
         $amounts = [];
