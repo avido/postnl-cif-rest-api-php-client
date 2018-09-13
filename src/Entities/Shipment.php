@@ -24,7 +24,7 @@ use Avido\PostNLCifClient\Entities\Label;
 use Avido\PostNLCifClient\Entities\Customs;
 use Avido\PostNLCifClient\Entities\Group;
 use Avido\PostNLCifClient\Entities\ProductOption;
-use Avido\PostNLCifClient\Entities\Warning;
+use Avido\PostNLCifClient\Entities\Status;
 
 use InvalidArgumentException;
 
@@ -234,20 +234,183 @@ class Shipment extends BaseEntity
      * @var String
      */
     protected $TimeslotID = null;
-    
-    
-    
-    
+    /**
+     * Last/current status
+     * @var Entities/Status
+     */
+    protected $Status = null;
+    /**
+     * Status/Eventus
+     * @var array Entities/Event
+     */
+    protected $Event = null;
+    /**
+     * Status/Expectation
+     * @var Entities/Expectation
+     */
+    protected $Expectation = null;
+    /**
+     * Status history
+     * @var array Entities/Status
+     */
+    protected $OldStatus = null;
     
     public function __construct($data = [])
     {
-        parent::__construct($data);
         if (isset($data['Labels'])) {
             $this->setLabels($data['Labels']);
+            unset($data['Labels']);
         }
         if (isset($data['Amounts'])) {
             $this->setAmounts($data['Amounts']);
+            unset($data['Amounts']);
         }
+        /**
+         * Shipping status doesn't return as documentation stated.
+         * for now don't parse
+         */
+//        if (isset($data['Amount'])) {
+//            $this->setAmounts($data['Amount']);
+//            unset($data['Amount']);
+//        }
+        if (isset($data['Address'])) {
+            $this->setAddresses($data['Address']);
+            unset($data['Address']);
+        }
+        if (isset($data['Status'])) {
+            $this->setStatus($data['Status']);
+            unset($data['Status']);
+        }
+        if (isset($data['Event'])) {
+            $this->setEvent($data['Event']);
+            unset($data['Event']);
+        }
+        if (isset($data['Expectation'])) {
+            $this->setExpectation($data['Expectation']);
+            unset($data['Expectation']);
+        }
+        if (isset($data['OldStatus'])) {
+            $this->setOldStatus($data['OldStatus']);
+            unset($data['OldStatus']);
+        }
+        parent::__construct($data);
+    }
+    
+    /**
+     * Set (last/current) Status
+     *
+     * @access public
+     * @param array $status
+     * @return $this
+     */
+    public function setStatus($status)
+    {
+        if (!$status instanceof Status) {
+            $status = new Status($status);
+        }
+        $this->Status = $status;
+        return $this;
+    }
+    
+    /**
+     * Get (Last/current) Status
+     *
+     * @access public
+     * @return Entities/Status
+     */
+    public function getStatus()
+    {
+        return $this->Status;
+    }
+    
+    /**
+     * Set OldStatus
+     *
+     * @access public
+     * @param array $statusses
+     * @return $this
+     */
+    public function setOldStatus($statusses)
+    {
+        $tmp = [];
+        if (is_array($statusses)) {
+            foreach ($statusses as $status) {
+                if (!$status instanceof Status) {
+                    $status = new Status($status);
+                }
+                $tmp[] = $status;
+            }
+            $this->OldStatus = $tmp;
+        }
+        return $this;
+    }
+    
+    /**
+     * Get OldStatus
+     *
+     * @access public
+     * @return array Entities/Status
+     */
+    public function getOldStatus()
+    {
+        return $this->OldStatus;
+    }
+    
+    /**
+     * Set Status Events
+     *
+     * @access public
+     * @param array $events
+     * @return $this
+     */
+    public function setEvent($events)
+    {
+        $tmp = [];
+        if (is_array($events)) {
+            foreach ($events as $event) {
+                if (!$event instanceof Event) {
+                    $event = new Event($event);
+                }
+                $tmp[] = $event;
+            }
+        }
+        $this->Event = $tmp;
+        return $this;
+    }
+    
+    /**
+     * Get Status Events
+     *
+     * @access public
+     * @return array Entities/Event
+     */
+    public function getEvent()
+    {
+        return $this->Event;
+    }
+    
+    /**
+     * Set Expectation
+     *
+     * @access public
+     * @param array $expectation
+     * @return $this
+     */
+    public function setExpectation($expectation)
+    {
+        $this->Expectation = new Expectation($expectation);
+        return $this;
+    }
+    
+    /**
+     * Get Expectation
+     *
+     * @access public
+     * @return Entities/Expectation
+     */
+    public function getExpectation()
+    {
+        return $this->Expectation;
     }
     
     /**
@@ -278,6 +441,21 @@ class Shipment extends BaseEntity
     public function getAmounts()
     {
         return (array)$this->Amounts;
+    }
+    
+    /**
+     * Set Addresses
+     *
+     * @access public
+     * @param array $addresses
+     * @return $this
+     */
+    public function setAddresses($addresses = [])
+    {
+        foreach ($addresses as $address) {
+            $this->addAddress(new Address($address));
+        }
+        return $this;
     }
     /**
      * Add Address
