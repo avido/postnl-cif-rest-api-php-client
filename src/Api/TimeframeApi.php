@@ -20,7 +20,6 @@ namespace Avido\PostNLCifClient\Api;
 use Avido\PostNLCifClient\BaseClient;
 
 // entities 
-use Avido\PostNLCifClient\Entities\Location;
 
 // requests
 use Avido\PostNLCifClient\Request\DeliveryOptions\Timeframe\TimeframeRequest;

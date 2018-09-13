@@ -10,6 +10,9 @@ namespace Avido\PostNLCifClient;
   @Modified:
   @Description:
         Several unit tests for the PostNL Cif Rest Api Php Client
+        Exclude tests by adding @group no-ci-test
+        Several tests are excluded by default
+            - Status related - these are excluded as no information is present and tests will fail
  */
 
 use PHPUnit\Framework\TestCase;
@@ -52,6 +55,8 @@ use Avido\PostNLCifClient\Request\DeliveryOptions\Deliverydate\ShippingdateReque
 // label
 use Avido\PostNLCifClient\Request\SendTrack\Labelling\LabelRequest;
 use Avido\PostNLCifClient\Request\SendTrack\Confirming\ConfirmRequest;
+// status
+
 
 
 use Monolog\Logger;
@@ -626,7 +631,7 @@ class CifApiTest extends TestCase
     /**
      * Get Shipment Label test
      * 
-     * @group label
+     * @group labelx
      */
     public function testLabelRequestWithConfirm()
     {
@@ -677,6 +682,8 @@ class CifApiTest extends TestCase
         $request->addShipment($shipment);
         $response = $this->client->getAPI('labelling')->getLabel($request, true);
         $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\Labelling\LabelResponse', $response);        
+        // return used barcode (for shipping status tests)
+        return $barcode->getBarcode();
     }
     
     /**
@@ -1484,7 +1491,7 @@ class CifApiTest extends TestCase
             ->setRemark('Ship Unit test');
         $request->setShipment($shipment);
         $response = $this->client->getAPI('confirming')->confirm($request, false);
-        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\Confirming\ConfirmResponse', $response);        
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\Confirming\ConfirmResponse', $response);
     }
     
     /**
@@ -1549,6 +1556,69 @@ class CifApiTest extends TestCase
         $request->setShipment($shipment);
         $response = $this->client->getAPI('confirming')->confirm($request, false);
     }
+    
+    /**
+     * Test shipping status, current status
+     * 
+     * @group shippingstatus
+     * @group no-ci-test
+     */
+    public function testShipmentCurrentStatus()
+    {
+        // generate barcode
+        $barcode = $this->client->getAPI('barcode')->getBarcodeByDestination('NL')->getBarcode();
+        $response = $this->client->getAPI('shippingstatus')->getCurrentStatus($barcode);
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\ShippingStatus\StatusResponse', $response);
+    }
+    /**
+     * Test Current Status By Reference
+     *
+     * @group shippingstatus
+     * @group no-ci-test
+     */
+    public function testShipmentCurrentStatusByReference()
+    {
+        $reference = 'nodata';
+        $response = $this->client->getAPI('shippingstatus')->getCurrentStatusByReference($reference);
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\ShippingStatus\StatusResponse', $response);
+    }
+    /**
+     * Test complete status
+     *
+     * @group shippingstatus
+     * @group no-ci-test
+     */
+    public function testShipmentCompleteStatus()
+    {
+        $barcode = $this->client->getAPI('barcode')->getBarcodeByDestination('NL')->getBarcode();
+        $response = $this->client->getAPI('shippingstatus')->getCompleteStatus($barcode);
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\ShippingStatus\StatusResponse', $response);
+    }        
+    /**
+     * Test Current Status By Reference
+     *
+     * @group shippingstatus
+     * @group no-ci-test
+     */
+    public function testShipmentCompleteStatusByReference()
+    {
+        $reference = 'nodata';
+        $response = $this->client->getAPI('shippingstatus')->getCompleteStatusByReference($reference);
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\ShippingStatus\StatusResponse', $response);
+    }
+    
+    /**
+     * Test Get Signature
+     *
+     * @group shippingstatus
+     * @group no-ci-test
+     */
+    public function testShipmentSignature()
+    {
+        $barcode = $this->client->getAPI('barcode')->getBarcodeByDestination('NL')->getBarcode();
+        $response = $this->client->getAPI('shippingstatus')->getSignature($barcode);
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\ShippingStatus\StatusResponse', $response);
+    }        
     
     /**
      * Sender Entitiy For REST Call

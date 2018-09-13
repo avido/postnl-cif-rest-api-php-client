@@ -17,14 +17,8 @@ namespace Avido\PostNLCifClient\Api;
 use Avido\PostNLCifClient\BaseClient;
 
 // exceptions
-use Avido\PostNLCifClient\Exceptions\CifClientException;
-use Avido\PostNLCifClient\Exceptions\CifLabellingException;
+//use Avido\PostNLCifClient\Exceptions\CifClientException;
 
-// entities
-use Avido\PostNLCifClient\Entities\Address;
-use Avido\PostNLCifClient\Entities\Customer;
-use Avido\PostNLCifClient\Entities\Shipment;
-use Avido\PostNLCifClient\Entities\LabelMessage;
 // requests
 use Avido\PostNLCifClient\Request\SendTrack\Labelling\LabelRequest;
 

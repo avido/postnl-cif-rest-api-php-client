@@ -327,6 +327,7 @@ abstract class BaseClient
         if ($endpoint === '') {
             throw new \BadMethodCallException("Missing endpoint");
         }
+        
         try {
             // create stack middleware
             $stack = HandlerStack::create();
@@ -368,7 +369,7 @@ abstract class BaseClient
             );
 //            $payload['debug'] = true;
             $res = $client->request($method, $endpoint, $payload);
-               
+            
             $json = $res->getBody()->getContents();
             if ($json) {
                 $response = json_decode($json, true);
