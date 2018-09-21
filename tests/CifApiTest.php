@@ -536,7 +536,21 @@ class CifApiTest extends TestCase
         // Serie will be automatically detected based on $type and $domestic 
         $serie = null; 
         $domestic = true;
-        $response = $this->client->getAPI('barcode')->getBarcode($type, $serie, $domestic);
+        $response = $this->client->getAPI('barcode')->getBarcode($type, $serie, null, $domestic);
+        $this->assertNotNull($response->getBarcode());
+        return $response->getBarcode();
+    }
+    
+    /**
+     * Get Barcode Global Pack Test
+     *
+     * @group barcode
+     */
+    public function testBarcodeGlobalPack ()
+    {
+        $range = getenv('CUST_CODE_GLOBAL_PACK');
+        $type = 'CD';
+        $response = $this->client->getAPI('barcode')->getBarcode($type, null, $range, false);
         $this->assertNotNull($response->getBarcode());
         return $response->getBarcode();
     }
@@ -553,7 +567,7 @@ class CifApiTest extends TestCase
         $type = '3Sss'; // invalid type
         $serie = null; 
         $domestic = true;
-        $response = $this->client->getAPI('barcode')->getBarcode($type, $serie, $domestic);
+        $response = $this->client->getAPI('barcode')->getBarcode($type, $serie, null, $domestic);
     }
     
     /**
@@ -569,7 +583,7 @@ class CifApiTest extends TestCase
         $type = '3S';
         $serie = 0;
         $domestic = true;
-        $response = $this->client->getAPI('barcode')->getBarcode($type, $serie, $domestic);
+        $response = $this->client->getAPI('barcode')->getBarcode($type, $serie, null, $domestic);
     }
 
     /**

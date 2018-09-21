@@ -93,9 +93,10 @@ class BarcodeApi extends BaseClient
      *
      * @access public
      * @param string $destination
+     * @param string $range
      * @return string
      */
-    public function getBarcodeByDestination($destination = 'NL', $serie = null)
+    public function getBarcodeByDestination($destination = 'NL', $serie = null, $range = null)
     {
         $barcodeType = isset($this->countryBarcodeType[$destination]) ?
             $this->countryBarcodeType[$destination] :
@@ -104,7 +105,7 @@ class BarcodeApi extends BaseClient
             'NL' :
             (($barcodeType === self::BARCODE_TYPE_GLOBAL_PACK) ? 'GLOBAL' : 'EU');
         $serie = !is_null($serie) ? $serie : $this->detectSerie($serieDestination);
-        return $this->generateBarcode($barcodeType, $serie, ($destination === 'NL'));
+        return $this->generateBarcode($barcodeType, $serie, $range, ($destination === 'NL'));
     }
     
     /**
@@ -113,10 +114,11 @@ class BarcodeApi extends BaseClient
      * @access public
      * @param string $type
      * @param string $serie
+     * @param string $range
      * @param boolean $domestic = domestic (dutch) shipment
      * @return \Avido\PostNLCifClient\Response\SendTrack\Barcode\BarcodeResponse
      */
-    public function getBarcode($type, $serie = null, $domestic = true)
+    public function getBarcode($type, $serie = null, $range = null, $domestic = true)
     {
         if (!in_array($type, $this->availableBarcodeTypes)) {
             throw new InvalidBarcodeTypeException($type);
@@ -139,7 +141,7 @@ class BarcodeApi extends BaseClient
                     $serie = '0000-9999';
             }
         }
-        return $this->generateBarcode($type, $serie, $domestic);
+        return $this->generateBarcode($type, $serie, $range, $domestic);
     }
     
     /**
@@ -148,10 +150,11 @@ class BarcodeApi extends BaseClient
      * @access public
      * @param string $type
      * @param string $serie
+     * @param string $range
      * @param boolean $domestic = domestic (dutch) shipment
      * @return \Avido\PostNLCifClient\Response\SendTrack\Barcode\BarcodeResponse
      */
-    public function generateBarcode($type, $serie = null, $domestic = true)
+    public function generateBarcode($type, $serie = null, $range = null, $domestic = true)
     {
         if (!in_array($type, $this->availableBarcodeTypes)) {
             throw new InvalidBarcodeTypeException($type);
@@ -174,8 +177,11 @@ class BarcodeApi extends BaseClient
                     $serie = '0000-9999';
             }
         }
+        if (is_null($range)) {
+            $range = $this->getCustomerCode();
+        }
         $request = new BarcodeRequest();
-        $request->setCustomerCode($this->getCustomerCode())
+        $request->setCustomerCode($range)
             ->setCustomerNumber($this->getCustomerNumber())
             ->setType($type)
             ->setSerie($serie);
