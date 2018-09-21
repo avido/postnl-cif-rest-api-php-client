@@ -38,6 +38,8 @@ class LabellingApi extends BaseClient
     
     public function getLabel(LabelRequest $request, $confirm = false)
     {
+        // Postnl expects a string.....
+        $confirm = ($confirm === true) ? 'true' : 'false';
         $resp = $this->post($request->getEndpoint() . "?confirm={$confirm}", $request->getBody());
         return new LabelResponse(
             isset($resp['ResponseShipments']) ? $resp['ResponseShipments'] : [],
