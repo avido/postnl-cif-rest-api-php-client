@@ -353,12 +353,12 @@ abstract class BaseClient
             });
             $stack->push($mapResponse);
             
-//            $stack->push(
-//                Middleware::log(
-//                    $this->getLogger(),
-//                    new MessageFormatter($this->logMessageFormat)
-//                )
-//            );
+            $stack->push(
+                Middleware::log(
+                    $this->getLogger(),
+                    new MessageFormatter($this->logMessageFormat)
+                )
+            );
             
             $client = new \GuzzleHttp\Client([
                 'handler' => $stack
