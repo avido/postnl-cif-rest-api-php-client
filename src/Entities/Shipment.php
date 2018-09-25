@@ -1286,6 +1286,9 @@ class Shipment extends BaseEntity
             'ReturnReference' => $this->getReturnReference(),
             'TimeslotID' => $this->getTimeslotID()
         ];
+        if (!is_null($this->Customs)) {
+            $return['Customs'] = $this->Customs->toArray();
+        }
         if (count($this->Amounts) > 0) {
             $return['Amounts'] = $this->getAmountsArray();
         }

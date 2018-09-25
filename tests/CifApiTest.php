@@ -1242,7 +1242,7 @@ class CifApiTest extends TestCase
     }
     
     /**
-     * Get Shipment Label test
+     * Get Shipment GlobalPack Label test
      * 
      * @group label
      */
@@ -1274,33 +1274,16 @@ class CifApiTest extends TestCase
         $type = 'CD';
         // update customer information for Global Pack shipment
         $customerCode = getenv('CUST_CODE_GLOBAL_PACK');
+        
         $this->client->getAPI('barcode')->setCustomerCode($customerCode);
         
-        $tmp= $this->client->getAPI('barcode')->getBarcode($type, null, false)->getBarcode();
+        $tmp= $this->client->getAPI('barcode')->getBarcode($type, null, $customerCode, false)->getBarcode();
 //        $tmp = '3STBJG274863219';
         $amounts = [];
-        // COD
-        if ($helper->isCOD()) {
-            $amounts[] = Amount::create()
-                ->setAmountType(Amount::TYPE_COD)
-                ->setReference('COD ref')
-                ->setCurrency('EUR')
-                ->setAccountName('Jan Janssen')
-                ->setIBAN('NL47INGB0009102236')
-                ->setTransactionNumber('1234')
-                ->setValue(120.12);
-        }
-        // INSURANCE
-        if ($helper->isExtraCover()) {
-            $amounts[] = Amount::create()
-                ->setAmountType('02')
-                ->setCurrency('EUR')
-                ->setValue(500);
-        }
         // customs 
         $customsItem = CustomsContent::create()
             ->setCountryOfOrigin('NL')
-            ->setDescription('Dikke RayBan')
+            ->setDescription('Some Sunglass Product')
             ->setEAN('8053672158656')
             ->setHSTariffNr('900410') // 900410  = sunglas (see https://www.tariffnumber.com/)
             ->setQuantity(1)
@@ -1339,7 +1322,6 @@ class CifApiTest extends TestCase
         $request->setCustomer($customer);
         $request->setPrinter($printer);
         $request->addShipment($shipment);
-        
         $response = $this->client->getAPI('labelling')->getLabel($request, false);
         $this->storeLabel($response);
         $this->assertTrue(count($response->getShipments()) === 1);
@@ -1379,7 +1361,7 @@ class CifApiTest extends TestCase
         $customerCode = getenv('CUST_CODE_GLOBAL_PACK');
         $this->client->getAPI('barcode')->setCustomerCode($customerCode);
         
-        $tmp= $this->client->getAPI('barcode')->getBarcode($type, null, false)->getBarcode();
+        $tmp= $this->client->getAPI('barcode')->getBarcode($type, null, $customerCode, false)->getBarcode();
         $amounts = [];
         // COD
         if ($helper->isCOD()) {
