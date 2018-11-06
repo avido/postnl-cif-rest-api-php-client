@@ -24,7 +24,7 @@ class Address extends BaseEntity
     const COLLECTION_ADDRESS = "04";
     const RETURN_ADDRESS = "08";
     const PICKUP_LOCATION = "09";
-    
+
     /**
      * Type of the address.
      * Valid options:
@@ -97,6 +97,13 @@ class Address extends BaseEntity
      * @var string
      */
     protected $HouseNrExt = null;
+
+    /**
+     * Optional Remark about address
+     * @var string
+     */
+    protected $Remark = null;
+
     /**
      * Last name of person. This field has a dependency with the field CompanyName. One of both fields must
      * be filled mandatory; using both fields is also allowed. Remark: please add FirstName and Name (lastname)
@@ -127,13 +134,13 @@ class Address extends BaseEntity
      * @var type
      */
     protected $Zipcode = null;
-    
+
     // REBUILD
     public function __construct($data = [])
     {
         parent::__construct($data);
     }
-    
+
     /**
      * Set Address Type
      *
@@ -146,7 +153,7 @@ class Address extends BaseEntity
         $this->AddressType = (string)$type;
         return $this;
     }
-    
+
     /**
      * Get Address  Type
      *
@@ -157,7 +164,7 @@ class Address extends BaseEntity
     {
         return (string)$this->AddressType;
     }
-    
+
     /**
      * Set Address Area
      *
@@ -170,7 +177,7 @@ class Address extends BaseEntity
         $this->Area = (string)$area;
         return $this;
     }
-    
+
     /**
      * Get Address Area
      *
@@ -181,7 +188,7 @@ class Address extends BaseEntity
     {
         return (string)$this->Area;
     }
-    
+
     /**
      * Set address building name
      *
@@ -194,7 +201,7 @@ class Address extends BaseEntity
         $this->Buildingname = (string)$buildingname;
         return $this;
     }
-    
+
     /**
      * Get Address Building Name
      *
@@ -205,7 +212,7 @@ class Address extends BaseEntity
     {
         return (string)$this->Buildingname;
     }
-    
+
     /**
      * Set Address City
      *
@@ -218,7 +225,7 @@ class Address extends BaseEntity
         $this->City = (string)$city;
         return $this;
     }
-    
+
     /**
      * Get Address City
      *
@@ -229,7 +236,7 @@ class Address extends BaseEntity
     {
         return (string)$this->City;
     }
-    
+
     /**
      * Set Address Companyname
      *
@@ -242,7 +249,7 @@ class Address extends BaseEntity
         $this->CompanyName = (string)$companyname;
         return $this;
     }
-    
+
     /**
      * Get Address Companyname
      *
@@ -265,7 +272,7 @@ class Address extends BaseEntity
         $this->Countrycode = (string)$countrycode;
         return $this;
     }
-    
+
     /**
      * Get Country Code
      *
@@ -276,7 +283,7 @@ class Address extends BaseEntity
     {
         return (string)$this->Countrycode;
     }
-    
+
     /**
      * Set Address Company department
      *
@@ -289,7 +296,7 @@ class Address extends BaseEntity
         $this->Department = (string)$department;
         return $this;
     }
-    
+
     /**
      * Get Address company department
      *
@@ -300,7 +307,7 @@ class Address extends BaseEntity
     {
         return (string)$this->Department;
     }
-    
+
     /**
      * Set Building Doorcode
      *
@@ -313,7 +320,7 @@ class Address extends BaseEntity
         $this->Doorcode = (string)$doorcode;
         return $this;
     }
-    
+
     /**
      * Get Building doorcode
      *
@@ -324,7 +331,7 @@ class Address extends BaseEntity
     {
         return (string)$this->Doorcode;
     }
-    
+
     /**
      * Set Address Firstname
      *
@@ -337,7 +344,7 @@ class Address extends BaseEntity
         $this->Firstname = (string)$firstname;
         return $this;
     }
-    
+
     /**
      * Get Address Firstname
      *
@@ -348,7 +355,7 @@ class Address extends BaseEntity
     {
         return (string)$this->Firstname;
     }
-    
+
     /**
      * Set Address Building floor
      *
@@ -361,7 +368,7 @@ class Address extends BaseEntity
         $this->Floor = (string)$floor;
         return $this;
     }
-    
+
     /**
      * Get Address Building Floor
      *
@@ -372,7 +379,7 @@ class Address extends BaseEntity
     {
         return (string)$this->Floor;
     }
-    
+
     /**
      * Set Address Housenumber
      *
@@ -385,7 +392,7 @@ class Address extends BaseEntity
         $this->HouseNr = (int)$housenumber;
         return $this;
     }
-    
+
     /**
      * Get Address Housenumber
      *
@@ -396,7 +403,7 @@ class Address extends BaseEntity
     {
         return (int)$this->HouseNr;
     }
-    
+
     /**
      * Set Address Housenumber ext
      *
@@ -409,7 +416,7 @@ class Address extends BaseEntity
         $this->HouseNrExt = (string)$housenumber_ext;
         return $this;
     }
-    
+
     /**
      * Get Address Housenumber ext
      *
@@ -420,7 +427,31 @@ class Address extends BaseEntity
     {
         return (string)$this->HouseNrExt;
     }
-    
+
+    /**
+     * Set Remark
+     *
+     * @access public
+     * @param string $remark
+     * @return $this
+     */
+    public function setRemark($remark)
+    {
+        $this->Remark = (string)$remark;
+        return $this;
+    }
+
+    /**
+     * Get Remark
+     *
+     * @access public
+     * @return string
+     */
+    public function getRemark()
+    {
+        return (string)$this->Remark;
+    }
+
     /**
      * Set Address name
      *
@@ -433,7 +464,7 @@ class Address extends BaseEntity
         $this->Name = (string)$name;
         return $this;
     }
-    
+
     /**
      * Get Address name
      *
@@ -456,7 +487,7 @@ class Address extends BaseEntity
         $this->Region = (string)$region;
         return $this;
     }
-    
+
     /**
      * Get Address Region
      *
@@ -467,7 +498,7 @@ class Address extends BaseEntity
     {
         return (string)$this->Region;
     }
-    
+
     /**
      * Set Address street
      *
@@ -480,7 +511,7 @@ class Address extends BaseEntity
         $this->Street = (string)$street;
         return $this;
     }
-    
+
     /**
      * Get Address street
      *
@@ -491,7 +522,7 @@ class Address extends BaseEntity
     {
         return (string)$this->Street;
     }
-    
+
     /**
      * Set Complete address (street + number + ext)
      *
@@ -504,7 +535,7 @@ class Address extends BaseEntity
         $this->StreetHouseNrExt = (string)$address;
         return $this;
     }
-    
+
     /**
      * Get Complete address (street + number + ext)
      *
@@ -515,7 +546,7 @@ class Address extends BaseEntity
     {
         return (string)$this->StreetHouseNrExt;
     }
-    
+
     /**
      * Set Address Zipcode
      *
@@ -528,7 +559,7 @@ class Address extends BaseEntity
         $this->Zipcode = (string)$zipcode;
         return $this;
     }
-    
+
     /**
      * Get Address Zipcode
      *
@@ -539,7 +570,7 @@ class Address extends BaseEntity
     {
         return (string)$this->Zipcode;
     }
-    
+
     /**
      * Return Entity as Array
      *
@@ -561,6 +592,7 @@ class Address extends BaseEntity
             'Floor' => $this->getFloor(),
             'HouseNr' => $this->getHousenumber(),
             'HouseNrExt' => $this->getHousenumberExt(),
+            'Remark' => $this->getRemark(),
             'Name' => $this->getName(),
             'Region' => $this->getRegion(),
             'Street' => $this->getStreet(),
