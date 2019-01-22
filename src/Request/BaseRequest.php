@@ -20,31 +20,31 @@ class BaseRequest extends BaseModel
      * @var string
      */
     private $endpoint = null;
-    
+
     /**
      *Endpoint path
      * @var string
      */
     private $path = null;
-    
+
     /**
      * Version
      * @var string
      */
     private $version = null;
-  
+
     /**
      * Request arguments
      * @var array
      */
     protected $arguments = [];
-    
+
     /**
      * Post Body
      * @var string
      */
     protected $body = null;
-    
+
     /**
      *Message Entity
      * @var Avido\PostNLCifClient\Entities\Message
@@ -55,7 +55,7 @@ class BaseRequest extends BaseModel
      * @var Avido\PostNLCifClient\Entities\Customer
      */
     protected $customer = null;
-    
+
     /**
      * Valid Delivery Options
      * @var array
@@ -65,14 +65,14 @@ class BaseRequest extends BaseModel
         'PGE',          // Pick up at PostNL location Express (in Dutch: Extra Vroeg Ophalen)
         'KEL'           // Customer own location (in Dutch: Klant Eigen Locatie)
     ];
-    
+
     private $deliveryTimeframeOptions = [
-        'morning',
-        'evening',
-        'sameday',
-        'daytime'
+        'Morning',
+        'Evening',
+        'Sameday',
+        'Daytime'
     ];
-    
+
     private $deliveryDeliveryDateOptions = [
         'daytime',
         'evening',
@@ -84,7 +84,7 @@ class BaseRequest extends BaseModel
         'mytime',
         'pickup'
     ];
-    
+
     public function __construct($endpoint = null, $path = null, $version = null)
     {
         if (!is_null($endpoint)) {
@@ -97,7 +97,7 @@ class BaseRequest extends BaseModel
             $this->setVersion($version);
         }
     }
-    
+
     /**
      * Indicates request is filled completely.
      *
@@ -120,7 +120,7 @@ class BaseRequest extends BaseModel
         $this->endpoint = (string)$endpoint;
         return $this;
     }
-    
+
     /**
      * Set Endpoint path
      *
@@ -133,7 +133,7 @@ class BaseRequest extends BaseModel
         $this->path = (string)$path;
         return $this;
     }
-    
+
     /**
      * Set Endpoint version
      *
@@ -146,7 +146,7 @@ class BaseRequest extends BaseModel
         $this->version = (string)$version;
         return $this;
     }
-    
+
     /**
      * Get Formatted endpoint (endpoint + version)
      *
@@ -157,8 +157,8 @@ class BaseRequest extends BaseModel
     {
         return (string)"{$this->endpoint}/v{$this->version}/{$this->path}";
     }
-    
-    
+
+
     /**
      * Set Customer Entity
      *
@@ -171,7 +171,7 @@ class BaseRequest extends BaseModel
         $this->customer = $customer;
         return $this;
     }
-    
+
     /**
      * Get Customer Entity
      *
@@ -183,7 +183,7 @@ class BaseRequest extends BaseModel
         return $this->customer;
     }
 
-    
+
     /**
      * Set Message Entity
      *
@@ -196,7 +196,7 @@ class BaseRequest extends BaseModel
         $this->message = $message;
         return $this;
     }
-    
+
     /**
      * Get Message Entity
      *
@@ -207,7 +207,7 @@ class BaseRequest extends BaseModel
     {
         return $this->message;
     }
-    
+
     /**
      * Get Post Body
      *
@@ -234,9 +234,9 @@ class BaseRequest extends BaseModel
             default:
                 $valid = $this->deliveryOptions;
         }
-        return (bool)in_array(strtoupper($option), $valid) ? true : false;
+        return (bool)in_array($option, $valid) ? true : false;
     }
-    
+
     public function getArguments()
     {
         // reformat delivery options
@@ -245,7 +245,7 @@ class BaseRequest extends BaseModel
         $arguments = $this->prepRequestArguments($arguments);
         return (array)$arguments;
     }
-    
+
     /**
      * Camelcase and ucfirst argument keys
      *
