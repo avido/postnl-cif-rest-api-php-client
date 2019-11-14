@@ -109,13 +109,13 @@ class Shipment extends BaseEntity
      * @var string
      */
     protected $CustomerOrderNumber = null;
-    
+
     /**
      * The Customs type is mandatory for GlobalPack shipments and not allowed for any other shipment types.
      * @var Entities/Customs
      */
     protected $Customs = null;
-    
+
     /**
      * The delivery date of the shipment. We strongly advice to use the DeliveryDate service to get this date
      * when using delivery options like Evening/Morning/Sameday delivery etc. For those products, this field is
@@ -124,7 +124,7 @@ class Shipment extends BaseEntity
      * @var String
      */
     protected $DeliveryDate = null;
-    
+
     /**
      * The delivery date and the specific starting time of the shipment delivery. This can be retrieved from the
      * DeliveryDate webservice using the MyTime delivery option.
@@ -155,14 +155,14 @@ class Shipment extends BaseEntity
      * @var String
      */
     protected $DownPartnerLocation = null;
-    
+
     /**
      * List of 0 or more Group types with data, grouping multiple shipments together. Mandatory for
      * multicollo shipments.
      * @var Entities/Groups
      */
     protected $Groups = null;
-    
+
     /**
      * Type of the ID document. Mandatory for ID Check products.
      *  See Products for possible values
@@ -181,26 +181,26 @@ class Shipment extends BaseEntity
      * @var String
      */
     protected $IDExpiration = null;
-    
+
     /**
      * Second product code of a shipment
      * @var Int
      */
     protected $ProductCodeCollect = null;
-    
+
     /**
      * Product options for the shipment, mandatory for certain products, see the Products page of this webservice
      * @var Avido\PostNLCifClient\Entities\ProductOption
      */
     protected $ProductOptions = null;
-    
+
     /**
      * Date of birth. Mandatory for Age check products
      * Format: d-m-Y
      * @var String
      */
     protected $ReceiverDateOfBirth = null;
-    
+
     /**
      * Your own reference of the shipment. Mandatory for Extra@Home shipments; for E@H this is used to
      * create your order number, so this should be unique for each request.
@@ -217,7 +217,7 @@ class Shipment extends BaseEntity
      * @var String
      */
     protected $Remark = null;
-    
+
     /**
      * Return barcode of the shipment. Mandatory for Label in the Box (return label) shipments.
      * @var String
@@ -228,7 +228,7 @@ class Shipment extends BaseEntity
      * @var String
      */
     protected $ReturnReference = null;
-    
+
     /**
      * ID of the chosen timeslot as returned by the timeslot webservice
      * @var String
@@ -254,7 +254,7 @@ class Shipment extends BaseEntity
      * @var array Entities/Status
      */
     protected $OldStatus = null;
-    
+
     public function __construct($data = [])
     {
         if (isset($data['Labels'])) {
@@ -295,7 +295,7 @@ class Shipment extends BaseEntity
         }
         parent::__construct($data);
     }
-    
+
     /**
      * Set (last/current) Status
      *
@@ -311,7 +311,7 @@ class Shipment extends BaseEntity
         $this->Status = $status;
         return $this;
     }
-    
+
     /**
      * Get (Last/current) Status
      *
@@ -322,7 +322,7 @@ class Shipment extends BaseEntity
     {
         return $this->Status;
     }
-    
+
     /**
      * Set OldStatus
      *
@@ -344,7 +344,7 @@ class Shipment extends BaseEntity
         }
         return $this;
     }
-    
+
     /**
      * Get OldStatus
      *
@@ -355,7 +355,7 @@ class Shipment extends BaseEntity
     {
         return $this->OldStatus;
     }
-    
+
     /**
      * Set Status Events
      *
@@ -377,7 +377,7 @@ class Shipment extends BaseEntity
         $this->Event = $tmp;
         return $this;
     }
-    
+
     /**
      * Get Status Events
      *
@@ -388,7 +388,7 @@ class Shipment extends BaseEntity
     {
         return $this->Event;
     }
-    
+
     /**
      * Set Expectation
      *
@@ -401,7 +401,7 @@ class Shipment extends BaseEntity
         $this->Expectation = new Expectation($expectation);
         return $this;
     }
-    
+
     /**
      * Get Expectation
      *
@@ -412,7 +412,7 @@ class Shipment extends BaseEntity
     {
         return $this->Expectation;
     }
-    
+
     /**
      * Set Amounts
      *
@@ -431,7 +431,7 @@ class Shipment extends BaseEntity
         $this->Amounts = $tmp;
         return $this;
     }
-    
+
     /**
      * Get Amounts
      *
@@ -442,7 +442,7 @@ class Shipment extends BaseEntity
     {
         return (array)$this->Amounts;
     }
-    
+
     /**
      * Set Addresses
      *
@@ -469,7 +469,7 @@ class Shipment extends BaseEntity
         $this->Addresses[] = $address;
         return $this;
     }
-    
+
     /**
      * Add Contact
      *
@@ -482,7 +482,7 @@ class Shipment extends BaseEntity
         $this->Contacts[] = $contact;
         return $this;
     }
-    
+
     /**
      * Set Delivery Address
      *
@@ -498,7 +498,7 @@ class Shipment extends BaseEntity
         $this->DeliveryAddress = $delivery_address;
         return $this;
     }
-    
+
     /**
      * Get Delivery Address Specification
      *
@@ -509,8 +509,8 @@ class Shipment extends BaseEntity
     {
         return (string)$this->DeliveryAddress;
     }
-    
-    
+
+
     /**
      * Set Dimension
      *
@@ -523,7 +523,7 @@ class Shipment extends BaseEntity
         $this->Dimension = $dimension;
         return $this;
     }
-    
+
     /**
      * Get Dimensions
      *
@@ -534,8 +534,8 @@ class Shipment extends BaseEntity
     {
         return $this->Dimension;
     }
-    
-    
+
+
     /**
      * Set Product Code Delivery
      *
@@ -548,7 +548,7 @@ class Shipment extends BaseEntity
         $this->ProductCodeDelivery = $product_code_delivery;
         return $this;
     }
-    
+
     /**
      * Get Product Code for delivery
      *
@@ -559,8 +559,8 @@ class Shipment extends BaseEntity
     {
         return (string)$this->ProductCodeDelivery;
     }
-    
-    
+
+
     /**
      * Get Addresses
      *
@@ -571,7 +571,7 @@ class Shipment extends BaseEntity
     {
         return (array)$this->Addresses;
     }
-    
+
     /**
      * Set Barcode
      *
@@ -584,7 +584,7 @@ class Shipment extends BaseEntity
         $this->Barcode = $barcode;
         return $this;
     }
-    
+
     /**
      * Get Barcode
      *
@@ -595,7 +595,7 @@ class Shipment extends BaseEntity
     {
         return (string)$this->Barcode;
     }
-    
+
     /**
      * Set Array of Entities/Contact
      *
@@ -638,7 +638,7 @@ class Shipment extends BaseEntity
         $this->Labels = $tmp;
         return $this;
     }
-    
+
     /**
      * Get Labels
      *
@@ -649,7 +649,7 @@ class Shipment extends BaseEntity
     {
         return $this->Labels;
     }
-    
+
     /**
      * Set Collection Timestamp Start
      *
@@ -673,8 +673,8 @@ class Shipment extends BaseEntity
     {
         return (string)$this->CollectionTimeStampStart;
     }
-    
-    
+
+
     /**
      * Set Collection Timestamp Start
      *
@@ -698,7 +698,7 @@ class Shipment extends BaseEntity
     {
         return (string)$this->CollectionTimeStampEnd;
     }
-    
+
     /**
      * Set contents of shipment
      *
@@ -711,7 +711,7 @@ class Shipment extends BaseEntity
         $this->Content = (string)$content;
         return $this;
     }
-    
+
     /**
      * Get contents description of shipment
      *
@@ -722,7 +722,7 @@ class Shipment extends BaseEntity
     {
         return (string)$this->Content;
     }
-    
+
     /**
      * Set costs center
      *
@@ -735,7 +735,7 @@ class Shipment extends BaseEntity
         $this->CostCenter = (string)$cost_center;
         return $this;
     }
-    
+
     /**
      * Get costs center
      *
@@ -746,7 +746,7 @@ class Shipment extends BaseEntity
     {
         return (string)$this->CostCenter;
     }
-    
+
     /**
      * Set Customer Order Number
      *
@@ -759,7 +759,7 @@ class Shipment extends BaseEntity
         $this->CustomerOrderNumber = (string)$order_number;
         return $this;
     }
-    
+
     /**
      * Get Customer Order Number
      *
@@ -770,7 +770,7 @@ class Shipment extends BaseEntity
     {
         return (string)$this->CustomerOrderNumber;
     }
-    
+
     /**
      * Set Customs entity
      *
@@ -783,7 +783,7 @@ class Shipment extends BaseEntity
         $this->Customs = $customs;
         return $this;
     }
-    
+
     /**
      * Get Customs entity
      *
@@ -794,7 +794,7 @@ class Shipment extends BaseEntity
     {
         return $this->Customs;
     }
-    
+
     /**
      * Set Delivery Date
      * Format: dd-MM-yyyy hh:mm:ss
@@ -811,7 +811,7 @@ class Shipment extends BaseEntity
         $this->DeliveryDate = (string)$date;
         return $this;
     }
-    
+
     /**
      * Get Delivery Date
      *
@@ -822,7 +822,7 @@ class Shipment extends BaseEntity
     {
         return (string)$this->DeliveryDate;
     }
-    
+
     /**
      * Set Delivery timestamp start
      *
@@ -838,7 +838,7 @@ class Shipment extends BaseEntity
         $this->DeliveryTimeStampStart = (string)$timestamp;
         return $this;
     }
-    
+
     /**
      * Get Delivery Timestamp start
      *
@@ -849,7 +849,7 @@ class Shipment extends BaseEntity
     {
         return (string)$this->DeliveryTimeStampStart;
     }
-    
+
     /**
      * Set Delivery timestamp End
      *
@@ -865,7 +865,7 @@ class Shipment extends BaseEntity
         $this->DeliveryTimeStampEnd = (string)$timestamp;
         return $this;
     }
-    
+
     /**
      * Get Delivery Timestamp end
      *
@@ -876,7 +876,7 @@ class Shipment extends BaseEntity
     {
         return (string)$this->DeliveryTimeStampEnd;
     }
-    
+
     /**
      * Set DownPartnerBarcode
      *
@@ -889,7 +889,7 @@ class Shipment extends BaseEntity
         $this->DownPartnerBarcode = (string)$barcode;
         return $this;
     }
-    
+
     /**
      * Get DownPartnerBarcode
      *
@@ -900,7 +900,7 @@ class Shipment extends BaseEntity
     {
         return (string)$this->DownPartnerBarcode;
     }
-    
+
     /**
      * Set DownPartnerID
      *
@@ -913,7 +913,7 @@ class Shipment extends BaseEntity
         $this->DownPartnerID = (string)$id;
         return $this;
     }
-    
+
     /**
      * Get DownPartnerID
      *
@@ -924,7 +924,7 @@ class Shipment extends BaseEntity
     {
         return (string)$this->DownPartnerID;
     }
-    
+
     /**
      * Set DownPartnerLocation
      *
@@ -937,7 +937,7 @@ class Shipment extends BaseEntity
         $this->DownPartnerLocation = (string)$location;
         return $this;
     }
-    
+
     /**
      * Get DownPartnerLocation
      *
@@ -948,7 +948,7 @@ class Shipment extends BaseEntity
     {
         return (string)$this->DownPartnerLocation;
     }
-    
+
     /**
      * Set Group
      *
@@ -961,7 +961,7 @@ class Shipment extends BaseEntity
         $this->Groups = $group;
         return $this;
     }
-    
+
     /**
      * Get Group
      *
@@ -972,7 +972,7 @@ class Shipment extends BaseEntity
     {
         return $this->Groups;
     }
-    
+
     /**
      * Set ID Type
      *
@@ -985,7 +985,7 @@ class Shipment extends BaseEntity
         $this->IDType = (int)$type;
         return $this;
     }
-    
+
     /**
      * Get ID Type
      *
@@ -996,7 +996,7 @@ class Shipment extends BaseEntity
     {
         return (int)$this->IDType;
     }
-    
+
     /**
      * Get IDNumber
      *
@@ -1009,7 +1009,7 @@ class Shipment extends BaseEntity
         $this->IDNumber = (string)$number;
         return $this;
     }
-    
+
     /**
      * Get IDNumber
      *
@@ -1020,7 +1020,7 @@ class Shipment extends BaseEntity
     {
         return (string)$this->IDNumber;
     }
-    
+
     /**
      * Set IDExpiration
      *
@@ -1036,7 +1036,7 @@ class Shipment extends BaseEntity
         $this->IDExpiration = (string)$expiration;
         return $this;
     }
-    
+
     /**
      * Get IDExpiration
      *
@@ -1047,7 +1047,7 @@ class Shipment extends BaseEntity
     {
         return (string)$this->IDExpiration;
     }
-    
+
     /**
      * Set ProductCodeCollect
      *
@@ -1060,7 +1060,7 @@ class Shipment extends BaseEntity
         $this->ProductCodeCollect = (int)$product_code;
         return $this;
     }
-    
+
     /**
      * Get ProductCodeCollect
      *
@@ -1071,7 +1071,7 @@ class Shipment extends BaseEntity
     {
         return ($this->ProductCodeCollect > 0) ? (int)$this->ProductCodeCollect : null;
     }
-    
+
     /**
      * Set ProductOptions
      *
@@ -1084,7 +1084,7 @@ class Shipment extends BaseEntity
         $this->ProductOptions = $product_option;
         return $this;
     }
-    
+
     /**
      * Get Product Option
      *
@@ -1095,7 +1095,7 @@ class Shipment extends BaseEntity
     {
         return $this->ProductOptions;
     }
-    
+
     /**
      * Set ReceiverDateOfBirth
      *
@@ -1112,7 +1112,7 @@ class Shipment extends BaseEntity
         $this->ReceiverDateOfBirth = (string)$date;
         return $this;
     }
-    
+
     /**
      * Get ReceiverDateOfBirth
      *
@@ -1123,7 +1123,7 @@ class Shipment extends BaseEntity
     {
         return (string)$this->ReceiverDateOfBirth;
     }
-    
+
     /**
      * Set Reference
      *
@@ -1136,7 +1136,7 @@ class Shipment extends BaseEntity
         $this->Reference = (string)$reference;
         return $this;
     }
-    
+
     /**
      * Get Reference
      *
@@ -1147,7 +1147,7 @@ class Shipment extends BaseEntity
     {
         return (string)$this->Reference;
     }
-    
+
     /**
      * Set ReferenceCollect
      *
@@ -1160,7 +1160,7 @@ class Shipment extends BaseEntity
         $this->ReferenceCollect = (string)$reference;
         return $this;
     }
-    
+
     /**
      * Get ReferenceCollect
      *
@@ -1171,7 +1171,7 @@ class Shipment extends BaseEntity
     {
         return (string)$this->ReferenceCollect;
     }
-    
+
     /**
      * Set Remark
      *
@@ -1184,7 +1184,7 @@ class Shipment extends BaseEntity
         $this->Remark = (string)$remark;
         return $this;
     }
-    
+
     /**
      * Get Remark
      *
@@ -1195,7 +1195,7 @@ class Shipment extends BaseEntity
     {
         return (string)$this->Remark;
     }
-    
+
     /**
      * Set ReturnBarcode
      *
@@ -1208,7 +1208,7 @@ class Shipment extends BaseEntity
         $this->ReturnBarcode = (string)$barcode;
         return $this;
     }
-    
+
     /**
      * Get ReturnBarcode
      *
@@ -1219,7 +1219,7 @@ class Shipment extends BaseEntity
     {
         return (string)$this->ReturnBarcode;
     }
-    
+
     /**
      * Set ReturnReference
      *
@@ -1232,7 +1232,7 @@ class Shipment extends BaseEntity
         $this->ReturnReference = (string)$reference;
         return $this;
     }
-    
+
     /**
      * Get ReturnReference
      *
@@ -1243,18 +1243,18 @@ class Shipment extends BaseEntity
     {
         return (string)$this->ReturnReference;
     }
-    
+
     public function setTimeslotID($time_slot_id)
     {
         $this->TimeslotID = (string)$time_slot_id;
         return $this;
     }
-    
+
     public function getTimeslotID()
     {
         return (string)$this->TimeslotID;
     }
-    
+
     public function toArray()
     {
         $return = [
@@ -1301,7 +1301,7 @@ class Shipment extends BaseEntity
         }
         return $return;
     }
-    
+
     /**
      * Get Addresses array
      *
@@ -1316,7 +1316,7 @@ class Shipment extends BaseEntity
         }
         return $return;
     }
-    
+
     /**
      * Get Contacts array
      *
@@ -1331,7 +1331,7 @@ class Shipment extends BaseEntity
         }
         return $return;
     }
-    
+
     public function getAmountsArray()
     {
         $return = [];
