@@ -89,7 +89,9 @@ class CifApi
             ->setCustomerCode($customerCode)
             ->setCollectionLocation($collectionLocation)
             ->setTestMode($sandbox);
-        $this->setLogger($logger);
+        if (!is_null($logger)) {
+            $this->setLogger($logger);
+        }
 
         date_default_timezone_set('europe/amsterdam');
 
@@ -217,10 +219,8 @@ class CifApi
      */
     public function setLogger(\Monolog\Handler\AbstractHandler $handler): CifApi
     {
-        if (!is_null($handler)) {
-            $this->logger = new Logger(self::LOGGER_CHANNEL); //initialize the logger
-            $this->logger->pushHandler($handler);
-        }
+        $this->logger = new Logger(self::LOGGER_CHANNEL); //initialize the logger
+        $this->logger->pushHandler($handler);
 
         return $this;
     }

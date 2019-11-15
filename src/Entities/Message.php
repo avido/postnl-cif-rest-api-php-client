@@ -95,6 +95,31 @@ class Message extends BaseEntity
     }
 
     /**
+     * Set Printer Type
+     *
+     * @access public
+     * @param string $printertype
+     * @return $this
+     */
+    public function setPrinterType(string $printertype): Message
+    {
+        $this->Printertype = $printertype;
+        return $this;
+    }
+
+    /**
+     * Get Printer type
+     *
+     * @access public
+     * @return string
+     */
+    public function getPrinterType(): string
+    {
+        return $this->Printertype ?? '';
+    }
+
+
+    /**
      * Output message entity as array
      *
      * @access public
@@ -104,7 +129,8 @@ class Message extends BaseEntity
     {
         return [
             'MessageID' => $this->getMessageId(),
-            'MessageTimeStamp' => $this->getMessageTimestamp()->format('d-m-Y H:i:s')
+            'MessageTimeStamp' => $this->getMessageTimestamp()->format('d-m-Y H:i:s'),
+            'Printertype' => $this->getPrinterType()
         ];
     }
 }

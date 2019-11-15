@@ -507,7 +507,7 @@ class Shipment extends BaseEntity
      */
     public function getDeliveryAddress(): string
     {
-        return $this->DeliveryAddress ?? '';
+        return $this->DeliveryAddress ?? '01';
     }
 
 
@@ -992,9 +992,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return int
      */
-    public function getIDType(): int
+    public function getIDType(): string
     {
-        return $this->IDType;
+        return $this->IDType ?? '';
     }
 
     /**

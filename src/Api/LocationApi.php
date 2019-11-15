@@ -97,7 +97,7 @@ class LocationApi extends BaseClient
      * @param \Avido\PostNLCifClient\Request\DeliveryOptions\Location\LocationRequest $request
      * @return mixed \Avido\PostNLCifClient\Entities\Location|null
      */
-    public function getLocation(LocationRequest $request): ?NearestLocationsResponse
+    public function getLocation(LocationRequest $request): ?Location
     {
         $resp = $this->get($request->getEndpoint(), $request->getArguments());
         if (isset($resp['GetLocationsResult']) && isset($resp['GetLocationsResult']['ResponseLocation'])) {

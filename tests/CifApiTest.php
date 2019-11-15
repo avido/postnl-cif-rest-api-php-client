@@ -62,23 +62,24 @@ use Avido\PostNLCifClient\Request\SendTrack\Confirming\ConfirmRequest;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-class CifApiTest extends TestCase 
+class CifApiTest extends TestCase
 {
 
     /**
      * @var Avido\PostNLCifClient\CifApi
      */
     private $client;
-    
-    public function setUp()
+
+    public function setUp(): void
     {
         // retrieve variables from phpunit.xml config
         $apiKey = getenv('APIKEY');
         $customerCode = getenv('CUST_CODE');
         $customerNumber = getenv('CUST_NUMBER');
         $collectionLocation = getenv('COLLECTION_LOCATION');
-        
-        $handler = new StreamHandler('php://stdout', Logger::DEBUG); // <<< uses a stream
+        $handler = null;
+
+//        $handler = new StreamHandler('php://stdout', Logger::DEBUG); // <<< uses a stream
         $this->client = new CifApi(
             $apiKey, //PostNL API Key
             $customerNumber, // PostNL Customer Number
@@ -90,10 +91,10 @@ class CifApiTest extends TestCase
     }
 
     /**
-     * Test Nearest Locations 
-     * 
+     * Test Nearest Locations
+     *
      * Nearest location instance test
-     * 
+     *
      * @group location
      */
     public function testGetNearestLocationsInstance()
@@ -104,18 +105,18 @@ class CifApiTest extends TestCase
             ->setCity('Hoofddorp')
             ->setStreet('Siriusdreef')
             ->setHouseNumber(42)
-            ->setDeliveryDate('01-01-2999')
+            ->setDeliveryDate('01-01-2030')
             ->setOpeningTime('09:00:00')
             ->addDeliveryOptions('PG');
         $response = $this->client->getAPI('location')->getNearestLocations($request);
         $this->assertInstanceOf('Avido\PostNLCifClient\Response\DeliveryOptions\Locations\NearestLocationsResponse', $response);
     }
-    
+
     /**
-     * Test Nearest Locations 
-     * 
+     * Test Nearest Locations
+     *
      * Retrieve nearest locations based on address information
-     * 
+     *
      * @group location
      */
     public function testGetNearestLocations()
@@ -126,18 +127,18 @@ class CifApiTest extends TestCase
             ->setCity('Hoofddorp')
             ->setStreet('Siriusdreef')
             ->setHouseNumber(42)
-            ->setDeliveryDate('01-01-2999')
+            ->setDeliveryDate('01-01-2030')
             ->setOpeningTime('09:00:00')
             ->addDeliveryOptions('PG');
         $response = $this->client->getAPI('location')->getNearestLocations($request);
         $this->assertTrue(count($response->getLocations()) >0);
     }
-    
+
     /**
-     * Test Nearest Locations 
-     * 
+     * Test Nearest Locations
+     *
      * Test exception, missing postal code
-     * 
+     *
      * @group location
      * @group exceptions
      */
@@ -150,17 +151,17 @@ class CifApiTest extends TestCase
             ->setCity('Hoofddorp')
             ->setStreet('Siriusdreef')
             ->setHouseNumber(42)
-            ->setDeliveryDate('01-01-2999')
+            ->setDeliveryDate('01-01-2030')
             ->setOpeningTime('09:00:00')
             ->addDeliveryOptions('PG');
         $response = $this->client->getAPI('location')->getNearestLocations($request);
     }
-    
+
     /**
      * Test Nearest Locations Geo
-     * 
+     *
      * Get nearest locations instance based on geo coordinates
-     * 
+     *
      * @group location
      */
     public function testGetNearestLocationsGeoInstance()
@@ -169,18 +170,18 @@ class CifApiTest extends TestCase
         $request->setCountryCode('NL')
             ->setLatitude('52.2864669620795')
             ->setLongitude('4.68239055845954')
-            ->setDeliveryDate('01-01-2999')
+            ->setDeliveryDate('01-01-2030')
             ->setOpeningTime('09:00:00')
             ->addDeliveryOptions('PG');
         $response = $this->client->getAPI('location')->getNearestLocationsGeo($request);
         $this->assertInstanceOf('Avido\PostNLCifClient\Response\DeliveryOptions\Locations\NearestLocationsResponse', $response);
     }
-    
+
     /**
      * Test Nearest Locations Geo
-     * 
+     *
      * Exception missing latitude
-     * 
+     *
      * @group location
      * @group exceptions
      */
@@ -191,18 +192,18 @@ class CifApiTest extends TestCase
         $request->setCountryCode('NL')
             ->setLatitude('')
             ->setLongitude('4.68239055845954')
-            ->setDeliveryDate('01-01-2999')
+            ->setDeliveryDate('01-01-2030')
             ->setOpeningTime('09:00:00')
             ->addDeliveryOptions('PG');
         $response = $this->client->getAPI('location')->getNearestLocationsGeo($request);
         $this->assertTrue(count($response->getLocations()) >0);
     }
-    
+
     /**
-     * Test Nearest Locations 
-     * 
+     * Test Nearest Locations
+     *
      * Get nearest locations based on geo coordinates
-     * 
+     *
      * @group location
      */
     public function testGetNearestLocationsGeo()
@@ -211,18 +212,18 @@ class CifApiTest extends TestCase
         $request->setCountryCode('NL')
             ->setLatitude('52.2864669620795')
             ->setLongitude('4.68239055845954')
-            ->setDeliveryDate('01-01-2999')
+            ->setDeliveryDate('01-01-2030')
             ->setOpeningTime('09:00:00')
             ->addDeliveryOptions('PG');
         $response = $this->client->getAPI('location')->getNearestLocationsGeo($request);
         $this->assertTrue(count($response->getLocations()) >0);
     }
-  
+
     /**
      * Test Nearest Locations Area
-     * 
+     *
      * Get nearest locations instance based on area
-     * 
+     *
      * @group location
      */
     public function testGetNearestLocationsArea()
@@ -231,19 +232,19 @@ class CifApiTest extends TestCase
         $request->setCountryCode('NL')
             ->setLatitude(['52.156439', '5.065254', '52.017473', '5.015643'])
             ->setLongitude(['52.156439', '5.065254', '52.017473', '5.015643'])
-            ->setDeliveryDate('01-01-2999')
+            ->setDeliveryDate('01-01-2030')
             ->setOpeningTime('09:00:00')
             ->addDeliveryOptions('PG');
         $response = $this->client->getAPI('location')->getNearestLocationsArea($request);
         $this->assertTrue(count($response->getLocations()) >0);
     }
-  
+
 
     /**
      * Test Location detail
-     * 
+     *
      * Get location information based on location code and retail network id
-     * 
+     *
      * @group location
      */
     public function testGetLocation()
@@ -254,12 +255,12 @@ class CifApiTest extends TestCase
         $response = $this->client->getAPI('location')->getLocation($request);
         $this->assertInstanceOf('Avido\PostNLCifClient\Entities\Location', $response);
     }
-  
+
     /**
      * Time frame test
-     * 
+     *
      * Get timeframe instance
-     * 
+     *
      * @group timeframe
      */
     public function testTimeframeInstance()
@@ -278,23 +279,23 @@ class CifApiTest extends TestCase
             ->addDeliveryOption('Evening');
 //            ->addDeliveryOption('Sameday')
 //            ->addDeliveryOption('Morning');
-        
+
         $response = $this->client->getAPI('timeframe')->getTimeframes($request);
         $this->assertInstanceOf('Avido\PostNLCifClient\Response\DeliveryOptions\Timeframe\TimeframesResponse', $response);
     }
-    
+
     /**
      * Time frame test
-     * 
+     *
      * Test timeframe exception
-     * 
+     *
      * @group timeframe
      * @group exceptions
      */
     public function testTimeframeException()
     {
         $this->expectException(CifClientException::class);
-        
+
         $request = new TimeframeRequest();
         $request->setAllowSundaySorting(false)
             ->setPostalCode('2132WT')
@@ -307,15 +308,15 @@ class CifApiTest extends TestCase
             ->addDeliveryOption('Evening');
 //            ->addDeliveryOption('Sameday')
 //            ->addDeliveryOption('Morning');
-        
+
         $response = $this->client->getAPI('timeframe')->getTimeframes($request);
     }
-    
+
     /**
      * Time frame test
-     * 
+     *
      * Get timeframes
-     * 
+     *
      * @group timeframe
      */
     public function testTimeframes()
@@ -334,16 +335,16 @@ class CifApiTest extends TestCase
             ->addDeliveryOption('Evening');
 //            ->addDeliveryOption('Sameday')
 //            ->addDeliveryOption('Morning');
-        
+
         $response = $this->client->getAPI('timeframe')->getTimeframes($request);
         $this->assertTrue(count($response->getTimeframes()) >0);
     }
-    
+
     /**
      * Time frame test
-     * 
+     *
      * Get timeframes as array
-     * 
+     *
      * @group timeframe
      */
     public function testTimeframesAsArray()
@@ -362,19 +363,19 @@ class CifApiTest extends TestCase
             ->addDeliveryOption('Evening');
 //            ->addDeliveryOption('Sameday')
 //            ->addDeliveryOption('Morning');
-        
+
         $response = $this->client->getAPI('timeframe')->getTimeframes($request);
         $this->assertTrue(count($response->asArray()) >0);
     }
-    
+
     /**
      * Deliverydate test
-     * 
+     *
      * Get Delivery date instance
-     * 
+     *
      * @group deliverydate
      */
-    
+
     public function testDeliveryDateInstance()
     {
         $request = new DeliverydateRequest();
@@ -389,20 +390,20 @@ class CifApiTest extends TestCase
             ->setHouseNumber(22)
             ->setHouseNumberExt('a')
             ->addDeliveryOption('evening');
-        
+
         $response = $this->client->getAPI('deliverydate')->getDeliveryDate($request);
         $this->assertInstanceOf('Avido\PostNLCifClient\Response\DeliveryOptions\Deliverydate\DeliverydateResponse', $response);
     }
-    
+
     /**
      * Deliverydate test
-     * 
+     *
      * Test Delivery date exception
-     * 
+     *
      * @group deliverydate
      * @group exceptions
      */
-    
+
     public function testDeliveryDateException()
     {
         $this->expectException(CifClientException::class);
@@ -417,18 +418,18 @@ class CifApiTest extends TestCase
             ->setHouseNumber(22)
             ->setHouseNumberExt('a')
             ->addDeliveryOption('evening');
-        
+
         $response = $this->client->getAPI('deliverydate')->getDeliveryDate($request);
     }
-  
+
     /**
      * Deliverydate test
-     * 
+     *
      * Get Delivery date instance
-     * 
+     *
      * @group deliverydate
      */
-    
+
     public function testDeliveryDate()
     {
         $request = new DeliverydateRequest();
@@ -443,20 +444,20 @@ class CifApiTest extends TestCase
             ->setHouseNumber(22)
             ->setHouseNumberExt('a')
             ->addDeliveryOption('evening');
-        
+
         $response = $this->client->getAPI('deliverydate')->getDeliveryDate($request);
         $this->assertNotNull($response->getDeliveryDate());
-        
+
     }
-    
+
     /**
      * Shippingdate test
-     * 
+     *
      * Get Shipping date instance
-     * 
+     *
      * @group deliverydate
      */
-    
+
     public function testShippingDateInstance()
     {
         $request = new ShippingdateRequest();
@@ -469,20 +470,20 @@ class CifApiTest extends TestCase
             ->setStreet('Siriusdreef')
             ->setHouseNumber(22)
             ->setHouseNumberExt('a');
-        
+
         $response = $this->client->getAPI('deliverydate')->getShippingDate($request);
         $this->assertInstanceOf('Avido\PostNLCifClient\Response\DeliveryOptions\Deliverydate\ShippingdateResponse', $response);
     }
-    
+
     /**
      * Shippingdate test
-     * 
+     *
      * Test Shipping date exception
-     * 
+     *
      * @group deliverydate
      * @group exceptions
      */
-    
+
     public function testShippingDateException()
     {
         $this->expectException(CifClientException::class);
@@ -495,18 +496,18 @@ class CifApiTest extends TestCase
             ->setStreet('Siriusdreef')
             ->setHouseNumber(22)
             ->setHouseNumberExt('a');
-        
+
         $response = $this->client->getAPI('deliverydate')->getShippingDate($request);
     }
-  
+
     /**
      * Shippingdate test
-     * 
+     *
      * Get Shippingdate
-     * 
+     *
      * @group deliverydate
      */
-    
+
     public function testShippingDate()
     {
         $request = new ShippingdateRequest();
@@ -519,11 +520,11 @@ class CifApiTest extends TestCase
             ->setStreet('Siriusdreef')
             ->setHouseNumber(22)
             ->setHouseNumberExt('a');
-        
+
         $response = $this->client->getAPI('deliverydate')->getShippingDate($request);
         $this->assertNotNull($response->getShippingDate());
     }
-    
+
     /**
      * Get Barcode Test
      *
@@ -533,14 +534,14 @@ class CifApiTest extends TestCase
     {
         $type = '3S';
 //        $serie = '000000000-99999999';
-        // Serie will be automatically detected based on $type and $domestic 
-        $serie = null; 
+        // Serie will be automatically detected based on $type and $domestic
+        $serie = null;
         $domestic = true;
         $response = $this->client->getAPI('barcode')->getBarcode($type, $serie, null, $domestic);
         $this->assertNotNull($response->getBarcode());
         return $response->getBarcode();
     }
-    
+
     /**
      * Get Barcode Global Pack Test
      *
@@ -554,7 +555,7 @@ class CifApiTest extends TestCase
         $this->assertNotNull($response->getBarcode());
         return $response->getBarcode();
     }
-    
+
     /**
      * Get Barcode Invalid Type Exception Test
      *
@@ -565,11 +566,11 @@ class CifApiTest extends TestCase
     {
         $this->expectException(invalidBarcodeTypeException::class);
         $type = '3Sss'; // invalid type
-        $serie = null; 
+        $serie = null;
         $domestic = true;
         $response = $this->client->getAPI('barcode')->getBarcode($type, $serie, null, $domestic);
     }
-    
+
     /**
      * Get Barcode API Exception Test
      * Raise API Exception by forcing invalid series
@@ -588,7 +589,7 @@ class CifApiTest extends TestCase
 
     /**
      * Get Shipment Label test
-     * 
+     *
      * @group label
      */
     public function testLabelRequestWithoutConfirm()
@@ -597,11 +598,11 @@ class CifApiTest extends TestCase
         $productCodeDelivery = 3085;
         // test helper
         $customer = $this->getCustomerEntity();
-        
+
         $request = new LabelRequest();
         $request->setCustomer($customer);
         $request->setPrinter($printer);
-        
+
         // receiver address
         $receiver = Address::create()
             ->setAddressType('01')
@@ -616,11 +617,11 @@ class CifApiTest extends TestCase
             ->setCountrycode('NL');
         //sender
         $sender = $this->getSenderEntity();
-        
+
         // request barcode for shipment (depends)
         $type = '3S';
         $barcode = $this->client->getAPI('barcode')->getBarcode($type);
-        
+
         // create shipment instance.
         $shipment = Shipment::create()
             ->addAddress($receiver)
@@ -639,13 +640,13 @@ class CifApiTest extends TestCase
             ->setRemark('Ship Unit test');
         $request->addShipment($shipment);
         $response = $this->client->getAPI('labelling')->getLabel($request, false);
-        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\Labelling\LabelResponse', $response);        
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\Labelling\LabelResponse', $response);
     }
-    
+
     /**
      * Get Shipment Label test
-     * 
-     * @group labelx
+     *
+     * @group label
      */
     public function testLabelRequestWithConfirm()
     {
@@ -653,11 +654,11 @@ class CifApiTest extends TestCase
         $productCodeDelivery = 3085;
         // test helper
         $customer = $this->getCustomerEntity();
-        
+
         $request = new LabelRequest();
         $request->setCustomer($customer);
         $request->setPrinter($printer);
-        
+
         // receiver address
         $receiver = Address::create()
             ->setAddressType('01')
@@ -672,11 +673,11 @@ class CifApiTest extends TestCase
             ->setCountrycode('NL');
         //sender
         $sender = $this->getSenderEntity();
-        
+
         // request barcode for shipment (depends)
         $type = '3S';
         $barcode = $this->client->getAPI('barcode')->getBarcode($type);
-        
+
         // create shipment instance.
         $shipment = Shipment::create()
             ->addAddress($receiver)
@@ -695,14 +696,14 @@ class CifApiTest extends TestCase
             ->setRemark('Ship Unit test');
         $request->addShipment($shipment);
         $response = $this->client->getAPI('labelling')->getLabel($request, true);
-        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\Labelling\LabelResponse', $response);        
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\Labelling\LabelResponse', $response);
         // return used barcode (for shipping status tests)
         return $barcode->getBarcode();
     }
-    
+
     /**
      * Get Shipment Label COD (Cash On Delivery) test
-     * 
+     *
      * @group label
      */
     public function testLabelRequestCOD()
@@ -711,11 +712,11 @@ class CifApiTest extends TestCase
         $productCodeDelivery = 3086;
         // test helper
         $customer = $this->getCustomerEntity();
-        
+
         $request = new LabelRequest();
         $request->setCustomer($customer);
         $request->setPrinter($printer);
-        
+
         // receiver address
         $receiver = Address::create()
             ->setAddressType('01')
@@ -730,11 +731,11 @@ class CifApiTest extends TestCase
             ->setCountrycode('NL');
         //sender
         $sender = $this->getSenderEntity();
-        
+
         // request barcode for shipment (depends)
         $type = '3S';
         $barcode = $this->client->getAPI('barcode')->getBarcode($type);
-        
+
         // amounts for COD
         $amount = Amount::create()
             ->setAmountType(Amount::TYPE_COD)
@@ -744,7 +745,7 @@ class CifApiTest extends TestCase
             ->setIBAN('NL47INGB0009102236')
             ->setTransactionNumber('1234')
             ->setValue(120.12);
-        
+
         // create shipment instance.
         $shipment = Shipment::create()
             ->addAddress($receiver)
@@ -765,12 +766,12 @@ class CifApiTest extends TestCase
         $request->addShipment($shipment);
         $response = $this->client->getAPI('labelling')->getLabel($request, true);
         $this->storeLabel($response);
-        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\Labelling\LabelResponse', $response);        
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\Labelling\LabelResponse', $response);
     }
 
     /**
      * Get Shipment Label COD (Cash On Delivery) With Extra Cover test
-     * 
+     *
      * @group label
      */
     public function testLabelRequestCODExtraCover()
@@ -779,11 +780,11 @@ class CifApiTest extends TestCase
         $productCodeDelivery = 3091;
         // test helper
         $customer = $this->getCustomerEntity();
-        
+
         $request = new LabelRequest();
         $request->setCustomer($customer);
         $request->setPrinter($printer);
-        
+
         // receiver address
         $receiver = Address::create()
             ->setAddressType('01')
@@ -798,13 +799,13 @@ class CifApiTest extends TestCase
             ->setCountrycode('NL');
         //sender
         $sender = $this->getSenderEntity();
-        
+
         // request barcode for shipment (depends)
         $type = '3S';
         $barcode = $this->client->getAPI('barcode')->getBarcode($type);
-        
+
         $amounts = [];
-        
+
         // amounts for COD
         $amounts[] = Amount::create()
             ->setAmountType(Amount::TYPE_COD)
@@ -819,7 +820,7 @@ class CifApiTest extends TestCase
             ->setAmountType(Amount::TYPE_INSURED)
             ->setCurrency('EUR')
             ->setValue(500);
-        
+
         // create shipment instance.
         $shipment = Shipment::create()
             ->addAddress($receiver)
@@ -840,12 +841,12 @@ class CifApiTest extends TestCase
         $request->addShipment($shipment);
         $response = $this->client->getAPI('labelling')->getLabel($request, true);
         $this->storeLabel($response);
-        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\Labelling\LabelResponse', $response);        
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\Labelling\LabelResponse', $response);
     }
-    
+
     /**
      * Get Shipment Label COD (Cash On Delivery) Exception test
-     * 
+     *
      * @group label
      * @group exceptions
      */
@@ -856,11 +857,11 @@ class CifApiTest extends TestCase
         $productCodeDelivery = 3086;
         // test helper
         $customer = $this->getCustomerEntity();
-        
+
         $request = new LabelRequest();
         $request->setCustomer($customer);
         $request->setPrinter($printer);
-        
+
         // receiver address
         $receiver = Address::create()
             ->setAddressType('01')
@@ -875,11 +876,11 @@ class CifApiTest extends TestCase
             ->setCountrycode('NL');
         //sender
         $sender = $this->getSenderEntity();
-        
+
         // request barcode for shipment (depends)
         $type = '3S';
         $barcode = $this->client->getAPI('barcode')->getBarcode($type);
-        
+
         // create shipment instance.
         $shipment = Shipment::create()
             ->addAddress($receiver)
@@ -899,10 +900,10 @@ class CifApiTest extends TestCase
         $request->addShipment($shipment);
         $response = $this->client->getAPI('labelling')->getLabel($request, true);
     }
-    
+
     /**
      * Get Shipment Label EPS (Belgium) test
-     * 
+     *
      * @group label
      */
     public function testLabelRequestEpsBelgium()
@@ -911,11 +912,11 @@ class CifApiTest extends TestCase
         $productCodeDelivery = 4944;
         // test helper
         $customer = $this->getCustomerEntity();
-        
+
         $request = new LabelRequest();
         $request->setCustomer($customer);
         $request->setPrinter($printer);
-        
+
         // receiver address
         $receiver = Address::create()
             ->setAddressType('01')
@@ -930,7 +931,7 @@ class CifApiTest extends TestCase
             ->setCountrycode('BE');
         //sender
         $sender = $this->getSenderEntity();
-        
+
         // request barcode for shipment (depends)
         $barcode = $this->client->getAPI('barcode')->getBarcodeByDestination('BE');
         // create shipment instance.
@@ -952,12 +953,12 @@ class CifApiTest extends TestCase
         $request->addShipment($shipment);
         $response = $this->client->getAPI('labelling')->getLabel($request, false);
         $this->storeLabel($response);
-        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\Labelling\LabelResponse', $response);        
-    }    
-    
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\Labelling\LabelResponse', $response);
+    }
+
     /**
      * Get Shipment Label EPS (Belgium) Exception test
-     * 
+     *
      * @group label
      * @group exceptions
      */
@@ -969,11 +970,11 @@ class CifApiTest extends TestCase
         $productCodeDelivery = 4960; // <!-- belgium domestic shipments only (we test from sender NL)
         // test helper
         $customer = $this->getCustomerEntity();
-        
+
         $request = new LabelRequest();
         $request->setCustomer($customer);
         $request->setPrinter($printer);
-        
+
         // receiver address
         $receiver = Address::create()
             ->setAddressType('01')
@@ -988,7 +989,7 @@ class CifApiTest extends TestCase
             ->setCountrycode('BE');
         //sender
         $sender = $this->getSenderEntity();
-        
+
         // request barcode for shipment (depends)
         $barcode = $this->client->getAPI('barcode')->getBarcodeByDestination('BE');
         // create shipment instance.
@@ -1009,8 +1010,8 @@ class CifApiTest extends TestCase
             ->setRemark('Ship Unit test BE');
         $request->addShipment($shipment);
         $response = $this->client->getAPI('labelling')->getLabel($request, false);
-    }    
-    
+    }
+
     /**
      * Test Label request with pickup location
      *
@@ -1022,7 +1023,7 @@ class CifApiTest extends TestCase
         $productCodeDelivery = 3533;
         // test helper
         $customer = $this->getCustomerEntity();
-        
+
         // get location for pickup.
         $request = new NearestLocationsRequest();
         $request->setCountryCode('NL')
@@ -1030,7 +1031,7 @@ class CifApiTest extends TestCase
             ->setCity('Hoofddorp')
             ->setStreet('Siriusdreef')
             ->setHouseNumber(42)
-            ->setDeliveryDate('01-01-2999')
+            ->setDeliveryDate('01-01-2030')
             ->setOpeningTime('09:00:00')
             ->addDeliveryOptions('PG');
         $response = $this->client->getAPI('location')->getNearestLocations($request);
@@ -1042,7 +1043,7 @@ class CifApiTest extends TestCase
         $request = new LabelRequest();
         $request->setCustomer($customer);
         $request->setPrinter($printer);
-        
+
         // receiver (pickup receiver) address
         $receiver = Address::create()
             ->setAddressType(Address::RECEIVER)
@@ -1065,13 +1066,13 @@ class CifApiTest extends TestCase
             ->setZipcode($location->getAddress()->getZipcode())
             ->setCity($location->getAddress()->getCity())
             ->setCountrycode($location->getAddress()->getCountryCode());
-        
+
         // sender
         $sender = $this->getSenderEntity();
         // request barcode for shipment (depends)
         $type = '3S';
         $barcode = $this->client->getAPI('barcode')->getBarcode($type);
-        
+
         // create shipment instance.
         $shipment = Shipment::create()
             ->addAddress($receiver)
@@ -1094,9 +1095,9 @@ class CifApiTest extends TestCase
         $request->addShipment($shipment);
         $response = $this->client->getAPI('labelling')->getLabel($request, false);
 //        $this->storeLabel($response);
-        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\Labelling\LabelResponse', $response);        
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\Labelling\LabelResponse', $response);
     }
-    
+
     /**
      * Test Label request Evening Delivery
      *
@@ -1109,10 +1110,10 @@ class CifApiTest extends TestCase
         $productCodeDelivery = 3089;
         // evening delivery requires product option.
         $productOption = new ProductOption('evening');
-        
+
         // test helper
         $customer = $this->getCustomerEntity();
-        
+
         // delivery date
         $date = new DateTime();
         $date->modify('+1 weekday');
@@ -1120,7 +1121,7 @@ class CifApiTest extends TestCase
         $request = new LabelRequest();
         $request->setCustomer($customer);
         $request->setPrinter($printer);
-        
+
         // receiver (pickup receiver) address
         $receiver = Address::create()
             ->setAddressType(Address::RECEIVER)
@@ -1138,7 +1139,7 @@ class CifApiTest extends TestCase
         // request barcode for shipment (depends)
         $type = '3S';
         $barcode = $this->client->getAPI('barcode')->getBarcode($type);
-        
+
         // create shipment instance.
         $shipment = Shipment::create()
             ->addAddress($receiver)
@@ -1160,13 +1161,13 @@ class CifApiTest extends TestCase
         $request->addShipment($shipment);
         $response = $this->client->getAPI('labelling')->getLabel($request, false);
 //        $this->storeLabel($response);
-        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\Labelling\LabelResponse', $response);        
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\Labelling\LabelResponse', $response);
     }
-    
-    
+
+
     /**
      * Get Shipment Label Multi-Collo test
-     * 
+     *
      * @group label
      */
     public function testLabelMultiColloRequestWithoutConfirm()
@@ -1178,11 +1179,11 @@ class CifApiTest extends TestCase
         $helper = ProductOptions::getProduct($productCodeDelivery);
         // test helper
         $customer = $this->getCustomerEntity();
-        
+
         $request = new LabelRequest();
         $request->setCustomer($customer);
         $request->setPrinter($printer);
-        
+
         // receiver address
         $receiver = Address::create()
             ->setAddressType('01')
@@ -1199,12 +1200,12 @@ class CifApiTest extends TestCase
         $sender = $this->getSenderEntity();
 
         // create mutli collo shipments.
-        
+
         // create main barcode
         // request barcode for shipment (depends)
         $type = '3S';
         $mainBarcode = $this->client->getAPI('barcode')->getBarcode($type);
-        
+
         for ($i=1; $i <= $numberOfShipments; $i++) {
             // create barcode for shipment.
             $barcode = $this->client->getAPI('barcode')->getBarcode('3S');
@@ -1212,7 +1213,7 @@ class CifApiTest extends TestCase
                 // copy barcode as main
                 $mainBarcode = $barcode;
             }
-            
+
             // create shipment instance.
             $shipment = Shipment::create()
                 ->addAddress($receiver)
@@ -1240,22 +1241,22 @@ class CifApiTest extends TestCase
         $response = $this->client->getAPI('labelling')->getLabel($request, false);
         $this->assertTrue(count($response->getShipments()) === $numberOfShipments);
     }
-    
+
     /**
      * Get Shipment GlobalPack Label test
-     * 
+     *
      * @group label
      */
     public function testLabelGlobalPackRequest()
     {
-        
+
         $productCodeDelivery = 4945;
         // get product options helper.
         $helper = ProductOptions::getProduct($productCodeDelivery);
         $customer = $this->getCustomerEntity();
-        
+
         $printer = 'GraphicFile|PDF';
-        
+
         // receiver address
         $receiver = Address::create()
             ->setAddressType('01')
@@ -1269,18 +1270,18 @@ class CifApiTest extends TestCase
             ->setCountrycode('US');
         //sender
         $sender = $this->getSenderEntity();
-        
+
         // request barcode for shipment (depends)
         $type = 'CD';
         // update customer information for Global Pack shipment
         $customerCode = getenv('CUST_CODE_GLOBAL_PACK');
-        
+
         $this->client->getAPI('barcode')->setCustomerCode($customerCode);
-        
+
         $tmp= $this->client->getAPI('barcode')->getBarcode($type, null, $customerCode, false)->getBarcode();
 //        $tmp = '3STBJG274863219';
         $amounts = [];
-        // customs 
+        // customs
         $customsItem = CustomsContent::create()
             ->setCountryOfOrigin('NL')
             ->setDescription('Some Sunglass Product')
@@ -1296,7 +1297,7 @@ class CifApiTest extends TestCase
             ->setInvoice(true)
             ->setInvoiceNumber('RB1234-verkoop')
             ->setShipmentType(Customs::TYPE_COMMERICAL_GOODS);
-        
+
         // create shipment instance.
         $shipment = Shipment::create()
             ->addAddress($receiver)
@@ -1317,7 +1318,7 @@ class CifApiTest extends TestCase
             ->setAmounts($amounts)
             ->setProductCodeDelivery($productCodeDelivery)
             ->setCustoms($customs);
-        
+
         $request = new LabelRequest();
         $request->setCustomer($customer);
         $request->setPrinter($printer);
@@ -1329,7 +1330,7 @@ class CifApiTest extends TestCase
 
     /**
      * Get Shipment Label test
-     * 
+     *
      * @group label
      */
     public function testLabelGlobalPackChina()
@@ -1338,9 +1339,9 @@ class CifApiTest extends TestCase
         // get product options helper.
         $helper = ProductOptions::getProduct($productCodeDelivery);
         $customer = $this->getCustomerEntity();
-        
+
         $printer = 'GraphicFile|PDF';
-        
+
         // receiver address
         $receiver = Address::create()
             ->setAddressType('01')
@@ -1354,13 +1355,13 @@ class CifApiTest extends TestCase
             ->setCountrycode('CN');
         //sender
         $sender = $this->getSenderEntity();
-        
+
         // request barcode for shipment (depends)
         $type = 'CD';
         // update customer information for Global Pack shipment
         $customerCode = getenv('CUST_CODE_GLOBAL_PACK');
         $this->client->getAPI('barcode')->setCustomerCode($customerCode);
-        
+
         $tmp= $this->client->getAPI('barcode')->getBarcode($type, null, $customerCode, false)->getBarcode();
         $amounts = [];
         // COD
@@ -1381,7 +1382,7 @@ class CifApiTest extends TestCase
                 ->setCurrency('EUR')
                 ->setValue(500);
         }
-        // customs 
+        // customs
         $customsItem = CustomsContent::create()
             ->setCountryOfOrigin('NL')
             ->setDescription('Dikke RayBan')
@@ -1397,7 +1398,7 @@ class CifApiTest extends TestCase
             ->setInvoice(true)
             ->setInvoiceNumber('RB1234-verkoop')
             ->setShipmentType(Customs::TYPE_COMMERICAL_GOODS);
-        
+
         // create shipment instance.
         $shipment = Shipment::create()
             ->addAddress($receiver)
@@ -1418,12 +1419,12 @@ class CifApiTest extends TestCase
             ->setAmounts($amounts)
             ->setProductCodeDelivery($productCodeDelivery)
             ->setCustoms($customs);
-        
+
         $request = new LabelRequest();
         $request->setCustomer($customer);
         $request->setPrinter($printer);
         $request->addShipment($shipment);
-        
+
         $response = $this->client->getAPI('labelling')->getLabel($request, false);
         $this->assertTrue(count($response->getShipments()) === 1);
     }
@@ -1431,7 +1432,7 @@ class CifApiTest extends TestCase
 
     /**
      * Test shipment confirm
-     * 
+     *
      * @group confirm
      */
     public function testConfirmShipment()
@@ -1439,10 +1440,10 @@ class CifApiTest extends TestCase
         $productCodeDelivery = 3085;
         // test helper
         $customer = $this->getCustomerEntity();
-        
+
         $request = new ConfirmRequest();
         $request->setCustomer($customer);
-        
+
         $barcode = "3STBJG970139141";
         // receiver address
         $receiver = Address::create()
@@ -1468,7 +1469,7 @@ class CifApiTest extends TestCase
             ->setZipcode('2132WT')
             ->setCity('Hoofddorp')
             ->setCountrycode('NL');
-        
+
         // create shipment instance.
         $shipment = Shipment::create()
             ->addAddress($receiver)
@@ -1489,24 +1490,24 @@ class CifApiTest extends TestCase
         $response = $this->client->getAPI('confirming')->confirm($request, false);
         $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\Confirming\ConfirmResponse', $response);
     }
-    
+
     /**
      * Test shipment confirm
-     * 
+     *
      * @group confirm
      * @group exceptions
      */
     public function testConfirmShipmentException()
     {
         $this->expectException(CifClientException::class);
-        
+
         $productCodeDelivery = 3085;
         // test helper
         $customer = $this->getCustomerEntity();
-        
+
         $request = new ConfirmRequest();
         $request->setCustomer($customer);
-        
+
         $barcode = "3STBJG970139141";
         // receiver address
         $receiver = Address::create()
@@ -1532,7 +1533,7 @@ class CifApiTest extends TestCase
             ->setZipcode('2132WT')
             ->setCity('Hoofddorp')
             ->setCountrycode('NL');
-        
+
         // create shipment instance.
         $shipment = Shipment::create()
 //            ->addAddress($receiver)
@@ -1552,10 +1553,10 @@ class CifApiTest extends TestCase
         $request->setShipment($shipment);
         $response = $this->client->getAPI('confirming')->confirm($request, false);
     }
-    
+
     /**
      * Test shipping status, current status
-     * 
+     *
      * @group shippingstatus
      * @group no-ci-test
      */
@@ -1589,7 +1590,7 @@ class CifApiTest extends TestCase
         $barcode = $this->client->getAPI('barcode')->getBarcodeByDestination('NL')->getBarcode();
         $response = $this->client->getAPI('shippingstatus')->getCompleteStatus($barcode);
         $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\ShippingStatus\StatusResponse', $response);
-    }        
+    }
     /**
      * Test Current Status By Reference
      *
@@ -1602,7 +1603,7 @@ class CifApiTest extends TestCase
         $response = $this->client->getAPI('shippingstatus')->getCompleteStatusByReference($reference);
         $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\ShippingStatus\StatusResponse', $response);
     }
-    
+
     /**
      * Test Get Signature
      *
@@ -1614,18 +1615,18 @@ class CifApiTest extends TestCase
         $barcode = $this->client->getAPI('barcode')->getBarcodeByDestination('NL')->getBarcode();
         $response = $this->client->getAPI('shippingstatus')->getSignature($barcode);
         $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\ShippingStatus\StatusResponse', $response);
-    }        
-    
+    }
+
     /**
      * Sender Entitiy For REST Call
-     * @return Customer 
+     * @return Customer
      */
     private function getCustomerEntity()
     {
         $customerCode = getenv('CUST_CODE');
         $customerNumber = getenv('CUST_NUMBER');
         $collectionLocation = getenv('COLLECTION_LOCATION');
-        
+
         $customer = Customer::create()
             ->setCustomerCode($customerCode)
             ->setCustomerNumber($customerNumber)
@@ -1643,10 +1644,10 @@ class CifApiTest extends TestCase
             ->setContactPerson('Janssen')
             ->setEmail('test@test.nl')
             ->setName('Janssen');
-        
+
         return $customer;
     }
-    
+
     /**
      * Sender Entitiy for label related api calls
      * @return Address
@@ -1666,7 +1667,7 @@ class CifApiTest extends TestCase
             ->setCountrycode('NL');
         return $sender;
     }
-    
+
     // tmp for viewing generated labels
     private function storeLabel($resp)
     {
@@ -1676,5 +1677,4 @@ class CifApiTest extends TestCase
             }
         }
     }
-    
 }

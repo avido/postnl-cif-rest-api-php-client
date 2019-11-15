@@ -145,7 +145,7 @@ class ConfirmRequest extends BaseRequest
             'Message' => !is_null($this->getMessage()) ? $this->getMessage()->toArray() : null,
             'Shipments' => !is_null($this->getShipment()) ? [$this->getShipment()->toArray()] : []
         ];
-        $body= json_encode($body);
+        $body= json_encode($this->filterEmptyArrayValues($body));
         return $body;
     }
 }

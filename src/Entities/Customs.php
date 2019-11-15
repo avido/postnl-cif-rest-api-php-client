@@ -219,7 +219,7 @@ class Customs extends BaseEntity
      * @param string $invoice_number
      * @return $this
      */
-    public function setInvoiceNumber(string $invoice_number): Customss
+    public function setInvoiceNumber(string $invoice_number): Customs
     {
         $this->InvoiceNr = $invoice_number;
         return $this;

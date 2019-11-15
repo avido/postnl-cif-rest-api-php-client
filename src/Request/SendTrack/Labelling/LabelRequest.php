@@ -70,13 +70,14 @@ use Avido\PostNLCifClient\Request\BaseRequest;
 use Avido\PostNLCifClient\Entities\Address;
 use Avido\PostNLCifClient\Entities\Customer;
 use Avido\PostNLCifClient\Entities\Shipment;
-use Avido\PostNLCifClient\Entities\LabelMessage;
+use Avido\PostNLCifClient\Entities\Message;
+
 
 class LabelRequest extends BaseRequest
 {
     private $endpoint = 'shipment';
     private $path = 'label';
-    private $version = '2_1';
+    private $version = '2_2';
 
     private $printer = null;
     // body entities
@@ -128,9 +129,9 @@ class LabelRequest extends BaseRequest
         return $this;
     }
 
-    public function getMessage(): LabelMessage
+    public function getMessage(): Message
     {
-        $message = LabelMessage::create()
+        $message = Message::create()
             ->setMessageId('01')
             ->setPrinterType($this->getPrinter());
         return $message;
@@ -148,7 +149,7 @@ class LabelRequest extends BaseRequest
             'Message' => $this->getMessage()->toArray(),
             'Shipments' => $this->getShipmentsArray()
         ];
-        $body= json_encode($body);
+        $body= json_encode($this->filterEmptyArrayValues($body));
         return $body;
     }
 

@@ -11,7 +11,7 @@ namespace Avido\PostNLCifClient\Request;
 
 use Avido\PostNLCifClient\BaseModel;
 use Avido\PostNLCifClient\Entities\Customer;
-use Avido\PostNLCifClient\Entities\message;
+use Avido\PostNLCifClient\Entities\Message;
 
 class BaseRequest extends BaseModel
 {
@@ -260,5 +260,29 @@ class BaseRequest extends BaseModel
             $return[ucfirst($this->camelCase($key))] = $val;
         }
         return $return;
+    }
+
+    /**
+     * Filter empty key/value from array
+     *
+     * @accsss protected
+     * @param array $array
+     * @return array
+     */
+    protected function filterEmptyArrayValues(array $array): array
+    {
+        $return = [];
+
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $return[$key] = $this->filterEmptyArrayValues($value);
+            } else {
+                if ($value != '') {
+                    $return[$key] = $value;
+                }
+            }
+        }
+        return $return;
+//        return array_filter($array);
     }
 }

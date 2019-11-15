@@ -14,6 +14,7 @@ namespace Avido\PostNLCifClient;
 */
 
 use Avido\PostNLCifClient\Exceptions\CifClientException;
+use Avido\PostNLCifClient\Exceptions\RateLimitException;
 
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
@@ -102,7 +103,7 @@ abstract class BaseClient
      * @param string $customerCode
      * @param string $collectionLocation
      * @param boolean $sandbox
-     * @param mixed Monolog\Handler|null $logger
+     * @param mixed Monolog\Logger |null $logger
      */
     public function __construct(
         string $apiKey,
@@ -110,7 +111,7 @@ abstract class BaseClient
         string $customerCode = null,
         string $collectionLocation = null,
         bool $sandbox = false,
-        ?\Monolog\Handler\AbstractHandler $logger = null
+        ?\Monolog\Logger $logger = null
     ) {
         $this->setApiKey($apiKey)
             ->setCustomerNumber($customerNumber)
@@ -129,7 +130,7 @@ abstract class BaseClient
      * @param string $apiKey
      * @return $this
      */
-    public function setApiKey(string $apiKey): BaseClient
+    public function setApiKey(string $apiKey)
     {
         $this->apiKey = $apiKey;
         return $this;
@@ -142,7 +143,7 @@ abstract class BaseClient
      * @param boolean $mode
      * @return $this
      */
-    public function setTestMode(bool $mode): BaseClient
+    public function setTestMode(bool $mode)
     {
         $this->testMode = $mode;
         return $this;
@@ -155,7 +156,7 @@ abstract class BaseClient
      * @param string $customer_number
      * @return $this
      */
-    public function setCustomerNumber(string $customer_number): CifApi
+    public function setCustomerNumber(string $customer_number)
     {
         $this->customerNumber = $customer_number;
         return $this;
@@ -179,7 +180,7 @@ abstract class BaseClient
      * @param string $customer_code
      * @return $this
      */
-    public function setCustomerCode(string $customer_code): BaseClient
+    public function setCustomerCode(string $customer_code)
     {
         $this->customerCode = $customer_code;
         return $this;
@@ -203,7 +204,7 @@ abstract class BaseClient
      * @param string $collection_location
      * @return $this
      */
-    public function setCollectionLocation(string $collection_location): BaseClient
+    public function setCollectionLocation(string $collection_location)
     {
         $this->collectionLocation = $collection_location;
         return $this;
@@ -224,10 +225,10 @@ abstract class BaseClient
      * Set logger
      *
      * @access public
-     * @param Monolog\Handler $logger
+     * @param Monolog\Logger $logger
      * @return $this
      */
-    public function setLogger(\Monolog\Handler\AbstractHandler $logger): BaseClient
+    public function setLogger(\Monolog\Logger $logger)
     {
         $this->logger = $logger;
         return $this;
@@ -319,7 +320,7 @@ abstract class BaseClient
      * @throws RequestException
      * @throws Exception
      */
-    protected function makeRequest(string $method = 'GET', string $endpoint = '', ?string $payload = null)
+    protected function makeRequest(string $method = 'GET', string $endpoint = '', ?array $payload = null)
     {
         if ($endpoint === '') {
             throw new \BadMethodCallException("Missing endpoint");
@@ -379,8 +380,12 @@ abstract class BaseClient
                 // throw no response error
             }
         } catch (RequestException $e) {
-            // get response body
+            // for some reason PostNL throws Rate Limit Exceptions as Soap/Xml
             $response = $e->getResponse()->getBody()->getContents();
+            // simple check for xml string.
+            if ($response !== '' && substr($response, 0, 5) === '<?xml') {
+                throw new RateLimitException($response);
+            }
             // PostNL doesn't seem to make up their mind about the error format.
             // therefore set the json as exception response. So each API can handle the error format
             throw new CifClientException($response);

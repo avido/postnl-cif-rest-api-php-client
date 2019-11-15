@@ -138,7 +138,7 @@ class Dimension extends BaseEntity
      * @param int $width
      * @return $this
      */
-    public function setWidth(int $width): Dimensio
+    public function setWidth(int $width): Dimension
     {
         $this->Width= $width;
         return $this;
