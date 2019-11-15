@@ -30,7 +30,7 @@ class BarcodeApi extends BaseClient
     // barcode types
     const BARCODE_TYPE_DOMESTIC_EPS = "3S";
     const BARCODE_TYPE_GLOBAL_PACK = "CD";
-    
+
     /**
      * Possible barcodes series per barcode type.
      */
@@ -38,7 +38,7 @@ class BarcodeApi extends BaseClient
     const NL_BARCODE_SERIE = '000000000-999999999';
     const EU_BARCODE_SERIE = '0000000-9999999';
     const GLOBAL_BARCODE_SERIE    = '0000-9999';
-    
+
     /**
      *Map Country Code to Barcode Type.
      * If country code is present in this array the barcode type should be Global Pack
@@ -79,7 +79,7 @@ class BarcodeApi extends BaseClient
      * @var array
      */
     private $availableBarcodeTypes = ['2S', self::BARCODE_TYPE_DOMESTIC_EPS, 'CC', 'CP', 'CD', 'CF'];
-    
+
     /***********************************
      * Barcode Webservice API
      *
@@ -87,7 +87,7 @@ class BarcodeApi extends BaseClient
      *
      * @see https://developer.postnl.nl/browse-apis/send-and-track/barcode-webservice/documentation-soap/
      ***********************************/
-    
+
     /**
      * Generate Barcode by delivery destination
      *
@@ -96,8 +96,11 @@ class BarcodeApi extends BaseClient
      * @param string $range
      * @return string
      */
-    public function getBarcodeByDestination($destination = 'NL', $serie = null, $range = null)
-    {
+    public function getBarcodeByDestination(
+        string $destination = 'NL',
+        ?string $serie = null,
+        ?string $range = null
+    ): BarcodeResponse {
         $barcodeType = isset($this->countryBarcodeType[$destination]) ?
             $this->countryBarcodeType[$destination] :
             self::BARCODE_TYPE_GLOBAL_PACK;
@@ -107,7 +110,7 @@ class BarcodeApi extends BaseClient
         $serie = !is_null($serie) ? $serie : $this->detectSerie($serieDestination);
         return $this->generateBarcode($barcodeType, $serie, $range, ($destination === 'NL'));
     }
-    
+
     /**
      * Get Barcode
      *
@@ -118,8 +121,12 @@ class BarcodeApi extends BaseClient
      * @param boolean $domestic = domestic (dutch) shipment
      * @return \Avido\PostNLCifClient\Response\SendTrack\Barcode\BarcodeResponse
      */
-    public function getBarcode($type, $serie = null, $range = null, $domestic = true)
-    {
+    public function getBarcode(
+        string $type,
+        ?string $serie = null,
+        ?string $range = null,
+        bool $domestic = true
+    ): BarcodeResponse {
         if (!in_array($type, $this->availableBarcodeTypes)) {
             throw new InvalidBarcodeTypeException($type);
         }
@@ -143,7 +150,7 @@ class BarcodeApi extends BaseClient
         }
         return $this->generateBarcode($type, $serie, $range, $domestic);
     }
-    
+
     /**
      * Request Barcode @PostNL
      *
@@ -154,8 +161,12 @@ class BarcodeApi extends BaseClient
      * @param boolean $domestic = domestic (dutch) shipment
      * @return \Avido\PostNLCifClient\Response\SendTrack\Barcode\BarcodeResponse
      */
-    public function generateBarcode($type, $serie = null, $range = null, $domestic = true)
-    {
+    public function generateBarcode(
+        string $type,
+        ?string $serie = null,
+        ?string $range = null,
+        bool $domestic = true
+    ): BarcodeResponse {
         if (!in_array($type, $this->availableBarcodeTypes)) {
             throw new InvalidBarcodeTypeException($type);
         }
@@ -189,7 +200,7 @@ class BarcodeApi extends BaseClient
         $resp = $this->get($request->getEndpoint(), $request->getArguments());
         return new BarcodeResponse($resp);
     }
-    
+
     /**
      * Detect barcode serie range
      *
@@ -198,7 +209,7 @@ class BarcodeApi extends BaseClient
      * @return string
      * @throws CifBarcodeException
      */
-    private function detectSerie($barcodeType = 'NL')
+    private function detectSerie(string $barcodeType = 'NL'): string
     {
         switch ($barcodeType) {
             case 'NL':

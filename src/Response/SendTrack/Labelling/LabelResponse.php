@@ -20,7 +20,7 @@ class LabelResponse extends BaseResponse
 {
     protected $merged_labels = [];
     protected $shipments = [];
-    
+
     /**
      *
      * @access public
@@ -28,14 +28,14 @@ class LabelResponse extends BaseResponse
      * @param array $merged_labels if multiple shipments are requested merged labels will contain label
      *                      information about the merged shipments
      */
-    public function __construct($shipments = [], $merged_labels = [])
+    public function __construct(array $shipments = [], array $merged_labels = [])
     {
         parent::__construct();
         $this->setShipments($shipments)
             ->setMergedLabels($merged_labels);
     }
-    
-    public function addShipment($shipment)
+
+    public function addShipment($shipment): void
     {
         if (!$shipment instanceof Shipment) {
             $shipment = new Shipment($shipment);
@@ -49,23 +49,23 @@ class LabelResponse extends BaseResponse
      * @param array $labels
      * @return $this
      */
-    public function setMergedLabels($labels = [])
+    public function setMergedLabels(array $labels = []): LabelResponse
     {
-        $this->merged_labels = (array)$labels;
+        $this->merged_labels = $labels;
         return $this;
     }
-    
+
     /**
      * Get merged labels
      *
      * @access public
      * @return array
      */
-    public function getMergedLabels()
+    public function getMergedLabels(): array
     {
-        return (array)$this->merged_labels;
+        return $this->merged_labels;
     }
-    
+
     /**
      * Set Shipments
      *
@@ -73,7 +73,7 @@ class LabelResponse extends BaseResponse
      * @param array $shipments
      * @return $this
      */
-    public function setShipments($shipments = [])
+    public function setShipments(array $shipments = []): LabelResponse
     {
         // update array to use shipment entity
         foreach ($shipments as $shipment) {
@@ -81,15 +81,15 @@ class LabelResponse extends BaseResponse
         }
         return $this;
     }
-    
+
     /**
      * Get Shipments
      *
      * @access public
      * @return array
      */
-    public function getShipments()
+    public function getShipments(): array
     {
-        return (array)$this->shipments;
+        return $this->shipments;
     }
 }

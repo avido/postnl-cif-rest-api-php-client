@@ -24,7 +24,7 @@ class ShippingdateRequest extends BaseRequest
     private $version = '2_2';
 
     private $validDayNames = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-    
+
     public function __construct()
     {
         parent::__construct($this->endpoint, $this->path, $this->version);
@@ -40,7 +40,7 @@ class ShippingdateRequest extends BaseRequest
             'house_nr_ext' => null
         ];
     }
-    
+
     /**
      * Set Requested delivery date
      *
@@ -48,7 +48,7 @@ class ShippingdateRequest extends BaseRequest
      * @param string $date
      * @return $this
      */
-    public function setDeliveryDate($date)
+    public function setDeliveryDate($date): ShippingdateRequest
     {
         if (!$date instanceof Date) {
             $date = new Date($date);
@@ -56,7 +56,7 @@ class ShippingdateRequest extends BaseRequest
         $this->arguments['delivery_date'] = $date->format('d-m-Y');
         return $this;
     }
-    
+
     /**
      * The duration it takes for the shipment to be delivered to PostNL in days. A value of 1 means that the
      * parcel will be delivered to PostNL on the same day as
@@ -66,9 +66,9 @@ class ShippingdateRequest extends BaseRequest
      * @param int $duration
      * @return $this
      */
-    public function setShippingDuration($duration)
+    public function setShippingDuration(int $duration): ShippingdateRequest
     {
-        $this->arguments['shipping_duration'] = (int)$duration;
+        $this->arguments['shipping_duration'] = $duration;
         return $this;
     }
 
@@ -79,12 +79,12 @@ class ShippingdateRequest extends BaseRequest
      * @param string $postal_code
      * @return $this
      */
-    public function setPostalCode($postal_code)
+    public function setPostalCode(string $postal_code): ShippingdateRequest
     {
         $this->arguments['postal_code'] = $postal_code;
         return $this;
     }
-    
+
     /**
      * Set Country Code (ISO 3166-1 alpha-2.)
      *
@@ -93,7 +93,7 @@ class ShippingdateRequest extends BaseRequest
      * @param string $country_code
      * @return $this
      */
-    public function setCountryCode($country_code)
+    public function setCountryCode(string $country_code): ShippingdateRequest
     {
         $this->arguments['country_code'] = $country_code;
         return $this;
@@ -107,7 +107,7 @@ class ShippingdateRequest extends BaseRequest
      * @param string $origin_country_code
      * @return $this
      */
-    public function setOriginCountryCode($origin_country_code)
+    public function setOriginCountryCode(string $origin_country_code): ShippingdateRequest
     {
         $this->arguments['origin_country_code'] = $origin_country_code;
         return $this;
@@ -120,12 +120,12 @@ class ShippingdateRequest extends BaseRequest
      * @param string $city
      * @return $this
      */
-    public function setCity($city)
+    public function setCity(string $city): ShippingdateRequest
     {
         $this->arguments['city'] = $city;
         return $this;
     }
-    
+
     /**
      * Set street
      *
@@ -133,12 +133,12 @@ class ShippingdateRequest extends BaseRequest
      * @param string $street
      * @return $this
      */
-    public function setStreet($street)
+    public function setStreet(string $street): ShippingdateRequest
     {
         $this->arguments['street'] = $street;
         return $this;
     }
-    
+
     /**
      * Set housenumber
      *
@@ -146,9 +146,9 @@ class ShippingdateRequest extends BaseRequest
      * @param int $house_number
      * @return $this
      */
-    public function setHouseNumber($house_number)
+    public function setHouseNumber(int $house_number): ShippingdateRequest
     {
-        $this->arguments['house_number'] = (int)$house_number;
+        $this->arguments['house_number'] = $house_number;
         return $this;
     }
 
@@ -159,7 +159,7 @@ class ShippingdateRequest extends BaseRequest
      * @param string $house_nr_ext
      * @return $this
      */
-    public function setHouseNumberExt($house_nr_ext)
+    public function setHouseNumberExt(string $house_nr_ext): ShippingdateRequest
     {
         $this->arguments['house_nr_ext'] = $house_nr_ext;
         return $this;

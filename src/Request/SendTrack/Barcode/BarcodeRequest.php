@@ -34,7 +34,7 @@ class BarcodeRequest extends BaseRequest
             'serie' => null
         ];
     }
-    
+
     /**
      * Set Customer Code
      *
@@ -44,12 +44,12 @@ class BarcodeRequest extends BaseRequest
      * @param string $customer_code
      * @return $this
      */
-    public function setCustomerCode($customer_code)
+    public function setCustomerCode(string $customer_code): BarcodeRequest
     {
         $this->arguments['customer_code'] = $customer_code;
         return $this;
     }
-    
+
     /**
      * Set Customer Number
      *
@@ -59,12 +59,12 @@ class BarcodeRequest extends BaseRequest
      * @param string $customer_number
      * @return $this
      */
-    public function setCustomerNumber($customer_number)
+    public function setCustomerNumber(string $customer_number): BarcodeRequest
     {
         $this->arguments['customer_number'] = $customer_number;
         return $this;
     }
-    
+
     /**
      * Set Type of barcode
      *
@@ -76,12 +76,12 @@ class BarcodeRequest extends BaseRequest
      * @param string $type
      * @return $this
      */
-    public function setType($type)
+    public function setType(string $type): BarcodeRequest
     {
         $this->arguments['type'] = $type;
         return $this;
     }
-    
+
     /**
      * Set Barcode Serie
      *
@@ -94,7 +94,7 @@ class BarcodeRequest extends BaseRequest
      * @param string $serie
      * @return $this
      */
-    public function setSerie($serie)
+    public function setSerie(string $serie): BarcodeRequest
     {
         $this->arguments['serie'] = $serie;
         return $this;

@@ -18,15 +18,15 @@ use Avido\PostNLCifClient\BaseModel;
 
 class Label extends BaseModel
 {
-    protected $Content = null;
-    protected $Labeltype = null;
-    
+    protected $Content;
+    protected $Labeltype;
+
     public function __construct($data = [])
     {
         parent::__construct();
         parent::initFromArray($data);
     }
-    
+
     /**
      * Set Content
      *
@@ -34,12 +34,12 @@ class Label extends BaseModel
      * @param base64Binary $content
      * @return $this
      */
-    public function setContent($content)
+    public function setContent($content): Label
     {
         $this->Content = $content;
         return $this;
     }
-    
+
     /**
      * Get Content
      *
@@ -50,7 +50,7 @@ class Label extends BaseModel
     {
         return $this->Content;
     }
-    
+
     /**
      * Set Labeltype
      *
@@ -58,20 +58,20 @@ class Label extends BaseModel
      * @param string $labeltype
      * @return $this
      */
-    public function setLabeltype($labeltype)
+    public function setLabeltype(string $labeltype): Label
     {
-        $this->Labeltype = (string)$labeltype;
+        $this->Labeltype = $labeltype;
         return $this;
     }
-    
+
     /**
      * Get Labeltype
      *
      * @access public
      * @return string
      */
-    public function getLabeltype()
+    public function getLabeltype(): string
     {
-        return (string)$this->Labeltype;
+        return $this->Labeltype ?? '';
     }
 }

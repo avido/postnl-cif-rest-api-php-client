@@ -22,18 +22,18 @@ class Error extends BaseEntity
      * Code
      * @var String
      */
-    protected $Code = null;
+    protected $Code;
     /**
      * Description
      * @var String
      */
-    protected $Description = null;
-    
+    protected $Description;
+
     public function __construct($data = [])
     {
         parent::__construct($data);
     }
-    
+
     /**
      * Set Code
      *
@@ -41,23 +41,23 @@ class Error extends BaseEntity
      * @param string $code
      * @return $this;
      */
-    public function setCode($code)
+    public function setCode(string $code): Error
     {
-        $this->Code = (string)$code;
+        $this->Code = $code;
         return $this;
     }
-    
+
     /**
      * Get Code
      *
      * @access public
      * @return string
      */
-    public function getCode()
+    public function getCode(): string
     {
-        return (string)$this->Code;
+        return $this->Code ?? '';
     }
-    
+
     /**
      * Set Description
      *
@@ -65,20 +65,20 @@ class Error extends BaseEntity
      * @param string $description
      * @return $this
      */
-    public function setDescription($description)
+    public function setDescription(string $description): Error
     {
-        $this->Description = (string)$description;
+        $this->Description = $description;
         return $this;
     }
-    
+
     /**
      * Get Description
      *
      * @access public
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
-        return (string)$this->Description;
+        return $this->Description ?? '';
     }
 }

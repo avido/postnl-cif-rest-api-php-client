@@ -29,7 +29,7 @@ class Timeframe extends BaseEntity
      * @var array
      */
     protected $timeframes = [];
-    
+
     // date
     // timeframes : collection of timeframewindow entitiy
 //                        from
@@ -39,7 +39,7 @@ class Timeframe extends BaseEntity
     public function __construct($data = [])
     {
         $this->setDate($data['Date']);
-        
+
         if (isset($data['Timeframes']) &&
             isset($data['Timeframes']['TimeframeTimeFrame']) &&
             is_array($data['Timeframes']['TimeframeTimeFrame'])
@@ -56,8 +56,8 @@ class Timeframe extends BaseEntity
             unset($data['Timeframes']);
         }
     }
-    
-    public function setDate($date)
+
+    public function setDate($date): Timeframe
     {
         if (!$date instanceof Date) {
             $date = new Date($date);
@@ -65,13 +65,13 @@ class Timeframe extends BaseEntity
         $this->Date = $date;
         return $this;
     }
-    
-    public function addWindow(TimeframeWindow $timeframeWindow)
+
+    public function addWindow(TimeframeWindow $timeframeWindow): void
     {
         $this->timeframes[] = $timeframeWindow;
     }
-    
-    public function toArray()
+
+    public function toArray(): array
     {
         $return = [];
         foreach ($this->timeframes as $window) {

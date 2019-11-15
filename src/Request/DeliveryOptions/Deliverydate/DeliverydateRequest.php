@@ -24,7 +24,7 @@ class DeliverydateRequest extends BaseRequest
     private $version = '2_2';
 
     private $validDayNames = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-    
+
     public function __construct()
     {
         parent::__construct($this->endpoint, $this->path, $this->version);
@@ -56,7 +56,7 @@ class DeliverydateRequest extends BaseRequest
             'available_sunday' => null
         ];
     }
-    
+
     /**
      * Set Shipping date
      *
@@ -64,7 +64,7 @@ class DeliverydateRequest extends BaseRequest
      * @param string $date
      * @return $this
      */
-    public function setShippingDate($date)
+    public function setShippingDate($date): DeliverydateRequest
     {
         if (!$date instanceof Date) {
             $date = new Date($date);
@@ -72,7 +72,7 @@ class DeliverydateRequest extends BaseRequest
         $this->arguments['shipping_date'] = $date->format('d-m-Y H:i:s');
         return $this;
     }
-    
+
     /**
      * The duration it takes for the shipment to be delivered to PostNL in days. A value of 1 means that the
      * parcel will be delivered to PostNL on the same day as
@@ -82,12 +82,12 @@ class DeliverydateRequest extends BaseRequest
      * @param int $duration
      * @return $this
      */
-    public function setShippingDuration($duration)
+    public function setShippingDuration(int $duration): DeliverydateRequest
     {
-        $this->arguments['shipping_duration'] = (int)$duration;
+        $this->arguments['shipping_duration'] = $duration;
         return $this;
     }
-    
+
     /**
      * Cut off times per day. At least one cut off time must be specified.
 
@@ -105,7 +105,7 @@ class DeliverydateRequest extends BaseRequest
      *              ->setCutOffTime('14:00:00', ['monday', 'wednesday', 'friday']);
      * @return $this
      */
-    public function setCutOffTime($cut_off_time, $day = null)
+    public function setCutOffTime(string $cut_off_time, $day = null): DeliverydateRequest
     {
         if (!preg_match("/[0-9]{2}:[0-9]{2}:[0-9]{2}/", $cut_off_time)) {
             throw new BadMethodCallException("Wrong cut off time format, use: HH:ii:ss");
@@ -129,7 +129,7 @@ class DeliverydateRequest extends BaseRequest
         }
         return $this;
     }
-    
+
     /**
      * Set Postal code
      *
@@ -137,12 +137,12 @@ class DeliverydateRequest extends BaseRequest
      * @param string $postal_code
      * @return $this
      */
-    public function setPostalCode($postal_code)
+    public function setPostalCode(string $postal_code): DeliverydateRequest
     {
         $this->arguments['postal_code'] = $postal_code;
         return $this;
     }
-    
+
     /**
      * Set Country Code (ISO 3166-1 alpha-2.)
      *
@@ -151,7 +151,7 @@ class DeliverydateRequest extends BaseRequest
      * @param string $country_code
      * @return $this
      */
-    public function setCountryCode($country_code)
+    public function setCountryCode(string $country_code): DeliverydateRequest
     {
         $this->arguments['country_code'] = $country_code;
         return $this;
@@ -165,7 +165,7 @@ class DeliverydateRequest extends BaseRequest
      * @param string $origin_country_code
      * @return $this
      */
-    public function setOriginCountryCode($origin_country_code)
+    public function setOriginCountryCode(string $origin_country_code): DeliverydateRequest
     {
         $this->arguments['origin_country_code'] = $origin_country_code;
         return $this;
@@ -178,12 +178,12 @@ class DeliverydateRequest extends BaseRequest
      * @param string $city
      * @return $this
      */
-    public function setCity($city)
+    public function setCity(string $city): DeliverydateRequest
     {
         $this->arguments['city'] = $city;
         return $this;
     }
-    
+
     /**
      * Set street
      *
@@ -191,12 +191,12 @@ class DeliverydateRequest extends BaseRequest
      * @param string $street
      * @return $this
      */
-    public function setStreet($street)
+    public function setStreet(string $street): DeliverydateRequest
     {
         $this->arguments['street'] = $street;
         return $this;
     }
-    
+
     /**
      * Set housenumber
      *
@@ -204,9 +204,9 @@ class DeliverydateRequest extends BaseRequest
      * @param int $house_number
      * @return $this
      */
-    public function setHouseNumber($house_number)
+    public function setHouseNumber(int $house_number): DeliverydateRequest
     {
-        $this->arguments['house_number'] = (int)$house_number;
+        $this->arguments['house_number'] = $house_number;
         return $this;
     }
 
@@ -217,12 +217,12 @@ class DeliverydateRequest extends BaseRequest
      * @param string $house_nr_ext
      * @return $this
      */
-    public function setHouseNumberExt($house_nr_ext)
+    public function setHouseNumberExt(string $house_nr_ext): DeliverydateRequest
     {
         $this->arguments['house_nr_ext'] = $house_nr_ext;
         return $this;
     }
-    
+
     /**
      * Add delivery option
      *
@@ -230,88 +230,88 @@ class DeliverydateRequest extends BaseRequest
      * @param string  $option
      * @return $this
      */
-    public function addDeliveryOption($option)
+    public function addDeliveryOption(string $option): DeliverydateRequest
     {
         if ($this->isValidDeliveryOption($option, 'deliverydate') && !in_array($option, $this->arguments['options'])) {
             $this->arguments['options'][] = $option;
         }
         return $this;
     }
-    
-    public function setCutOffTimeMonday($time)
+
+    public function setCutOffTimeMonday(string $time): DeliverydateRequest
     {
         return $this->setCutOffTime($time, 'monday');
     }
-    
-    public function setCutOffTimeTuesday($time)
+
+    public function setCutOffTimeTuesday(string $time): DeliverydateRequest
     {
         return $this->setCutOffTime($time, 'tuesday');
     }
-    
-    public function setCutOffTimeWednesday($time)
+
+    public function setCutOffTimeWednesday(string $time): DeliverydateRequest
     {
         return $this->setCutOffTime($time, 'wednesday');
     }
-    
-    public function setCutOffTimeThursday($time)
+
+    public function setCutOffTimeThursday(string $time): DeliverydateRequest
     {
         return $this->setCutOffTime($time, 'thursday');
     }
-    
-    public function setCutOffTimeFriday($time)
+
+    public function setCutOffTimeFriday(string $time): DeliverydateRequest
     {
         return $this->setCutOffTime($time, 'friday');
     }
-    
-    public function setCutOffTimeSaturday($time)
+
+    public function setCutOffTimeSaturday(string $time): DeliverydateRequest
     {
         return $this->setCutOffTime($time, 'saturday');
     }
-    
-    public function setCutOffTimeSunday($time)
+
+    public function setCutOffTimeSunday(string $time): DeliverydateRequest
     {
         return $this->setCutOffTime($time, 'sunday');
     }
-    
-    public function setAvailableMonday($available)
+
+    public function setAvailableMonday(bool $available): DeliverydateRequest
     {
-        $this->arguments['available_monday'] = (bool)$available;
+        $this->arguments['available_monday'] = $available;
         return $this;
     }
-    
-    public function setAvailableTuesday($available)
+
+    public function setAvailableTuesday(bool $available): DeliverydateRequest
     {
-        $this->arguments['available_tuesday'] = (bool)$available;
+        $this->arguments['available_tuesday'] = $available;
         return $this;
     }
-    
-    public function setAvailableWednesday($available)
+
+    public function setAvailableWednesday(bool $available): DeliverydateRequest
     {
-        $this->arguments['available_wednesday'] = (bool)$available;
+        $this->arguments['available_wednesday'] = $available;
         return $this;
     }
-    
-    public function setAvailableThursday($available)
+
+    public function setAvailableThursday(bool $available): DeliverydateRequest
     {
-        $this->arguments['available_thursday'] = (bool)$available;
+        $this->arguments['available_thursday'] = $available;
         return $this;
     }
-    
-    public function setAvailableFriday($available)
+
+    public function setAvailableFriday(bool $available): DeliverydateRequest
     {
-        $this->arguments['available_friday'] = (bool)$available;
+        $this->arguments['available_friday'] = $available;
         return $this;
     }
-    
-    public function setAvailableSaturday($available)
+
+    public function setAvailableSaturday(bool $available): DeliverydateRequest
     {
-        $this->arguments['available_saturday'] = (bool)$available;
+        $this->arguments['available_saturday'] = $available;
         return $this;
     }
-    
-    public function setAvailableSunday($available)
+
+    public function setAvailableSunday(bool $available): DeliverydateRequest
     {
-        $this->arguments['available_sunday'] = (bool)$available;
+        $this->arguments['available_sunday'] = $available;
         return $this;
     }
 }

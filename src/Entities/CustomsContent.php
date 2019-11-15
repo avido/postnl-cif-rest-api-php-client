@@ -60,13 +60,13 @@ class CustomsContent extends BaseEntity
      * @var String
      */
     protected $CountryOfOrigin = null;
-    
-    
+
+
     public function __construct($data = [])
     {
         parent::__construct($data);
     }
-    
+
     /**
      * Set Description
      *
@@ -74,23 +74,23 @@ class CustomsContent extends BaseEntity
      * @param string $description
      * @return $this
      */
-    public function setDescription($description)
+    public function setDescription(string $description): CustomsContent
     {
-        $this->Description = (string)$description;
+        $this->Description = $description;
         return $this;
     }
-    
+
     /**
      * Get Description
      *
      * @access public
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
-        return (string)$this->Description;
+        return $this->Description ?? '';
     }
-    
+
     /**
      * Set EAN
      *
@@ -98,24 +98,24 @@ class CustomsContent extends BaseEntity
      * @param string $ean
      * @return $this
      */
-    public function setEAN($ean)
+    public function setEAN(string $ean): CustomsContent
     {
-        $this->EAN = (string)$ean;
+        $this->EAN = $ean;
         return $this;
     }
-    
+
     /**
      * Get EAN
      *
      * @access public
      * @return string
      */
-    public function getEAN()
+    public function getEAN(): string
     {
-        return (string)$this->EAN;
+        return $this->EAN ?? '';
     }
-    
-    
+
+
     /**
      * Set ProductURL
      *
@@ -123,23 +123,23 @@ class CustomsContent extends BaseEntity
      * @param string $url
      * @return $this
      */
-    public function setProductURL($url)
+    public function setProductURL(string $url): CustomsContent
     {
-        $this->ProductURL = (string)$url;
+        $this->ProductURL = $url;
         return $this;
     }
-    
+
     /**
      * Get ProductURL
      *
      * @access public
      * @return boolean
      */
-    public function getProductURL()
+    public function getProductURL(): string
     {
-        return (string)$this->ProductURL;
+        return $this->ProductURL ?? '';
     }
-    
+
     /**
      * Set Quantity
      *
@@ -147,23 +147,23 @@ class CustomsContent extends BaseEntity
      * @param int $quantity
      * @return $this
      */
-    public function setQuantity($quantity)
+    public function setQuantity(int $quantity): CustomsContent
     {
-        $this->Quantity = (int)$quantity;
+        $this->Quantity = $quantity;
         return $this;
     }
-    
+
     /**
      * Get Quantity
      *
      * @access public
      * @return int
      */
-    public function getQuantity()
+    public function getQuantity(): int
     {
-        return (int)$this->Quantity;
+        return $this->Quantity ?? 1;
     }
-    
+
     /**
      * Set Weight
      *
@@ -171,23 +171,23 @@ class CustomsContent extends BaseEntity
      * @param int $weight
      * @return $this
      */
-    public function setWeight($weight)
+    public function setWeight(int $weight): CustomsContent
     {
-        $this->Weight = (int)$weight;
+        $this->Weight = $weight;
         return $this;
     }
-    
+
     /**
      * Get Weight
      *
      * @access public
      * @return int
      */
-    public function getWeight()
+    public function getWeight(): int
     {
-        return (int)$this->Weight;
+        return $this->Weight ?? 0;
     }
-    
+
     /**
      * Set Value
      *
@@ -195,23 +195,23 @@ class CustomsContent extends BaseEntity
      * @param string $value
      * @return $this
      */
-    public function setValue($value)
+    public function setValue(string $value): CustomsContent
     {
-        $this->Value = (string)$value;
+        $this->Value = $value;
         return $this;
     }
-    
+
     /**
      * Get Value
      *
      * @access public
      * @return string
      */
-    public function getValue()
+    public function getValue(): string
     {
-        return (string)$this->Value;
+        return $this->Value ?? '';
     }
-    
+
     /**
      * Set HSTariffNr
      *
@@ -219,23 +219,23 @@ class CustomsContent extends BaseEntity
      * @param string $tariff
      * @return $this
      */
-    public function setHSTariffNr($tariff)
+    public function setHSTariffNr(string $tariff): CustomsContent
     {
-        $this->HSTariffNr = (string)$tariff;
+        $this->HSTariffNr = $tariff;
         return $this;
     }
-    
+
     /**
      * Get HSTariffNr
      *
      * @access public
      * @return string
      */
-    public function getHSTariffNr()
+    public function getHSTariffNr(): string
     {
-        return (string)$this->HSTariffNr;
+        return $this->HSTariffNr ?? '';
     }
-    
+
     /**
      * Set CountryOfOrigin
      *
@@ -243,20 +243,20 @@ class CustomsContent extends BaseEntity
      * @param string $country
      * @return $this
      */
-    public function setCountryOfOrigin($country)
+    public function setCountryOfOrigin(string $country): CustomsContent
     {
-        $this->CountryOfOrigin = (string)$country;
+        $this->CountryOfOrigin = $country;
         return $this;
     }
-    
+
     /**
      * Get CountryOfOrigin
      *
      * @access public
      * @return string
      */
-    public function getCountryOfOrigin()
+    public function getCountryOfOrigin(): string
     {
-        return (string)$this->CountryOfOrigin;
+        return $this->CountryOfOrigin ?? '';
     }
 }

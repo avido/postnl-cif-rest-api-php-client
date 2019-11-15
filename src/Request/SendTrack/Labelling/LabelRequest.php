@@ -70,19 +70,20 @@ use Avido\PostNLCifClient\Request\BaseRequest;
 use Avido\PostNLCifClient\Entities\Address;
 use Avido\PostNLCifClient\Entities\Customer;
 use Avido\PostNLCifClient\Entities\Shipment;
-use Avido\PostNLCifClient\Entities\LabelMessage;
+use Avido\PostNLCifClient\Entities\Message;
+
 
 class LabelRequest extends BaseRequest
 {
     private $endpoint = 'shipment';
     private $path = 'label';
-    private $version = '2_1';
+    private $version = '2_2';
 
     private $printer = null;
     // body entities
     private $shipments = [];
-    
-            
+
+
     public function __construct()
     {
         parent::__construct($this->endpoint, $this->path, $this->version);
@@ -90,7 +91,7 @@ class LabelRequest extends BaseRequest
             'confirm' => null
         ];
     }
-    
+
     /**
      * Get Printer for PDF generation
      *
@@ -99,21 +100,21 @@ class LabelRequest extends BaseRequest
      * @param string $printer
      * @return $this
      */
-    public function setPrinter($printer)
+    public function setPrinter(string $printer): LabelRequest
     {
-        $this->printer = (string)$printer;
+        $this->printer = $printer;
         return $this;
     }
-    
+
     /**
      * Get Printer
      *
      * @access public
      * @return string
      */
-    public function getPrinter()
+    public function getPrinter(): string
     {
-        return (string)$this->printer;
+        return $this->printer;
     }
     /**
      * Add Shipment
@@ -122,15 +123,15 @@ class LabelRequest extends BaseRequest
      * @param \Avido\PostNLCifClient\Entities\Shipment $shipment
      * @return $this
      */
-    public function addShipment(Shipment $shipment)
+    public function addShipment(Shipment $shipment): LabelRequest
     {
         $this->shipments[] = $shipment;
         return $this;
     }
-    
-    public function getMessage()
+
+    public function getMessage(): Message
     {
-        $message = LabelMessage::create()
+        $message = Message::create()
             ->setMessageId('01')
             ->setPrinterType($this->getPrinter());
         return $message;
@@ -141,24 +142,24 @@ class LabelRequest extends BaseRequest
      * @access public
      * @return string
      */
-    public function getBody()
+    public function getBody(): string
     {
         $body = [
             'Customer' => $this->getCustomer()->toArray(),
             'Message' => $this->getMessage()->toArray(),
             'Shipments' => $this->getShipmentsArray()
         ];
-        $body= json_encode($body);
+        $body= json_encode($this->filterEmptyArrayValues($body));
         return $body;
     }
-    
+
     /**
      * Get Shipments array
      *
      * @access public
      * @return array
      */
-    public function getShipmentsArray()
+    public function getShipmentsArray(): array
     {
         $return = [];
         foreach ($this->shipments as $shipment) {

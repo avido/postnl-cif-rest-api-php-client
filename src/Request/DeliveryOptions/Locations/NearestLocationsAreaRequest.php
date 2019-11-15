@@ -36,7 +36,7 @@ class NearestLocationsAreaRequest extends BaseRequest
             'delivery_options' => []
         ];
     }
-    
+
     /**
      * Set Country Code (ISO 3166-1 alpha-2.)
      *
@@ -45,19 +45,19 @@ class NearestLocationsAreaRequest extends BaseRequest
      * @param string $country_code
      * @return $this
      */
-    public function setCountryCode($country_code)
+    public function setCountryCode(string $country_code): NearestLocationsAreaRequest
     {
         $this->arguments['country_code'] = $country_code;
         return $this;
     }
-    
+
     /**
      * Set Latitude (array North, Easy, South, West)
      *
      * @param array $latitude
      * @return $this
      */
-    public function setLatitude(array $latitude)
+    public function setLatitude(array $latitude): NearestLocationsAreaRequest
     {
         $this->setLatitudeNorth(isset($latitude[0]) ? $latitude[0] : null);
         $this->setLatitudeEast(isset($latitude[1]) ? $latitude[1] : null);
@@ -72,7 +72,7 @@ class NearestLocationsAreaRequest extends BaseRequest
      * @param array $longitude
      * @return $this
      */
-    public function setLongitude(array $longitude)
+    public function setLongitude(array $longitude): NearestLocationsAreaRequest
     {
         $this->setLongitudeNorth(isset($longitude[0]) ? $longitude[0] : null);
         $this->setLongitudeEast(isset($longitude[1]) ? $longitude[1] : null);
@@ -88,7 +88,7 @@ class NearestLocationsAreaRequest extends BaseRequest
      * @param float $latitude
      * @return $this
      */
-    public function setLatitudeNorth($latitude)
+    public function setLatitudeNorth($latitude): NearestLocationsAreaRequest
     {
         $this->arguments['latitude_north'] = $latitude;
         return $this;
@@ -101,7 +101,7 @@ class NearestLocationsAreaRequest extends BaseRequest
      * @param float $latitude
      * @return $this
      */
-    public function setLatitudeEast($latitude)
+    public function setLatitudeEast($latitude): NearestLocationsAreaRequest
     {
         $this->arguments['latitude_east'] = $latitude;
         return $this;
@@ -114,7 +114,7 @@ class NearestLocationsAreaRequest extends BaseRequest
      * @param float $latitude
      * @return $this
      */
-    public function setLatitudeSouth($latitude)
+    public function setLatitudeSouth($latitude): NearestLocationsAreaRequest
     {
         $this->arguments['latitude_south'] = $latitude;
         return $this;
@@ -127,7 +127,7 @@ class NearestLocationsAreaRequest extends BaseRequest
      * @param float $latitude
      * @return $this
      */
-    public function setLatitudeWest($latitude)
+    public function setLatitudeWest($latitude): NearestLocationsAreaRequest
     {
         $this->arguments['latitude_west'] = $latitude;
         return $this;
@@ -140,7 +140,7 @@ class NearestLocationsAreaRequest extends BaseRequest
      * @param float $longitude
      * @return $this
      */
-    public function setLongitudeNorth($longitude)
+    public function setLongitudeNorth($longitude): NearestLocationsAreaRequest
     {
         $this->arguments['longitude_north'] = $longitude;
         return $this;
@@ -153,7 +153,7 @@ class NearestLocationsAreaRequest extends BaseRequest
      * @param float $longitude
      * @return $this
      */
-    public function setLongitudeEast($longitude)
+    public function setLongitudeEast($longitude): NearestLocationsAreaRequest
     {
         $this->arguments['longitude_east'] = $longitude;
         return $this;
@@ -166,7 +166,7 @@ class NearestLocationsAreaRequest extends BaseRequest
      * @param float $longitude
      * @return $this
      */
-    public function setLongitudeSouth($longitude)
+    public function setLongitudeSouth($longitude): NearestLocationsAreaRequest
     {
         $this->arguments['longitude_south'] = $longitude;
         return $this;
@@ -179,7 +179,7 @@ class NearestLocationsAreaRequest extends BaseRequest
      * @param float $longitude
      * @return $this
      */
-    public function setLongitudeWest($longitude)
+    public function setLongitudeWest($longitude): NearestLocationsAreaRequest
     {
         $this->arguments['longitude_west'] = $longitude;
         return $this;
@@ -192,12 +192,12 @@ class NearestLocationsAreaRequest extends BaseRequest
      * @param string $delivery_date
      * @return $this
      */
-    public function setDeliveryDate($delivery_date)
+    public function setDeliveryDate(string $delivery_date): NearestLocationsAreaRequest
     {
         $this->arguments['delivery_date'] = $delivery_date;
         return $this;
     }
-    
+
     /**
      * Set Opening Time
      *
@@ -205,12 +205,12 @@ class NearestLocationsAreaRequest extends BaseRequest
      * @param string $opening_time
      * @return $this
      */
-    public function setOpeningTime($opening_time)
+    public function setOpeningTime(string $opening_time): NearestLocationsAreaRequest
     {
         $this->arguments['opening_time'] = $opening_time;
         return $this;
     }
-    
+
     /**
      * Add delivery option
      *
@@ -218,15 +218,15 @@ class NearestLocationsAreaRequest extends BaseRequest
      * @param string $option
      * @return $this
      */
-    public function addDeliveryOptions($option)
+    public function addDeliveryOptions(string $option): NearestLocationsAreaRequest
     {
         if ($this->isValidDeliveryOption($option) && !in_array($option, $this->arguments['delivery_options'])) {
             $this->arguments['delivery_options'][] = $option;
         }
         return $this;
     }
-    
-    public function getDeliveryOptions()
+
+    public function getDeliveryOptions(): string
     {
         return implode(",", $this->arguments['delivery_options']);
     }

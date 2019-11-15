@@ -88,11 +88,11 @@ class Location extends BaseEntity
     public function __construct($data = [])
     {
         parent::__construct($data);
-        
+
         // address
         $address = new Address($data['Address']);
         $this->setAddress($address);
-        
+
         if (isset($data['DeliveryOptions']) &&
             isset($data['DeliveryOptions']['string']) &&
             is_array($data['DeliveryOptions']['string'])
@@ -124,7 +124,7 @@ class Location extends BaseEntity
             $this->setOpeningHours($openingHours);
         }
     }
-    
+
     /**
      * Get Location Code
      *
@@ -132,23 +132,23 @@ class Location extends BaseEntity
      * @param int $code
      * @return $this
      */
-    public function setLocationCode($code)
+    public function setLocationCode(int $code): Location
     {
-        $this->LocationCode = (int)$code;
+        $this->LocationCode = $code;
         return $this;
     }
-    
+
     /**
      * Get LocationCode
      *
      * @access public
      * @return int
      */
-    public function getLocationCode()
+    public function getLocationCode(): int
     {
-        return (int)$this->LocationCode;
+        return $this->LocationCode;
     }
-    
+
     /**
      * Set Name
      *
@@ -156,21 +156,21 @@ class Location extends BaseEntity
      * @param string $name
      * @return $this
      */
-    public function setName($name)
+    public function setName(string $name): Location
     {
-        $this->Name = (string)$name;
+        $this->Name = $name;
         return $this;
     }
-    
+
     /**
      * Get Name
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
-        return (string)$this->Name;
+        return $this->Name;
     }
-    
+
     /**
      * Set Distance
      *
@@ -178,23 +178,23 @@ class Location extends BaseEntity
      * @param int $distance
      * @return $this
      */
-    public function setDistance($distance)
+    public function setDistance(int $distance): Location
     {
-        $this->Distance = (int)$distance;
+        $this->Distance = $distance;
         return $this;
     }
-    
+
     /**
      * Get Distance
      *
      * @access public
      * @return int
      */
-    public function getDistance()
+    public function getDistance(): int
     {
-        return (int)$this->Distance;
+        return $this->Distance;
     }
-    
+
     /**
      * Set Latitude
      *
@@ -202,23 +202,23 @@ class Location extends BaseEntity
      * @param float $lat
      * @return $this
      */
-    public function setLatitude($lat)
+    public function setLatitude($lat): Location
     {
         $this->Latitude = (float)$lat;
         return $this;
     }
-    
+
     /**
      * Get Latitude
      *
      * @access public
      * @return float
      */
-    public function getLatitude()
+    public function getLatitude(): float
     {
         return (float)$this->Latitude;
     }
-    
+
     /**
      * Set Longitude
      *
@@ -226,23 +226,23 @@ class Location extends BaseEntity
      * @param float $long
      * @return $this
      */
-    public function setLongitude($long)
+    public function setLongitude($long): Location
     {
         $this->Longitude = (float)$long;
         return $this;
     }
-    
+
     /**
      * Get Longitude
      *
      * @access public
      * @return float
      */
-    public function getLongitude()
+    public function getLongitude(): float
     {
         return (float)$this->Longitude;
     }
-    
+
     /**
      * Set Address
      *
@@ -250,7 +250,7 @@ class Location extends BaseEntity
      * @param Avido\PostNLCifClient\Entities\Address $address
      * @return $this
      */
-    public function setAddress(Address $address)
+    public function setAddress(Address $address): Location
     {
         $this->Address = $address;
         return $this;
@@ -261,11 +261,11 @@ class Location extends BaseEntity
      * @access public
      * @return Avido\PostNLCifClient\Entities\Address
      */
-    public function getAddress()
+    public function getAddress(): Address
     {
         return $this->Address;
     }
-    
+
     /**
      * Set DeliveryOptions
      *
@@ -273,23 +273,23 @@ class Location extends BaseEntity
      * @param array $options
      * @return $this
      */
-    public function setDeliveryOptions($options)
+    public function setDeliveryOptions(array $options): Location
     {
-        $this->DeliveryOptions = (array)$options;
+        $this->DeliveryOptions = $options;
         return $this;
     }
-    
+
     /**
      * Get DeliveryOptions
      *
      * @access public
      * @return array
      */
-    public function getDeliveryOptions()
+    public function getDeliveryOptions(): array
     {
-        return (array)$this->DeliveryOptions;
+        return $this->DeliveryOptions;
     }
-    
+
     /**
      * Set OpeningHours
      *
@@ -297,23 +297,23 @@ class Location extends BaseEntity
      * @param array $hours
      * @return $this
      */
-    public function setOpeningHours($hours)
+    public function setOpeningHours(array $hours): Location
     {
-        $this->OpeningHours = (array)$hours;
+        $this->OpeningHours = $hours;
         return $this;
     }
-    
+
     /**
      * Get OpeningHours
      *
      * @access public
      * @return array
      */
-    public function getOpeningHours()
+    public function getOpeningHours(): array
     {
-        return (array)$this->OpeningHours;
+        return $this->OpeningHours;
     }
-    
+
     /**
      * Set PartnerName
      *
@@ -321,23 +321,23 @@ class Location extends BaseEntity
      * @param string $name
      * @return $this
      */
-    public function setPartnerName($name)
+    public function setPartnerName(string $name): Location
     {
-        $this->PartnerName = (string)$name;
+        $this->PartnerName = $name;
         return $this;
     }
-    
+
     /**
      * Get PartnerName
      *
      * @access public
      * @return string
      */
-    public function getPartnerName()
+    public function getPartnerName(): string
     {
-        return (string)$this->PartnerName;
+        return $this->PartnerName ?? '';
     }
-    
+
     /**
      * Set Phonenumber
      *
@@ -345,23 +345,23 @@ class Location extends BaseEntity
      * @param string $phonenumber
      * @return $this
      */
-    public function setPhoneNumber($phonenumber)
+    public function setPhoneNumber(string $phonenumber): Location
     {
-        $this->PhoneNumber = (string)$phonenumber;
+        $this->PhoneNumber = $phonenumber;
         return $this;
     }
-    
+
     /**
      * Get PhoneNumber
      *
      * @access public
      * @return string
      */
-    public function getPhoneNumber()
+    public function getPhoneNumber(): string
     {
-        return (string)$this->PhoneNumber;
+        return $this->PhoneNumber ?? '';
     }
-    
+
     /**
      * Set RetailNetworkID
      *
@@ -369,23 +369,23 @@ class Location extends BaseEntity
      * @param string $retail_network_id
      * @return $this
      */
-    public function setRetailNetworkID($retail_network_id)
+    public function setRetailNetworkID(string $retail_network_id): Location
     {
-        $this->RetailNetworkID = (string)$retail_network_id;
+        $this->RetailNetworkID = $retail_network_id;
         return $this;
     }
-    
+
     /**
      * Get RetailNetworkID
      *
      * @access public
      * @return string
      */
-    public function getRetailNetworkID()
+    public function getRetailNetworkID(): string
     {
-        return (string)$this->RetailNetworkID;
+        return $this->RetailNetworkID ?? '';
     }
-    
+
     /**
      * Set Saleschannel
      *
@@ -393,23 +393,23 @@ class Location extends BaseEntity
      * @param string $channel
      * @return $this
      */
-    public function setSaleschannel($channel)
+    public function setSaleschannel(string $channel): Location
     {
-        $this->Saleschannel = (string)$channel;
+        $this->Saleschannel = $channel;
         return $this;
     }
-    
+
     /**
      * Get Saleschannel
      *
      * @access public
      * @return string
      */
-    public function getSaleschannel()
+    public function getSaleschannel(): string
     {
-        return (string)$this->Saleschannel;
+        return $this->Saleschannel ?? '';
     }
-    
+
     /**
      * Set TerminalType
      *
@@ -417,20 +417,20 @@ class Location extends BaseEntity
      * @param string $terminal_type
      * @return $this
      */
-    public function setTerminalType($terminal_type)
+    public function setTerminalType(string $terminal_type): Location
     {
-        $this->TerminalType = (string)$terminal_type;
+        $this->TerminalType = $terminal_type;
         return $this;
     }
-    
+
     /**
      * Get TerminalType
      *
      * @access public
      * @return string
      */
-    public function getTerminalType()
+    public function getTerminalType(): string
     {
-        return (string)$this->TerminalType;
+        return $this->TerminalType ?? '';
     }
 }

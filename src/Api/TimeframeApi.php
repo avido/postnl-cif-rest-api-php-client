@@ -19,7 +19,7 @@ namespace Avido\PostNLCifClient\Api;
 
 use Avido\PostNLCifClient\BaseClient;
 
-// entities 
+// entities
 
 // requests
 use Avido\PostNLCifClient\Request\DeliveryOptions\Timeframe\TimeframeRequest;
@@ -36,7 +36,7 @@ class TimeframeApi extends BaseClient
      *
      * @see https://developer.postnl.nl/browse-apis/delivery-options/location-webservice/documentation/
      ***********************************/
-    
+
     /**
      * Get Available timeframes
      *
@@ -46,7 +46,7 @@ class TimeframeApi extends BaseClient
      * @param \Avido\PostNLCifClient\Request\DeliveryOptions\Timeframe\TimeframeRequest $request
      * @return \Avido\PostNLCifClient\Response\DeliveryOptions\Timeframe\TimeframesResponse
      */
-    public function getTimeframes(TimeframeRequest $request)
+    public function getTimeframes(TimeframeRequest $request): TimeframesResponse
     {
         $resp = $this->get($request->getEndpoint(), $request->getArguments());
         return new TimeframesResponse($resp);

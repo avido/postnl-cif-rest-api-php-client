@@ -39,7 +39,7 @@ class Event extends BaseEntity
      * @var String
      */
     protected $LocationCode = null;
-    
+
     public function __construct($data = [])
     {
         parent::__construct($data);
@@ -48,7 +48,7 @@ class Event extends BaseEntity
             $this->setTimeStamp($data['TimeStamp']);
         }
     }
-    
+
     /**
      * Set Timestamp
      *
@@ -56,7 +56,7 @@ class Event extends BaseEntity
      * @param String
      * @return $this
      */
-    public function setTimeStamp($timestamp)
+    public function setTimeStamp($timestamp): Event
     {
         if (!$timestamp instanceof Date) {
             $timestamp = new Date($timestamp);
@@ -64,18 +64,18 @@ class Event extends BaseEntity
         $this->TimeStamp = $timestamp;
         return $this;
     }
-    
+
     /**
      * Get Timestamp
      *
      * @access public
      * @return String format: Y-m-d H:i:s
      */
-    public function getTimestamp()
+    public function getTimestamp(): string
     {
-        return (string)$this->TimeStamp->format("Y-m-d H:i:s");
+        return $this->TimeStamp->format("Y-m-d H:i:s");
     }
-    
+
     /**
      * Set Code
      *
@@ -83,23 +83,23 @@ class Event extends BaseEntity
      * @param string $code
      * @return $this
      */
-    public function setCode($code)
+    public function setCode(string $code): Event
     {
-        $this->Code = (string)$code;
+        $this->Code = $code;
         return $this;
     }
-    
+
     /**
      * Get Code
      *
      * @access public
      * @return string
      */
-    public function getCode()
+    public function getCode(): string
     {
-        return (string)$this->Code;
+        return $this->Code ?? '';
     }
-    
+
     /**
      * Set Description
      *
@@ -107,23 +107,23 @@ class Event extends BaseEntity
      * @param string $description
      * @return $this
      */
-    public function setDescription($description)
+    public function setDescription(string $description): Event
     {
-        $this->Description = (string)$description;
+        $this->Description = $description;
         return $this;
     }
-    
+
     /**
      * Get Description
      *
      * @access public
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
-        return (string)$this->Description;
+        return $this->Description ?? '';
     }
-    
+
     /**
      * Set Location Code
      *
@@ -131,20 +131,20 @@ class Event extends BaseEntity
      * @param string $code
      * @return $this
      */
-    public function setLocationCode($code)
+    public function setLocationCode(string $code): Event
     {
-        $this->LocationCode = (string)$code;
+        $this->LocationCode = $code;
         return $this;
     }
-    
+
     /**
      * Get Location Code
      *
      * @access public
      * @return string
      */
-    public function getLocationCode()
+    public function getLocationCode(): string
     {
-        return (string)$this->LocationCode;
+        return $this->LocationCode ?? '';
     }
 }

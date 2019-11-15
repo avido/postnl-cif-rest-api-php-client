@@ -84,13 +84,13 @@ class Customs extends BaseEntity
      * @var array (Entities/Content)
      */
     protected $Content = [];
-    
-    
+
+
     public function __construct($data = [])
     {
         parent::__construct($data);
     }
-    
+
     /**
      * Set Certificate
      *
@@ -98,23 +98,23 @@ class Customs extends BaseEntity
      * @param boolean $certificate
      * @return $this
      */
-    public function setCertificate($certificate)
+    public function setCertificate(bool $certificate): Customs
     {
-        $this->Certificate = (bool)$certificate;
+        $this->Certificate = $certificate;
         return $this;
     }
-    
+
     /**
      * Get Certificate
      *
      * @access public
      * @return boolean
      */
-    public function getCertificate()
+    public function getCertificate(): bool
     {
-        return (bool)$this->Certificate;
+        return $this->Certificate;
     }
-    
+
     /**
      * Set CertificateNr
      *
@@ -122,24 +122,24 @@ class Customs extends BaseEntity
      * @param string $certificate_number
      * @return $this
      */
-    public function setCertificateNumber($certificate_number)
+    public function setCertificateNumber(string $certificate_number): Customs
     {
-        $this->CertificateNr = (string)$certificate_number;
+        $this->CertificateNr = $certificate_number;
         return $this;
     }
-    
+
     /**
      * Get CertificateNr
      *
      * @access public
      * @return string
      */
-    public function getCertificateNumber()
+    public function getCertificateNumber(): string
     {
-        return (string)$this->CertificateNr;
+        return $this->CertificateNr ?? '';
     }
-    
-    
+
+
     /**
      * Set License
      *
@@ -147,23 +147,23 @@ class Customs extends BaseEntity
      * @param boolean $license
      * @return $this
      */
-    public function setLicense($license)
+    public function setLicense(bool $license): Customs
     {
-        $this->License = (bool)$license;
+        $this->License = $license;
         return $this;
     }
-    
+
     /**
      * Get License
      *
      * @access public
      * @return boolean
      */
-    public function getLicense()
+    public function getLicense(): bool
     {
-        return (bool)$this->License;
+        return $this->License;
     }
-    
+
     /**
      * Set LicenseNr
      *
@@ -171,23 +171,23 @@ class Customs extends BaseEntity
      * @param string $license_number
      * @return $this
      */
-    public function setLicenseNumber($license_number)
+    public function setLicenseNumber(string $license_number): Customs
     {
-        $this->LicenseNr = (string)$license_number;
+        $this->LicenseNr = $license_number;
         return $this;
     }
-    
+
     /**
      * Get LicenseNr
      *
      * @access public
      * @return string
      */
-    public function getLicenseNumber()
+    public function getLicenseNumber(): string
     {
-        return (string)$this->LicenseNr;
+        return $this->LicenseNr ?? '';
     }
-    
+
     /**
      * Set Invoice
      *
@@ -195,23 +195,23 @@ class Customs extends BaseEntity
      * @param boolean $invoice
      * @return $this
      */
-    public function setInvoice($invoice)
+    public function setInvoice(bool $invoice): Customs
     {
-        $this->Invoice = (bool)$invoice;
+        $this->Invoice = $invoice;
         return $this;
     }
-    
+
     /**
      * Get Invoice
      *
      * @access public
      * @return boolean
      */
-    public function getInvoice()
+    public function getInvoice(): bool
     {
-        return (bool)$this->Invoice;
+        return $this->Invoice;
     }
-    
+
     /**
      * Set InvoiceNr
      *
@@ -219,23 +219,23 @@ class Customs extends BaseEntity
      * @param string $invoice_number
      * @return $this
      */
-    public function setInvoiceNumber($invoice_number)
+    public function setInvoiceNumber(string $invoice_number): Customs
     {
-        $this->InvoiceNr = (string)$invoice_number;
+        $this->InvoiceNr = $invoice_number;
         return $this;
     }
-    
+
     /**
      * Get InvoiceNr
      *
      * @access public
      * @return string
      */
-    public function getInvoiceNumber()
+    public function getInvoiceNumber(): string
     {
-        return (string)$this->InvoiceNr;
+        return $this->InvoiceNr ?? '';
     }
-    
+
     /**
      * Handle Shipment as Non Deliverable
      *
@@ -243,23 +243,23 @@ class Customs extends BaseEntity
      * @param boolean $handle_non_deliverable
      * @return $this
      */
-    public function setHandleAsNonDeliverable($handle_non_deliverable)
+    public function setHandleAsNonDeliverable(bool $handle_non_deliverable): Customs
     {
-        $this->HandleAsNonDeliverable = (bool)$handle_non_deliverable;
+        $this->HandleAsNonDeliverable = $handle_non_deliverable;
         return $this;
     }
-    
+
     /**
      * Get Handle Shipment as Non Deliverable
      *
      * @access public
      * @return boolean
      */
-    public function getHandleAsNonDeliverable()
+    public function getHandleAsNonDeliverable(): bool
     {
-        return (bool)$this->HandleAsNonDeliverable;
+        return $this->HandleAsNonDeliverable;
     }
-    
+
     /**
      * Set Currency
      *
@@ -267,21 +267,21 @@ class Customs extends BaseEntity
      * @param string $currency
      * @return $this
      */
-    public function setCurrency($currency)
+    public function setCurrency(string $currency): Customs
     {
-        $this->Currency = (string)$currency;
+        $this->Currency = $currency;
         return $this;
     }
-    
+
     /**
      * Get Currency
      *
      * @access public
      * @return string
      */
-    public function getCurrency()
+    public function getCurrency(): string
     {
-        return (string)$this->Currency;
+        return $this->Currency ?? '';
     }
 
     /**
@@ -291,23 +291,23 @@ class Customs extends BaseEntity
      * @param string $shipment_type
      * @return $this
      */
-    public function setShipmentType($shipment_type)
+    public function setShipmentType(string $shipment_type): Customs
     {
-        $this->ShipmentType = (string)$shipment_type;
+        $this->ShipmentType = $shipment_type;
         return $this;
     }
-    
+
     /**
      * Get Shipment Type
      *
      * @access public
      * @return string
      */
-    public function getShipmentType()
+    public function getShipmentType(): string
     {
-        return (string)$this->ShipmentType;
+        return $this->ShipmentType ?? '';
     }
-    
+
     /**
      * Set Array of Customs content (entities/CustomsContent)
      *
@@ -315,37 +315,37 @@ class Customs extends BaseEntity
      * @param array $contents
      * @return $this
      */
-    public function setContent($contents = [])
+    public function setContent(array $contents = []): Customs
     {
-        $this->Content = (array)$contents;
+        $this->Content = $contents;
         return $this;
     }
-    
+
     /**
      * Get Array of Customs content (entities/CustomsContent)
      *
      * @access public
      * @return array
      */
-    public function getContent()
+    public function getContent(): array
     {
-        return (array)$this->Content;
+        return $this->Content;
     }
-    
+
     /**
      * Output Customs entity as array
      *
      * @access public
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $data = parent::toArray();
         $data['Content'] = $this->getContentsArray();
         return $data;
     }
-    
-    public function getContentsArray()
+
+    public function getContentsArray(): array
     {
         $return = [];
         foreach ($this->getContent() as $content) {

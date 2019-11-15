@@ -23,28 +23,28 @@ class Status extends BaseEntity
      * Status Timestamp
      * @var Util\Date
      */
-    protected $TimeStamp = null;
+    protected $TimeStamp;
     /**
      * Status code
      * @var String
      */
-    protected $StatusCode = null;
+    protected $StatusCode;
     /**
      * Status description
      * @var String
      */
-    protected $StatusDescription = null;
+    protected $StatusDescription;
     /**
      * Phase code
      * @var String
      */
-    protected $PhaseCode = null;
+    protected $PhaseCode;
     /**
      * Phase description
      * @var String
      */
-    protected $PhaseDescription = null;
-    
+    protected $PhaseDescription;
+
     public function __construct($data = [])
     {
         parent::__construct($data);
@@ -53,7 +53,7 @@ class Status extends BaseEntity
             $this->setTimeStamp($data['TimeStamp']);
         }
     }
-    
+
     /**
      * Set Timestamp
      *
@@ -61,7 +61,7 @@ class Status extends BaseEntity
      * @param String
      * @return $this
      */
-    public function setTimeStamp($timestamp)
+    public function setTimeStamp($timestamp): Status
     {
         if (!$timestamp instanceof Date) {
             $timestamp = new Date($timestamp);
@@ -69,18 +69,18 @@ class Status extends BaseEntity
         $this->TimeStamp = $timestamp;
         return $this;
     }
-    
+
     /**
      * Get Timestamp
      *
      * @access public
      * @return String format: Y-m-d H:i:s
      */
-    public function getTimestamp()
+    public function getTimestamp(): string
     {
-        return (string)$this->TimeStamp->format("Y-m-d H:i:s");
+        return $this->TimeStamp->format("Y-m-d H:i:s");
     }
-    
+
     /**
      * Set Status Code
      *
@@ -88,23 +88,23 @@ class Status extends BaseEntity
      * @param string $code
      * @return $this
      */
-    public function setStatusCode($code)
+    public function setStatusCode(string $code): Status
     {
-        $this->StatusCode = (string)$code;
+        $this->StatusCode = $code;
         return $this;
     }
-    
+
     /**
      * Get Status Code
      *
      * @access public
      * @return string
      */
-    public function getStatusCode()
+    public function getStatusCode(): string
     {
-        return (string)$this->StatusCode;
+        return $this->StatusCode ?? '';
     }
-    
+
     /**
      * Set Status Description
      *
@@ -112,23 +112,23 @@ class Status extends BaseEntity
      * @param string $description
      * @return $this
      */
-    public function setStatusDescription($description)
+    public function setStatusDescription(string $description): Status
     {
-        $this->StatusDescription = (string)$description;
+        $this->StatusDescription = $description;
         return $this;
     }
-    
+
     /**
      * Get Status Description
      *
      * @access public
      * @return string
      */
-    public function getStatusDescription()
+    public function getStatusDescription(): string
     {
-        return (string)$this->StatusDescription;
+        return $this->StatusDescription ?? '';
     }
-    
+
     /**
      * Set Phase Code
      *
@@ -136,23 +136,23 @@ class Status extends BaseEntity
      * @param string $code
      * @return $this
      */
-    public function setPhaseCode($code)
+    public function setPhaseCode(string $code): Status
     {
-        $this->PhaseCode = (string)$code;
+        $this->PhaseCode = $code;
         return $this;
     }
-    
+
     /**
      * Get Phase Code
      *
      * @access public
      * @return string
      */
-    public function getPhaseCode()
+    public function getPhaseCode(): string
     {
-        return (string)$this->PhaseCode;
+        return $this->PhaseCode ?? '';
     }
-    
+
     /**
      * Set Phase Description
      *
@@ -160,20 +160,20 @@ class Status extends BaseEntity
      * @param string $description
      * @return $this
      */
-    public function setPhaseDescription($description)
+    public function setPhaseDescription(string $description): Status
     {
-        $this->PhaseDescription = (string)$description;
+        $this->PhaseDescription = $description;
         return $this;
     }
-    
+
     /**
      * Get Phase Description
      *
      * @access public
      * @return string
      */
-    public function getPhaseDescription()
+    public function getPhaseDescription(): string
     {
-        return (string)$this->PhaseDescription;
+        return $this->PhaseDescription ?? '';
     }
 }

@@ -19,7 +19,7 @@ use Avido\PostNLCifClient\Util\Date;
 class NoTimeframe extends BaseModel
 {
     private $options = [];
-    
+
     public function __construct($data = [])
     {
         $this->setDate($data['Date']);
@@ -32,8 +32,8 @@ class NoTimeframe extends BaseModel
         }
         parent::__construct($data);
     }
-    
-    public function setDate($date)
+
+    public function setDate($date): NoTimeframe
     {
         if (!$date instanceof Date) {
             $date = new Date($date);
@@ -41,13 +41,13 @@ class NoTimeframe extends BaseModel
         $this->setData('date', $date);
         return $this;
     }
-    
-    public function getOptions()
+
+    public function getOptions(): array
     {
         return $this->options;
     }
-    
-    public function toArray()
+
+    public function toArray(): array
     {
         $data = parent::toArray();
         $data['date'] = $this->getDate()->format("Y-m-d");

@@ -21,7 +21,7 @@ class Group extends BaseEntity
     const GROUP_TYPE_COLLECTION_REQUEST = "01";
     const GROUP_TYPE_MULTI_COLLO = "03";
     const GROUP_TYPE_SINGLE = "04";
-    
+
     /**
      * Group sort that determines the type of group that is indicated. This is a code.
      * Possible values:
@@ -48,12 +48,12 @@ class Group extends BaseEntity
      * @var String
      */
     protected $MainBarcode = null;
-    
+
     public function __construct($data = [])
     {
         parent::__construct($data);
     }
-    
+
     /**
      * Set Group Type
      *
@@ -61,23 +61,23 @@ class Group extends BaseEntity
      * @param string $type
      * @return $this
      */
-    public function setGroupType($type = '04')
+    public function setGroupType(string $type = '04'): Group
     {
-        $this->GroupType = (string)$type;
+        $this->GroupType = $type;
         return $this;
     }
-    
+
     /**
      * Get Group Type
      *
      * @access public
      * @return string
      */
-    public function getGroupType()
+    public function getGroupType(): string
     {
-        return (string)$this->GroupType;
+        return $this->GroupType ?? '';
     }
-    
+
     /**
      * Set GroupSequence
      *
@@ -85,24 +85,24 @@ class Group extends BaseEntity
      * @param int $sequence
      * @return $this
      */
-    public function setGroupSequence($sequence)
+    public function setGroupSequence(int $sequence): Group
     {
-        $this->GroupSequence = (int)$sequence;
+        $this->GroupSequence = $sequence;
         return $this;
     }
-    
+
     /**
      * Get GroupSequence
      *
      * @access public
      * @return string
      */
-    public function getGroupSequence()
+    public function getGroupSequence(): int
     {
-        return (int)$this->GroupSequence;
+        return $this->GroupSequence;
     }
-    
-    
+
+
     /**
      * Set GroupCount
      *
@@ -110,23 +110,23 @@ class Group extends BaseEntity
      * @param int $cnt
      * @return $this
      */
-    public function setGroupCount($cnt)
+    public function setGroupCount(int $cnt): Group
     {
-        $this->GroupCount = (int)$cnt;
+        $this->GroupCount = $cnt;
         return $this;
     }
-    
+
     /**
      * Get GroupCount
      *
      * @access public
      * @return int
      */
-    public function getGroupCount()
+    public function getGroupCount(): int
     {
-        return (int)$this->GroupCount;
+        return $this->GroupCount;
     }
-    
+
     /**
      * Set MainBarcode
      *
@@ -134,20 +134,20 @@ class Group extends BaseEntity
      * @param string $barcode
      * @return $this
      */
-    public function setMainBarcode($barcode)
+    public function setMainBarcode(string $barcode): Group
     {
-        $this->MainBarcode = (string)$barcode;
+        $this->MainBarcode = $barcode;
         return $this;
     }
-    
+
     /**
      * Get MainBarcode
      *
      * @access public
      * @return string
      */
-    public function getMainBarcode()
+    public function getMainBarcode(): string
     {
-        return (string)$this->MainBarcode;
+        return $this->MainBarcode ?? '';
     }
 }

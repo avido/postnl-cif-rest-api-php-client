@@ -22,7 +22,7 @@ class Amount extends BaseEntity
     const TYPE_INSURED = "02";
     const TYPE_CHINA_ROUTE = "04";
     const TYPE_CHINA_INCO_DDP = "12";
-    
+
     /**
      * List of 0 or more AmountType elements. An amount represents a value of the shipment.
      * Amount type 01 mandatory for COD-shipments,
@@ -71,12 +71,12 @@ class Amount extends BaseEntity
      * @var string
      */
     protected $Value = null;
-    
+
     public function __construct($data = [])
     {
         parent::__construct($data);
     }
-    
+
     /**
      * Set Amount Type
      *
@@ -84,23 +84,23 @@ class Amount extends BaseEntity
      * @param string $type
      * @return $this
      */
-    public function setAmountType($type)
+    public function setAmountType(string $type): Amount
     {
-        $this->AmountType = (string)$type;
+        $this->AmountType = $type;
         return $this;
     }
-    
+
     /**
      * Get Amount Type
      *
      * @access public
      * @return string
      */
-    public function getAmountType()
+    public function getAmountType(): string
     {
-        return (string)$this->AmountType;
+        return $this->AmountType ?? '';
     }
-    
+
     /**
      * Set Account Name
      *
@@ -108,23 +108,23 @@ class Amount extends BaseEntity
      * @param string $account_name
      * @return $this
      */
-    public function setAccountName($account_name)
+    public function setAccountName(string $account_name): Amount
     {
-        $this->AccountName = (string)$account_name;
+        $this->AccountName = $account_name;
         return $this;
     }
-    
+
     /**
      * Get Account Name
      *
      * @access public
      * @return string
      */
-    public function getAcountName()
+    public function getAcountName(): string
     {
-        return (string)$this->AccountName;
+        return $this->AccountName ?? '';
     }
-    
+
     /**
      * Set BIC
      *
@@ -132,23 +132,23 @@ class Amount extends BaseEntity
      * @param string $bic
      * @return $this
      */
-    public function setBIC($bic)
+    public function setBIC(string $bic): Amount
     {
-        $this->BIC = (string)$bic;
+        $this->BIC = $bic;
         return $this;
     }
-    
+
     /**
      * Get BIC
      *
      * @access public
      * @return string
      */
-    public function getBIC()
+    public function getBIC(): string
     {
-        return (string)$this->BIC;
+        return $this->BIC ?? '';
     }
-    
+
     /**
      * Set Currency
      *
@@ -156,23 +156,23 @@ class Amount extends BaseEntity
      * @param string $currency
      * @return $this
      */
-    public function setCurrency($currency)
+    public function setCurrency(string $currency): Amount
     {
-        $this->Currency = (string)$currency;
+        $this->Currency = $currency;
         return $this;
     }
-    
+
     /**
      * Get Currency
      *
      * @access public
      * @return string
      */
-    public function getCurrency()
+    public function getCurrency(): string
     {
-        return (string)$this->Currency;
+        return $this->Currency ?? '';
     }
-    
+
     /**
      * Set IBAN
      *
@@ -180,23 +180,23 @@ class Amount extends BaseEntity
      * @param string $iban
      * @return $this
      */
-    public function setIBAN($iban)
+    public function setIBAN(string $iban): Amount
     {
-        $this->IBAN = (string)$iban;
+        $this->IBAN = $iban;
         return $this;
     }
-    
+
     /**
      * Get IBAN
      *
      * @access public
      * @return string
      */
-    public function getIBAN()
+    public function getIBAN(): string
     {
-        return (string)$this->IBAN;
+        return $this->IBAN ?? '';
     }
-    
+
     /**
      * Set Reference
      *
@@ -204,23 +204,23 @@ class Amount extends BaseEntity
      * @param string $reference
      * @return $this
      */
-    public function setReference($reference)
+    public function setReference(string $reference): Amount
     {
-        $this->Reference = (string)$reference;
+        $this->Reference = $reference;
         return $this;
     }
-    
+
     /**
      * Get Reference
      *
      * @access public
      * @return string
      */
-    public function getReference()
+    public function getReference(): string
     {
-        return (string)$this->Reference;
+        return $this->Reference ?? '';
     }
-    
+
     /**
      * Set TransactionNumber
      *
@@ -228,23 +228,23 @@ class Amount extends BaseEntity
      * @param string $transaction_number
      * @return $this
      */
-    public function setTransactionNumber($transaction_number)
+    public function setTransactionNumber(string $transaction_number): Amount
     {
-        $this->TransactionNumber = (string)$transaction_number;
+        $this->TransactionNumber = $transaction_number;
         return $this;
     }
-    
+
     /**
      * Get TransactionNumber
      *
      * @access public
      * @return string
      */
-    public function getTransactionNumber()
+    public function getTransactionNumber(): string
     {
-        return (string)$this->TransactionNumber;
+        return $this->TransactionNumber ?? '';
     }
-    
+
     /**
      * Set Value
      *
@@ -252,20 +252,20 @@ class Amount extends BaseEntity
      * @param string $value
      * @return $this
      */
-    public function setValue($value)
+    public function setValue(string $value): Amount
     {
-        $this->Value = (string)$value;
+        $this->Value = $value;
         return $this;
     }
-    
+
     /**
      * Get Value
      *
      * @access public
      * @return string
      */
-    public function getValue()
+    public function getValue(): string
     {
-        return (string)$this->Value;
+        return $this->Value ?? '';
     }
 }

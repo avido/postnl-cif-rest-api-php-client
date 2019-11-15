@@ -38,27 +38,27 @@ class TimeframeRequest extends BaseRequest
             'options' => []
         ];
     }
-    
-    public function setAllowSundaySorting($allow_sunday_sorting)
+
+    public function setAllowSundaySorting(bool $allow_sunday_sorting): TimeframeRequest
     {
-        $this->arguments['allow_sunday_sorting'] = (bool)$allow_sunday_sorting;
+        $this->arguments['allow_sunday_sorting'] = $allow_sunday_sorting;
         return $this;
     }
-    
-    public function setStartDate($date)
+
+    public function setStartDate(string $date): TimeframeRequest
     {
         $date = new Date($date);
         $this->arguments['start_date'] = $date->format('d-m-Y');
         return $this;
     }
-    
-    public function setEndDate($date)
+
+    public function setEndDate(string $date): TimeframeRequest
     {
         $date = new Date($date);
         $this->arguments['end_date'] = $date->format('d-m-Y');
         return $this;
     }
-    
+
     /**
      * Set Postal code
      *
@@ -66,20 +66,20 @@ class TimeframeRequest extends BaseRequest
      * @param string $postalcode
      * @return $this
      */
-    public function setPostalcode($postalcode)
+    public function setPostalcode(string $postalcode): TimeframeRequest
     {
         $this->arguments['postal_code'] = $postalcode;
         return $this;
     }
-    
-    public function setInterval($interval)
+
+    public function setInterval(int $interval): TimeframeRequest
     {
         if ($interval%30) {
             $this->arguments['interval'] = $interval;
         }
         return $this;
     }
-    
+
     /**
      * Set Housenumber
      *
@@ -87,31 +87,31 @@ class TimeframeRequest extends BaseRequest
      * @param string $house_number
      * @return $this
      */
-    public function setHouseNumber($house_number)
+    public function setHouseNumber(int $house_number): TimeframeRequest
     {
-        $this->arguments['house_number'] = (int)$house_number;
+        $this->arguments['house_number'] = $house_number;
         return $this;
     }
-    
+
     /**
      * Set Housenumber Ext
      *
      * @access public
-     * @param string $house_number
+     * @param string $ext
      * @return $this
      */
-    public function setHouseNumberExt($ext)
+    public function setHouseNumberExt(string $ext): TimeframeRequest
     {
         $this->arguments['house_nr_ext'] = $ext;
         return $this;
     }
-    
-    public function setTimeframeRange($range)
+
+    public function setTimeframeRange(string $range): TimeframeRequest
     {
         $this->arguments['timeframe_range'] = $range;
         return $this;
     }
-    
+
     /**
      * Set Street
      *
@@ -119,12 +119,12 @@ class TimeframeRequest extends BaseRequest
      * @param strung $street
      * @return $this
      */
-    public function setStreet($street)
+    public function setStreet(string $street): TimeframeRequest
     {
         $this->arguments['street'] = $street;
         return $this;
     }
-    
+
     /**
      * Set City
      *
@@ -132,12 +132,12 @@ class TimeframeRequest extends BaseRequest
      * @param string $city
      * @return $this
      */
-    public function setCity($city)
+    public function setCity(string $city): TimeframeRequest
     {
         $this->arguments['city'] = $city;
         return $this;
     }
-    
+
     /**
      * Set Country Code (ISO 3166-1 alpha-2.)
      *
@@ -146,12 +146,12 @@ class TimeframeRequest extends BaseRequest
      * @param string $country_code
      * @return $this
      */
-    public function setCountryCode($country_code)
+    public function setCountryCode(string $country_code): TimeframeRequest
     {
         $this->arguments['country_code'] = $country_code;
         return $this;
     }
-    
+
     /**
      * Set Delivery date
      *
@@ -159,12 +159,12 @@ class TimeframeRequest extends BaseRequest
      * @param string $delivery_date
      * @return $this
      */
-    public function setDeliveryDate($delivery_date)
+    public function setDeliveryDate(string $delivery_date): TimeframeRequest
     {
         $this->arguments['delivery_date'] = $delivery_date;
         return $this;
     }
-    
+
     /**
      * Set Opening Time
      *
@@ -172,12 +172,12 @@ class TimeframeRequest extends BaseRequest
      * @param string $opening_time
      * @return $this
      */
-    public function setOpeningTime($opening_time)
+    public function setOpeningTime(string $opening_time): TimeframeRequest
     {
         $this->arguments['opening_time'] = $opening_time;
         return $this;
     }
-    
+
     /**
      * Add delivery option
      *
@@ -185,20 +185,20 @@ class TimeframeRequest extends BaseRequest
      * @param string $option
      * @return $this
      */
-    public function addDeliveryOption($option)
+    public function addDeliveryOption(string $option): TimeframeRequest
     {
         if ($this->isValidDeliveryOption($option, 'timeframe') && !in_array($option, $this->arguments['options'])) {
             $this->arguments['options'][] = $option;
         }
         return $this;
     }
-    
-    public function getDeliveryOptions()
+
+    public function getDeliveryOptions(): string
     {
         return implode(",", $this->arguments['options']);
     }
-    
-    public function getArguments()
+
+    public function getArguments(): array
     {
         $arguments = parent::getArguments();
         $arguments['Options'] = $this->getDeliveryOptions();

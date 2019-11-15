@@ -27,7 +27,7 @@ use Avido\PostNLCifClient\Response\SendTrack\Confirming\ConfirmResponse;
 
 class ConfirmingApi extends BaseClient
 {
-    
+
     /***********************************
      * Labelling Webservice API
      *
@@ -35,8 +35,8 @@ class ConfirmingApi extends BaseClient
      *
      * @see https://developer.postnl.nl/browse-apis/send-and-track/labelling-webservice/documentation/
      ***********************************/
-    
-    public function confirm(ConfirmRequest $request, $confirm = false)
+
+    public function confirm(ConfirmRequest $request, bool $confirm = false): ConfirmResponse
     {
         if (!$request->okay()) {
             throw new \Exception("Incomplete request");

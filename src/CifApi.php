@@ -22,7 +22,7 @@ class CifApi
      * @var constant
      */
     const LOGGER_CHANNEL = "PostNLApiClient";
-    
+
     /**
      * PostNL API Key
      * @see https://apimanager.developer.postnl.nl/
@@ -35,25 +35,25 @@ class CifApi
      * @var string
      */
     private $customerNumber = null;
-    
+
     /**
      * Customer code as known at PostNL Pakketten
      * @var string
      */
     private $customerCode = null;
-    
+
     /**
      * Code of delivery location at PostNL Pakketten
      * @var string
      */
     private $collectionLocation = null;
-    
+
     /**
      * Indicates test mode (sandbox)
      * @var bool
      */
     private $testMode = null;
-    
+
     /**
      * Log
      * @var Monolog\Logger
@@ -65,7 +65,7 @@ class CifApi
      * @var array (format: [clientkey => instance]
      */
     private $apiClients = [];
-    
+
     /**
      * Construct PostNL CIF Rest API Client
      *
@@ -77,22 +77,24 @@ class CifApi
      * @param mixed Monolog\Handler|null $logger
      */
     public function __construct(
-        $apiKey,
-        $customerNumber = null,
-        $customerCode = null,
-        $collectionLocation = null,
-        $sandbox = false,
-        $logger = null
+        string $apiKey,
+        string $customerNumber = null,
+        string $customerCode = null,
+        string $collectionLocation = null,
+        bool $sandbox = false,
+        ?\Monolog\Handler\AbstractHandler $logger = null
     ) {
         $this->setApiKey($apiKey)
             ->setCustomerNumber($customerNumber)
             ->setCustomerCode($customerCode)
             ->setCollectionLocation($collectionLocation)
             ->setTestMode($sandbox);
-        $this->setLogger($logger);
-        
+        if (!is_null($logger)) {
+            $this->setLogger($logger);
+        }
+
         date_default_timezone_set('europe/amsterdam');
-        
+
         // add default clients.
         $this->addAPI('location', 'Api\\LocationApi')
             ->addAPI('timeframe', 'Api\\TimeframeApi')
@@ -102,7 +104,7 @@ class CifApi
             ->addAPI('confirming', 'Api\\ConfirmingApi')
             ->addAPI('shippingstatus', 'Api\\ShippingStatusApi');
     }
-    
+
     /**
      * Add PostNL Webservices API
      *
@@ -112,7 +114,7 @@ class CifApi
      * @param string $instance
      * @return $this
      */
-    private function addAPI($name, $instance)
+    private function addAPI(string $name, string $instance)
     {
         $client = "Avido\\PostNLCifClient\\{$instance}";
         $this->apiClients[$name] = new $client($this->apiKey,
@@ -124,7 +126,7 @@ class CifApi
         );
         return $this;
     }
-    
+
     /**
      * Get PostNL Webservices API Instance
      *
@@ -133,14 +135,14 @@ class CifApi
      * @return API instance
      * @throws \Exception
      */
-    public function getAPI($name)
+    public function getAPI(string $name)
     {
         if (!isset($this->apiClients[$name])) {
             throw new \Exception("No API client found with name '{$name}'");
         }
         return $this->apiClients[$name];
     }
-    
+
     /**
      * Set API Key
      *
@@ -148,13 +150,13 @@ class CifApi
      * @param string $apiKey
      * @return $this
      */
-    public function setApiKey($apiKey)
+    public function setApiKey(string $apiKey): CifApi
     {
-        $this->apiKey = (string)$apiKey;
+        $this->apiKey = $apiKey;
         return $this;
     }
 
-  
+
     /**
      * Set Customer Number
      *
@@ -162,12 +164,12 @@ class CifApi
      * @param string $customer_number
      * @return $this
      */
-    public function setCustomerNumber($customer_number)
+    public function setCustomerNumber(string $customer_number): CifApi
     {
-        $this->customerNumber = (string)$customer_number;
+        $this->customerNumber = $customer_number;
         return $this;
     }
-    
+
     /**
      * Set Customer Code
      *
@@ -175,12 +177,12 @@ class CifApi
      * @param string $customer_code
      * @return $this
      */
-    public function setCustomerCode($customer_code)
+    public function setCustomerCode(string $customer_code): CifApi
     {
-        $this->customerCode = (string)$customer_code;
+        $this->customerCode = $customer_code;
         return $this;
     }
-    
+
     /**
      * Set Collection Location
      *
@@ -188,12 +190,12 @@ class CifApi
      * @param string $collection_location
      * @return $this
      */
-    public function setCollectionLocation($collection_location)
+    public function setCollectionLocation(string $collection_location): CifApi
     {
-        $this->collectionLocation = (string)$collection_location;
+        $this->collectionLocation = $collection_location;
         return $this;
     }
-    
+
     /**
      * Enable or disable testmode (default disabled)
      *
@@ -201,13 +203,13 @@ class CifApi
      * @param boolean $mode
      * @return $this
      */
-    public function setTestMode($mode)
+    public function setTestMode(bool $mode): CifApi
     {
-        $this->testMode = (bool)$mode;
+        $this->testMode = $mode;
         return $this;
     }
 
-    
+
     /**
      * Set logger
      *
@@ -215,23 +217,21 @@ class CifApi
      * @param Monolog\Handler $handler
      * @return $this
      */
-    public function setLogger($handler)
+    public function setLogger(\Monolog\Handler\AbstractHandler $handler): CifApi
     {
-        if (!is_null($handler)) {
-            $this->logger = new Logger(self::LOGGER_CHANNEL); //initialize the logger
-            $this->logger->pushHandler($handler);
-        }
-        
+        $this->logger = new Logger(self::LOGGER_CHANNEL); //initialize the logger
+        $this->logger->pushHandler($handler);
+
         return $this;
     }
-    
+
     /**
      * Get Logger
      *
      * @access public
      * @return Monolog\Logger
      */
-    public function getLogger()
+    public function getLogger(): Logger
     {
         if (is_null($this->logger)) {
             // return dummy
@@ -240,14 +240,14 @@ class CifApi
         }
         return $this->logger;
     }
-    
+
     /**
      * Check for defined logger
      *
      * @access public
      * @return boolean
      */
-    public function hasLogger()
+    public function hasLogger(): bool
     {
         return (bool)!is_null($this->logger) ? true : false;
     }

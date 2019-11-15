@@ -148,9 +148,9 @@ class Address extends BaseEntity
      * @param string $type
      * @return $this
      */
-    public function setAddressType($type)
+    public function setAddressType(string $type): Address
     {
-        $this->AddressType = (string)$type;
+        $this->AddressType = $type;
         return $this;
     }
 
@@ -160,9 +160,9 @@ class Address extends BaseEntity
      * @access public
      * @return string
      */
-    public function getAddressType()
+    public function getAddressType(): string
     {
-        return (string)$this->AddressType;
+        return $this->AddressType ?? '';
     }
 
     /**
@@ -172,9 +172,9 @@ class Address extends BaseEntity
      * @param string $area
      * @return $this
      */
-    public function setArea($area)
+    public function setArea(string $area): Address
     {
-        $this->Area = (string)$area;
+        $this->Area = $area;
         return $this;
     }
 
@@ -184,9 +184,9 @@ class Address extends BaseEntity
      * @access public
      * @return string
      */
-    public function getArea()
+    public function getArea(): string
     {
-        return (string)$this->Area;
+        return $this->Area ?? '';
     }
 
     /**
@@ -196,9 +196,9 @@ class Address extends BaseEntity
      * @param string $buildingname
      * @return $this
      */
-    public function setBuildingname($buildingname)
+    public function setBuildingname(string $buildingname): Address
     {
-        $this->Buildingname = (string)$buildingname;
+        $this->Buildingname = $buildingname;
         return $this;
     }
 
@@ -208,9 +208,9 @@ class Address extends BaseEntity
      * @access public
      * @return string
      */
-    public function getBuildingname()
+    public function getBuildingname(): string
     {
-        return (string)$this->Buildingname;
+        return $this->Buildingname ?? '';
     }
 
     /**
@@ -220,9 +220,9 @@ class Address extends BaseEntity
      * @param string $city
      * @return $this
      */
-    public function setCity($city)
+    public function setCity(string $city): Address
     {
-        $this->City = (string)$city;
+        $this->City = $city;
         return $this;
     }
 
@@ -232,9 +232,9 @@ class Address extends BaseEntity
      * @access public
      * @return string
      */
-    public function getCity()
+    public function getCity(): string
     {
-        return (string)$this->City;
+        return $this->City ?? '';
     }
 
     /**
@@ -244,9 +244,9 @@ class Address extends BaseEntity
      * @param string $companyname
      * @return $this
      */
-    public function setCompanyname($companyname)
+    public function setCompanyname(string $companyname): Address
     {
-        $this->CompanyName = (string)$companyname;
+        $this->CompanyName = $companyname;
         return $this;
     }
 
@@ -256,9 +256,9 @@ class Address extends BaseEntity
      * @access public
      * @return string
      */
-    public function getCompanyname()
+    public function getCompanyname(): string
     {
-        return (string)$this->CompanyName;
+        return $this->CompanyName ?? '';
     }
     /**
      * Set Address Iso2 Country Code
@@ -267,9 +267,9 @@ class Address extends BaseEntity
      * @param string $countrycode
      * @return $this
      */
-    public function setCountrycode($countrycode)
+    public function setCountrycode(string $countrycode): Address
     {
-        $this->Countrycode = (string)$countrycode;
+        $this->Countrycode = $countrycode;
         return $this;
     }
 
@@ -279,9 +279,9 @@ class Address extends BaseEntity
      * @access public
      * @return string
      */
-    public function getCountryCode()
+    public function getCountryCode(): string
     {
-        return (string)$this->Countrycode;
+        return $this->Countrycode ?? '';
     }
 
     /**
@@ -291,9 +291,9 @@ class Address extends BaseEntity
      * @param string $department
      * @return $this
      */
-    public function setDepartment($department)
+    public function setDepartment(string $department): Address
     {
-        $this->Department = (string)$department;
+        $this->Department = $department;
         return $this;
     }
 
@@ -303,9 +303,9 @@ class Address extends BaseEntity
      * @access public
      * @return string
      */
-    public function getDepartment()
+    public function getDepartment(): string
     {
-        return (string)$this->Department;
+        return $this->Department ?? '';
     }
 
     /**
@@ -315,9 +315,9 @@ class Address extends BaseEntity
      * @param string $doorcode
      * @return $this
      */
-    public function setDoorcode($doorcode)
+    public function setDoorcode(string $doorcode): Address
     {
-        $this->Doorcode = (string)$doorcode;
+        $this->Doorcode = $doorcode;
         return $this;
     }
 
@@ -327,9 +327,9 @@ class Address extends BaseEntity
      * @access public
      * @return string
      */
-    public function getDoorcode()
+    public function getDoorcode(): string
     {
-        return (string)$this->Doorcode;
+        return $this->Doorcode ?? '';
     }
 
     /**
@@ -339,9 +339,9 @@ class Address extends BaseEntity
      * @param string $firstname
      * @return $this
      */
-    public function setFirstname($firstname)
+    public function setFirstname(string $firstname): Address
     {
-        $this->Firstname = (string)$firstname;
+        $this->Firstname = $firstname;
         return $this;
     }
 
@@ -351,9 +351,9 @@ class Address extends BaseEntity
      * @access public
      * @return string
      */
-    public function getFirstname()
+    public function getFirstname(): string
     {
-        return (string)$this->Firstname;
+        return $this->Firstname ?? '';
     }
 
     /**
@@ -363,9 +363,9 @@ class Address extends BaseEntity
      * @param string $floor
      * @return $this
      */
-    public function setFloor($floor)
+    public function setFloor(string $floor): Address
     {
-        $this->Floor = (string)$floor;
+        $this->Floor = $floor;
         return $this;
     }
 
@@ -375,9 +375,9 @@ class Address extends BaseEntity
      * @access public
      * @return string
      */
-    public function getFloor()
+    public function getFloor(): string
     {
-        return (string)$this->Floor;
+        return $this->Floor ?? '';
     }
 
     /**
@@ -387,9 +387,9 @@ class Address extends BaseEntity
      * @param int $housenumber
      * @return $this
      */
-    public function setHousenumber($housenumber)
+    public function setHousenumber(int $housenumber): Address
     {
-        $this->HouseNr = (int)$housenumber;
+        $this->HouseNr = $housenumber;
         return $this;
     }
 
@@ -399,9 +399,9 @@ class Address extends BaseEntity
      * @access public
      * @return int
      */
-    public function getHousenumber()
+    public function getHousenumber(): int
     {
-        return (int)$this->HouseNr;
+        return $this->HouseNr ?? 0;
     }
 
     /**
@@ -411,9 +411,9 @@ class Address extends BaseEntity
      * @param string $housenumber_ext
      * @return $this
      */
-    public function setHousenumberExt($housenumber_ext)
+    public function setHousenumberExt(string $housenumber_ext): Address
     {
-        $this->HouseNrExt = (string)$housenumber_ext;
+        $this->HouseNrExt = $housenumber_ext;
         return $this;
     }
 
@@ -423,9 +423,9 @@ class Address extends BaseEntity
      * @access public
      * @return string
      */
-    public function getHousenumberExt()
+    public function getHousenumberExt(): string
     {
-        return (string)$this->HouseNrExt;
+        return $this->HouseNrExt ?? '';
     }
 
     /**
@@ -435,9 +435,9 @@ class Address extends BaseEntity
      * @param string $remark
      * @return $this
      */
-    public function setRemark($remark)
+    public function setRemark(string $remark): Address
     {
-        $this->Remark = (string)$remark;
+        $this->Remark = $remark;
         return $this;
     }
 
@@ -447,9 +447,9 @@ class Address extends BaseEntity
      * @access public
      * @return string
      */
-    public function getRemark()
+    public function getRemark(): string
     {
-        return (string)$this->Remark;
+        return $this->Remark ?? '';
     }
 
     /**
@@ -459,9 +459,9 @@ class Address extends BaseEntity
      * @param string $name
      * @return $this
      */
-    public function setName($name)
+    public function setName(string $name): Address
     {
-        $this->Name = (string)$name;
+        $this->Name = $name;
         return $this;
     }
 
@@ -471,9 +471,9 @@ class Address extends BaseEntity
      * @access public
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
-        return (string)$this->Name;
+        return $this->Name ?? '';
     }
     /**
      * Set Address Region
@@ -482,9 +482,9 @@ class Address extends BaseEntity
      * @param string $region
      * @return $this
      */
-    public function setRegion($region)
+    public function setRegion(string $region): Address
     {
-        $this->Region = (string)$region;
+        $this->Region = $region;
         return $this;
     }
 
@@ -494,9 +494,9 @@ class Address extends BaseEntity
      * @access public
      * @return string
      */
-    public function getRegion()
+    public function getRegion(): string
     {
-        return (string)$this->Region;
+        return $this->Region ?? '';
     }
 
     /**
@@ -506,9 +506,9 @@ class Address extends BaseEntity
      * @param string $street
      * @return $this
      */
-    public function setStreet($street)
+    public function setStreet(string $street): Address
     {
-        $this->Street = (string)$street;
+        $this->Street = $street;
         return $this;
     }
 
@@ -518,9 +518,9 @@ class Address extends BaseEntity
      * @access public
      * @return string
      */
-    public function getStreet()
+    public function getStreet(): string
     {
-        return (string)$this->Street;
+        return $this->Street ?? '';
     }
 
     /**
@@ -530,9 +530,9 @@ class Address extends BaseEntity
      * @param string $address
      * @return $this
      */
-    public function setStreetHouseNrExt($address)
+    public function setStreetHouseNrExt(string $address): Address
     {
-        $this->StreetHouseNrExt = (string)$address;
+        $this->StreetHouseNrExt = $address;
         return $this;
     }
 
@@ -542,9 +542,9 @@ class Address extends BaseEntity
      * @access public
      * @return string
      */
-    public function getStreetHouseNrExt()
+    public function getStreetHouseNrExt(): string
     {
-        return (string)$this->StreetHouseNrExt;
+        return $this->StreetHouseNrExt ?? '';
     }
 
     /**
@@ -554,9 +554,9 @@ class Address extends BaseEntity
      * @param type $zipcode
      * @return $this
      */
-    public function setZipcode($zipcode)
+    public function setZipcode(string $zipcode): Address
     {
-        $this->Zipcode = (string)$zipcode;
+        $this->Zipcode = $zipcode;
         return $this;
     }
 
@@ -566,9 +566,9 @@ class Address extends BaseEntity
      * @access public
      * @return string
      */
-    public function getZipcode()
+    public function getZipcode(): string
     {
-        return (string)$this->Zipcode;
+        return $this->Zipcode ?? '';
     }
 
     /**
@@ -577,7 +577,7 @@ class Address extends BaseEntity
      * @access public
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'AddressType' => $this->getAddressType(),

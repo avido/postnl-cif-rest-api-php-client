@@ -27,7 +27,7 @@ use Avido\PostNLCifClient\Response\SendTrack\Labelling\LabelResponse;
 
 class LabellingApi extends BaseClient
 {
-    
+
     /***********************************
      * Labelling Webservice API
      *
@@ -35,8 +35,8 @@ class LabellingApi extends BaseClient
      *
      * @see https://developer.postnl.nl/browse-apis/send-and-track/labelling-webservice/documentation/
      ***********************************/
-    
-    public function getLabel(LabelRequest $request, $confirm = false)
+
+    public function getLabel(LabelRequest $request, bool $confirm = false): LabelResponse
     {
         // Postnl expects a string.....
         $confirm = ($confirm === true) ? 'true' : 'false';
