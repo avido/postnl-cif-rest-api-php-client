@@ -15,32 +15,32 @@ namespace Avido\PostNLCifClient\Helper;
 
 class ProductOption
 {
-    private $code = null;
-    private $label = null;
-    private $isExtraCover = null;
-    private $isEvening = null;
-    private $isSunday = null;
-    private $isCod = null;
-    private $statedAddressOnly = null;
-    private $countryLimitation = null;
-    private $group = null;
-    
+    private $code;
+    private $label;
+    private $isExtraCover = false;
+    private $isEvening = false;
+    private $isSunday = false;
+    private $isCod = false;
+    private $statedAddressOnly = false;
+    private $countryLimitation;
+    private $group;
+
     public function __construct($data = [])
     {
         foreach ($data as $key => $val) {
             $this->{$key} = $val;
         }
     }
-    
+
     /**
      * Get Product Option Code
      *
      * @access public
      * @return string
      */
-    public function getCode()
+    public function getCode(): string
     {
-        return (string)$this->code;
+        return $this->code ?? '';
     }
     /**
      * Get readable label for product option
@@ -48,20 +48,20 @@ class ProductOption
      * @access public
      * @return string
      */
-    public function getLabel()
+    public function getLabel(): string
     {
-        return (string)$this->label;
+        return $this->label ?? '';
     }
-    
+
     /**
      * Indicates extra cover is required for product option
      *
      * @access public
      * @return boolean
      */
-    public function isExtraCover()
+    public function isExtraCover(): bool
     {
-        return (bool)$this->isExtraCover;
+        return $this->isExtraCover;
     }
     /**
      * Indicates product code is evening delivery
@@ -69,9 +69,9 @@ class ProductOption
      * @access public
      * @return boolean
      */
-    public function isEvening()
+    public function isEvening(): bool
     {
-        return (bool)$this->isEvening;
+        return $this->isEvening;
     }
     /**
      * Indicates product code is sunday delivery
@@ -79,9 +79,9 @@ class ProductOption
      * @access public
      * @return boolean
      */
-    public function isSunday()
+    public function isSunday(): bool
     {
-        return (bool)$this->isSunday;
+        return $this->isSunday;
     }
     /**
      * Indicates product code is Cash On Delivery
@@ -89,20 +89,20 @@ class ProductOption
      * @access public
      * @return boolean
      */
-    public function isCOD()
+    public function isCOD(): bool
     {
-        return (bool)$this->isCod;
+        return $this->isCod;
     }
-    
+
     /**
      * Indicates product code is stated address only
      *
      * @access public
      * @return boolean
      */
-    public function isStatedAddressOnly()
+    public function isStatedAddressOnly(): bool
     {
-        return (bool)$this->statedAddressOnly;
+        return $this->statedAddressOnly;
     }
     /**
      * Check if product code can be used for (delivery) country
@@ -111,18 +111,18 @@ class ProductOption
      * @param string $country
      * @return boolean
      */
-    public function matchCountry($country)
+    public function matchCountry(string $country): bool
     {
         return (is_null($this->getCountries()) || in_array($country, $this->getCountries())) ? true : false;
     }
-    
+
     /**
      * Get Possible country limitations for product code
      *
      * @access public
      * @return mixed null|array - null = no limitations
      */
-    public function getCountries()
+    public function getCountries(): array
     {
         if ($this->countryLimitation === null || $this->countryLimitation === false) {
             return null;

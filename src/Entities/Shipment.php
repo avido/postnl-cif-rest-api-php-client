@@ -318,7 +318,7 @@ class Shipment extends BaseEntity
      * @access public
      * @return Entities/Status
      */
-    public function getStatus()
+    public function getStatus(): Status
     {
         return $this->Status;
     }
@@ -330,7 +330,7 @@ class Shipment extends BaseEntity
      * @param array $statusses
      * @return $this
      */
-    public function setOldStatus($statusses)
+    public function setOldStatus(array $statusses): Shipment
     {
         $tmp = [];
         if (is_array($statusses)) {
@@ -351,7 +351,7 @@ class Shipment extends BaseEntity
      * @access public
      * @return array Entities/Status
      */
-    public function getOldStatus()
+    public function getOldStatus(): Status
     {
         return $this->OldStatus;
     }
@@ -363,7 +363,7 @@ class Shipment extends BaseEntity
      * @param array $events
      * @return $this
      */
-    public function setEvent($events)
+    public function setEvent(array $events): Shipment
     {
         $tmp = [];
         if (is_array($events)) {
@@ -384,7 +384,7 @@ class Shipment extends BaseEntity
      * @access public
      * @return array Entities/Event
      */
-    public function getEvent()
+    public function getEvent(): Event
     {
         return $this->Event;
     }
@@ -396,7 +396,7 @@ class Shipment extends BaseEntity
      * @param array $expectation
      * @return $this
      */
-    public function setExpectation($expectation)
+    public function setExpectation(array $expectation): Shipment
     {
         $this->Expectation = new Expectation($expectation);
         return $this;
@@ -408,7 +408,7 @@ class Shipment extends BaseEntity
      * @access public
      * @return Entities/Expectation
      */
-    public function getExpectation()
+    public function getExpectation(): Expectation
     {
         return $this->Expectation;
     }
@@ -419,7 +419,7 @@ class Shipment extends BaseEntity
      * @access public
      * @param array $amounts
      */
-    public function setAmounts($amounts = [])
+    public function setAmounts(array $amounts = []): Shipment
     {
         $tmp = [];
         foreach ($amounts as $amount) {
@@ -438,9 +438,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return array
      */
-    public function getAmounts()
+    public function getAmounts(): array
     {
-        return (array)$this->Amounts;
+        return $this->Amounts;
     }
 
     /**
@@ -450,7 +450,7 @@ class Shipment extends BaseEntity
      * @param array $addresses
      * @return $this
      */
-    public function setAddresses($addresses = [])
+    public function setAddresses(array $addresses = []): Shipment
     {
         foreach ($addresses as $address) {
             $this->addAddress(new Address($address));
@@ -464,7 +464,7 @@ class Shipment extends BaseEntity
      * @param Avido\PostNLCifClient\Entities\Address $address
      * @return $this
      */
-    public function addAddress(Address $address)
+    public function addAddress(Address $address): Shipment
     {
         $this->Addresses[] = $address;
         return $this;
@@ -477,7 +477,7 @@ class Shipment extends BaseEntity
      * @param Avido\PostNLCifClient\Entities\Contact $contact
      * @return $this
      */
-    public function addContact(Contact $contact)
+    public function addContact(Contact $contact): Shipment
     {
         $this->Contacts[] = $contact;
         return $this;
@@ -493,7 +493,7 @@ class Shipment extends BaseEntity
      * @param string $delivery_address
      * @return $this
      */
-    public function setDeliveryAddress($delivery_address)
+    public function setDeliveryAddress(string $delivery_address): Shipment
     {
         $this->DeliveryAddress = $delivery_address;
         return $this;
@@ -505,9 +505,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getDeliveryAddress()
+    public function getDeliveryAddress(): string
     {
-        return (string)$this->DeliveryAddress;
+        return $this->DeliveryAddress ?? '';
     }
 
 
@@ -518,7 +518,7 @@ class Shipment extends BaseEntity
      * @param Avido\PostNLCifClient\Entities\Dimension $dimension
      * @return $this
      */
-    public function setDimension(Dimension $dimension)
+    public function setDimension(Dimension $dimension): Shipment
     {
         $this->Dimension = $dimension;
         return $this;
@@ -530,7 +530,7 @@ class Shipment extends BaseEntity
      * @access public
      * @return Avido\PostNLCifClient\Entities\Dimension
      */
-    public function getDimensions()
+    public function getDimensions(): Dimension
     {
         return $this->Dimension;
     }
@@ -543,7 +543,7 @@ class Shipment extends BaseEntity
      * @param string $product_code_delivery
      * @return $this
      */
-    public function setProductCodeDelivery($product_code_delivery)
+    public function setProductCodeDelivery(string $product_code_delivery): Shipment
     {
         $this->ProductCodeDelivery = $product_code_delivery;
         return $this;
@@ -555,9 +555,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getProductCodeDelivery()
+    public function getProductCodeDelivery(): string
     {
-        return (string)$this->ProductCodeDelivery;
+        return $this->ProductCodeDelivery ?? '';
     }
 
 
@@ -567,9 +567,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return array
      */
-    public function getAddresses()
+    public function getAddresses(): array
     {
-        return (array)$this->Addresses;
+        return $this->Addresses;
     }
 
     /**
@@ -579,7 +579,7 @@ class Shipment extends BaseEntity
      * @param string $barcode
      * @return $this
      */
-    public function setBarcode($barcode)
+    public function setBarcode(string $barcode): Shipment
     {
         $this->Barcode = $barcode;
         return $this;
@@ -591,9 +591,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getBarcode()
+    public function getBarcode(): string
     {
-        return (string)$this->Barcode;
+        return $this->Barcode ?? '';
     }
 
     /**
@@ -603,7 +603,7 @@ class Shipment extends BaseEntity
      * @param array $contacts
      * @return $this
      */
-    public function setContacts($contacts = [])
+    public function setContacts(array $contacts = []): Shipment
     {
         $tmp = [];
         foreach ($contacts as $contact) {
@@ -621,12 +621,12 @@ class Shipment extends BaseEntity
      * @access public
      * @return array
      */
-    public function getContacts()
+    public function getContacts(): array
     {
-        return (array)$this->ContactPerson;
+        return $this->ContactPerson;
     }
 
-    public function setLabels($labels = [])
+    public function setLabels(array $labels = []): Shipment
     {
         $tmp = [];
         foreach ($labels as $label) {
@@ -645,7 +645,7 @@ class Shipment extends BaseEntity
      * @access public
      * @return array
      */
-    public function getLabels()
+    public function getLabels(): array
     {
         return $this->Labels;
     }
@@ -657,9 +657,9 @@ class Shipment extends BaseEntity
      * @param string $timestamp
      * @return $this
      */
-    public function setCollectionTimestampStart($timestamp)
+    public function setCollectionTimestampStart(string $timestamp): Shipment
     {
-        $this->CollectionTimeStampStart = (string)$timestamp;
+        $this->CollectionTimeStampStart = $timestamp;
         return $this;
     }
 
@@ -669,9 +669,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getCollectionTimestampStart()
+    public function getCollectionTimestampStart(): string
     {
-        return (string)$this->CollectionTimeStampStart;
+        return $this->CollectionTimeStampStart ?? '';
     }
 
 
@@ -682,9 +682,9 @@ class Shipment extends BaseEntity
      * @param string $timestamp
      * @return $this
      */
-    public function setCollectionTimestampEnd($timestamp)
+    public function setCollectionTimestampEnd(string $timestamp): Shipment
     {
-        $this->CollectionTimeStampEnd = (string)$timestamp;
+        $this->CollectionTimeStampEnd = $timestamp;
         return $this;
     }
 
@@ -694,9 +694,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getCollectionTimestampEnd()
+    public function getCollectionTimestampEnd(): string
     {
-        return (string)$this->CollectionTimeStampEnd;
+        return $this->CollectionTimeStampEnd ?? '';
     }
 
     /**
@@ -706,9 +706,9 @@ class Shipment extends BaseEntity
      * @param string $content
      * @return $this
      */
-    public function setContent($content)
+    public function setContent(string $content): Shipment
     {
-        $this->Content = (string)$content;
+        $this->Content = $content;
         return $this;
     }
 
@@ -718,9 +718,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getContent()
+    public function getContent(): string
     {
-        return (string)$this->Content;
+        return $this->Content ?? '';
     }
 
     /**
@@ -730,9 +730,9 @@ class Shipment extends BaseEntity
      * @param string $cost_center
      * @return $this
      */
-    public function setCostCenter($cost_center)
+    public function setCostCenter(string $cost_center): Shipment
     {
-        $this->CostCenter = (string)$cost_center;
+        $this->CostCenter = $cost_center;
         return $this;
     }
 
@@ -742,9 +742,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getCostCenter()
+    public function getCostCenter(): string
     {
-        return (string)$this->CostCenter;
+        return $this->CostCenter ?? '';
     }
 
     /**
@@ -754,9 +754,9 @@ class Shipment extends BaseEntity
      * @param string $order_number
      * @return $this
      */
-    public function setCustomerOrderNumber($order_number)
+    public function setCustomerOrderNumber(string $order_number): Shipment
     {
-        $this->CustomerOrderNumber = (string)$order_number;
+        $this->CustomerOrderNumber = $order_number;
         return $this;
     }
 
@@ -766,9 +766,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getCustomerOrderNumber()
+    public function getCustomerOrderNumber(): string
     {
-        return (string)$this->CustomerOrderNumber;
+        return $this->CustomerOrderNumber ?? '';
     }
 
     /**
@@ -778,7 +778,7 @@ class Shipment extends BaseEntity
      * @param Customs $customs
      * @return $this
      */
-    public function setCustoms(Customs $customs)
+    public function setCustoms(Customs $customs): Shipment
     {
         $this->Customs = $customs;
         return $this;
@@ -790,7 +790,7 @@ class Shipment extends BaseEntity
      * @access public
      * @return entities/Customs
      */
-    public function getCustoms()
+    public function getCustoms(): Customs
     {
         return $this->Customs;
     }
@@ -803,12 +803,12 @@ class Shipment extends BaseEntity
      * @param String $date (dd-MM-yyyy hh:mm:ss)
      * @return $this
      */
-    public function setDeliveryDate($date)
+    public function setDeliveryDate(string $date): Shipment
     {
         if (!preg_match("/^([0-3]\d-[01]\d-[12]\d{3}\s+)[0-2]\d:[0-5]\d(:[0-5]\d)$/", $date)) {
             throw new InvalidArgumentException("Date format must be: dd-MM-yyyy hh:mm:ss");
         }
-        $this->DeliveryDate = (string)$date;
+        $this->DeliveryDate = $date;
         return $this;
     }
 
@@ -818,9 +818,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getDeliveryDate()
+    public function getDeliveryDate(): string
     {
-        return (string)$this->DeliveryDate;
+        return $this->DeliveryDate ?? '';
     }
 
     /**
@@ -830,12 +830,12 @@ class Shipment extends BaseEntity
      * @param string $timestamp (Format: dd-MM-yyyy hh:mm:ss)
      * @return $this
      */
-    public function setDeliveryTimeStampStart($timestamp)
+    public function setDeliveryTimeStampStart(string $timestamp): Shipment
     {
         if (!preg_match("/^([0-3]\d-[01]\d-[12]\d{3}\s+)[0-2]\d:[0-5]\d(:[0-5]\d)$/", $timestamp)) {
             throw new InvalidArgumentException("Date format must be: dd-MM-yyyy hh:mm:ss");
         }
-        $this->DeliveryTimeStampStart = (string)$timestamp;
+        $this->DeliveryTimeStampStart = $timestamp;
         return $this;
     }
 
@@ -845,9 +845,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getDeliveryTimeStampStart()
+    public function getDeliveryTimeStampStart(): string
     {
-        return (string)$this->DeliveryTimeStampStart;
+        return $this->DeliveryTimeStampStart ?? '';
     }
 
     /**
@@ -857,12 +857,12 @@ class Shipment extends BaseEntity
      * @param string $timestamp (Format: dd-MM-yyyy hh:mm:ss)
      * @return $this
      */
-    public function setDeliveryTimeStampEnd($timestamp)
+    public function setDeliveryTimeStampEnd(string $timestamp): Shipment
     {
         if (!preg_match("/^([0-3]\d-[01]\d-[12]\d{3}\s+)[0-2]\d:[0-5]\d(:[0-5]\d)$/", $timestamp)) {
             throw new InvalidArgumentException("Date format must be: dd-MM-yyyy hh:mm:ss");
         }
-        $this->DeliveryTimeStampEnd = (string)$timestamp;
+        $this->DeliveryTimeStampEnd = $timestamp;
         return $this;
     }
 
@@ -872,9 +872,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getDeliveryTimeStampEnd()
+    public function getDeliveryTimeStampEnd(): string
     {
-        return (string)$this->DeliveryTimeStampEnd;
+        return $this->DeliveryTimeStampEnd ?? '';
     }
 
     /**
@@ -884,9 +884,9 @@ class Shipment extends BaseEntity
      * @param string $barcode
      * @return $this
      */
-    public function setDownPartnerBarcode($barcode)
+    public function setDownPartnerBarcode(string $barcode): Shipment
     {
-        $this->DownPartnerBarcode = (string)$barcode;
+        $this->DownPartnerBarcode = $barcode;
         return $this;
     }
 
@@ -896,9 +896,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getDownPartnerBarcode()
+    public function getDownPartnerBarcode(): string
     {
-        return (string)$this->DownPartnerBarcode;
+        return $this->DownPartnerBarcode ?? '';
     }
 
     /**
@@ -908,9 +908,9 @@ class Shipment extends BaseEntity
      * @param string $id
      * @return $this
      */
-    public function setDownPartnerID($id)
+    public function setDownPartnerID(string $id): Shipment
     {
-        $this->DownPartnerID = (string)$id;
+        $this->DownPartnerID = $id;
         return $this;
     }
 
@@ -920,9 +920,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getDownPartnerID()
+    public function getDownPartnerID(): string
     {
-        return (string)$this->DownPartnerID;
+        return $this->DownPartnerID ?? '';
     }
 
     /**
@@ -932,9 +932,9 @@ class Shipment extends BaseEntity
      * @param string $location
      * @return $this
      */
-    public function setDownPartnerLocation($location)
+    public function setDownPartnerLocation(string $location): Shipment
     {
-        $this->DownPartnerLocation = (string)$location;
+        $this->DownPartnerLocation = $location;
         return $this;
     }
 
@@ -944,9 +944,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getDownPartnerLocation()
+    public function getDownPartnerLocation(): string
     {
-        return (string)$this->DownPartnerLocation;
+        return $this->DownPartnerLocation ?? '';
     }
 
     /**
@@ -956,7 +956,7 @@ class Shipment extends BaseEntity
      * @param Avido\PostNLCifClient\Entities\Group $group
      * @return $this
      */
-    public function setGroups(Group $group)
+    public function setGroups(Group $group): Shipment
     {
         $this->Groups = $group;
         return $this;
@@ -968,7 +968,7 @@ class Shipment extends BaseEntity
      * @access public
      * @return Avido\PostNLCifClient\Entities\Group
      */
-    public function getGroups()
+    public function getGroups(): Group
     {
         return $this->Groups;
     }
@@ -980,9 +980,9 @@ class Shipment extends BaseEntity
      * @param int  $type
      * @return $this
      */
-    public function setIDType($type)
+    public function setIDType(int $type): Shipment
     {
-        $this->IDType = (int)$type;
+        $this->IDType = $type;
         return $this;
     }
 
@@ -992,9 +992,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return int
      */
-    public function getIDType()
+    public function getIDType(): int
     {
-        return (int)$this->IDType;
+        return $this->IDType;
     }
 
     /**
@@ -1004,9 +1004,9 @@ class Shipment extends BaseEntity
      * @param string $number
      * @return $this
      */
-    public function setIDNumber($number)
+    public function setIDNumber(string $number): Shipment
     {
-        $this->IDNumber = (string)$number;
+        $this->IDNumber = $number;
         return $this;
     }
 
@@ -1016,9 +1016,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getIDNumber()
+    public function getIDNumber(): string
     {
-        return (string)$this->IDNumber;
+        return $this->IDNumber ?? '';
     }
 
     /**
@@ -1028,12 +1028,12 @@ class Shipment extends BaseEntity
      * @param string $expiration (format: d-m-y)
      * @return $this
      */
-    public function setIDExpiration($expiration)
+    public function setIDExpiration(string $expiration): Shipment
     {
         if (!preg_match("/^([0-3]\d-[01]\d-[12]\d{3})$/", $expiration)) {
             throw new InvalidArgumentException("Expiration must be format: d-m-Y");
         }
-        $this->IDExpiration = (string)$expiration;
+        $this->IDExpiration = $expiration;
         return $this;
     }
 
@@ -1043,9 +1043,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getIDExpiration()
+    public function getIDExpiration(): string
     {
-        return (string)$this->IDExpiration;
+        return $this->IDExpiration ?? '';
     }
 
     /**
@@ -1055,9 +1055,9 @@ class Shipment extends BaseEntity
      * @param int $product_code
      * @return $this
      */
-    public function setProductCodeCollect($product_code)
+    public function setProductCodeCollect(int $product_code): Shipment
     {
-        $this->ProductCodeCollect = (int)$product_code;
+        $this->ProductCodeCollect = $product_code;
         return $this;
     }
 
@@ -1067,7 +1067,7 @@ class Shipment extends BaseEntity
      * @access public
      * @return int
      */
-    public function getProductCodeCollect()
+    public function getProductCodeCollect(): ?int
     {
         return ($this->ProductCodeCollect > 0) ? (int)$this->ProductCodeCollect : null;
     }
@@ -1079,7 +1079,7 @@ class Shipment extends BaseEntity
      * @param Avido\PostNLCifClient\Entities\ProductOption $product_option
      * @return $this
      */
-    public function setProductOptions(ProductOption $product_option)
+    public function setProductOptions(ProductOption $product_option): Shipment
     {
         $this->ProductOptions = $product_option;
         return $this;
@@ -1091,7 +1091,7 @@ class Shipment extends BaseEntity
      * @access public
      * @return Avido\PostNLCifClient\Entities\ProductOption
      */
-    public function getProductOptions()
+    public function getProductOptions(): ProductOption
     {
         return $this->ProductOptions;
     }
@@ -1104,12 +1104,12 @@ class Shipment extends BaseEntity
      * @return $this
      * @throws InvalidArgumentException
      */
-    public function setReceiverDateOfBirth($date)
+    public function setReceiverDateOfBirth(string $date): Shipment
     {
         if (!preg_match("/^([0-3]\d-[01]\d-[12]\d{3})$/", $date)) {
             throw new InvalidArgumentException("Date must be format: d-m-Y");
         }
-        $this->ReceiverDateOfBirth = (string)$date;
+        $this->ReceiverDateOfBirth = $date;
         return $this;
     }
 
@@ -1119,9 +1119,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getReceiverDateOfBirth()
+    public function getReceiverDateOfBirth(): string
     {
-        return (string)$this->ReceiverDateOfBirth;
+        return $this->ReceiverDateOfBirth ?? '';
     }
 
     /**
@@ -1131,9 +1131,9 @@ class Shipment extends BaseEntity
      * @param string $reference
      * @return $this
      */
-    public function setReference($reference)
+    public function setReference(string $reference): Shipment
     {
-        $this->Reference = (string)$reference;
+        $this->Reference = $reference;
         return $this;
     }
 
@@ -1143,9 +1143,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getReference()
+    public function getReference(): string
     {
-        return (string)$this->Reference;
+        return $this->Reference ?? '';
     }
 
     /**
@@ -1155,9 +1155,9 @@ class Shipment extends BaseEntity
      * @param string $reference
      * @return $this
      */
-    public function setReferenceCollect($reference)
+    public function setReferenceCollect(string $reference): Shipment
     {
-        $this->ReferenceCollect = (string)$reference;
+        $this->ReferenceCollect = $reference;
         return $this;
     }
 
@@ -1167,9 +1167,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getReferenceCollect()
+    public function getReferenceCollect(): string
     {
-        return (string)$this->ReferenceCollect;
+        return $this->ReferenceCollect ?? '';
     }
 
     /**
@@ -1179,9 +1179,9 @@ class Shipment extends BaseEntity
      * @param string $remark
      * @return $this
      */
-    public function setRemark($remark)
+    public function setRemark(string $remark): Shipment
     {
-        $this->Remark = (string)$remark;
+        $this->Remark = $remark;
         return $this;
     }
 
@@ -1191,9 +1191,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getRemark()
+    public function getRemark(): string
     {
-        return (string)$this->Remark;
+        return $this->Remark ?? '';
     }
 
     /**
@@ -1203,9 +1203,9 @@ class Shipment extends BaseEntity
      * @param string $barcode
      * @return $this
      */
-    public function setReturnBarcode($barcode)
+    public function setReturnBarcode(string $barcode): Shipment
     {
-        $this->ReturnBarcode = (string)$barcode;
+        $this->ReturnBarcode = $barcode;
         return $this;
     }
 
@@ -1215,9 +1215,9 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getReturnBarcode()
+    public function getReturnBarcode(): string
     {
-        return (string)$this->ReturnBarcode;
+        return $this->ReturnBarcode ?? '';
     }
 
     /**
@@ -1227,9 +1227,9 @@ class Shipment extends BaseEntity
      * @param string $reference
      * @return $this
      */
-    public function setReturnReference($reference)
+    public function setReturnReference(string $reference): Shipment
     {
-        $this->ReturnReference = (string)$reference;
+        $this->ReturnReference = $reference;
         return $this;
     }
 
@@ -1239,23 +1239,23 @@ class Shipment extends BaseEntity
      * @access public
      * @return string
      */
-    public function getReturnReference()
+    public function getReturnReference(): string
     {
-        return (string)$this->ReturnReference;
+        return $this->ReturnReference ?? '';
     }
 
-    public function setTimeslotID($time_slot_id)
+    public function setTimeslotID(string $time_slot_id): Shipment
     {
-        $this->TimeslotID = (string)$time_slot_id;
+        $this->TimeslotID = $time_slot_id;
         return $this;
     }
 
-    public function getTimeslotID()
+    public function getTimeslotID(): string
     {
-        return (string)$this->TimeslotID;
+        return $this->TimeslotID ?? '';
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         $return = [
             'Addresses' => $this->getAddressesArray(),
@@ -1308,7 +1308,7 @@ class Shipment extends BaseEntity
      * @access public
      * @return array
      */
-    public function getAddressesArray()
+    public function getAddressesArray(): array
     {
         $return  = [];
         foreach ($this->Addresses as $address) {
@@ -1323,7 +1323,7 @@ class Shipment extends BaseEntity
      * @access public
      * @return array
      */
-    public function getContactsArray()
+    public function getContactsArray(): array
     {
         $return = [];
         foreach ($this->Contacts as $contact) {
@@ -1332,7 +1332,7 @@ class Shipment extends BaseEntity
         return $return;
     }
 
-    public function getAmountsArray()
+    public function getAmountsArray(): array
     {
         $return = [];
         foreach ($this->Amounts as $amount) {

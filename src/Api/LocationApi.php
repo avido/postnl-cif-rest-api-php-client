@@ -19,7 +19,7 @@ use Avido\PostNLCifClient\BaseClient;
 // exceptions
 //use Avido\PostNLCifClient\Exceptions\CifClientException;
 
-// entities 
+// entities
 use Avido\PostNLCifClient\Entities\Location;
 
 // requests
@@ -42,7 +42,7 @@ class LocationApi extends BaseClient
      *
      * @see https://developer.postnl.nl/browse-apis/delivery-options/location-webservice/documentation/
      ***********************************/
-    
+
     /**
      * Get Nearest Locations
      *
@@ -52,12 +52,12 @@ class LocationApi extends BaseClient
      * @param \Avido\PostNLCifClient\Request\DeliveryOptions\Location\NearestLocationsRequest $request
      * @return \Avido\PostNLCifClient\Response\DeliveryOptions\Location\NearestLocationsResponse
      */
-    public function getNearestLocations(NearestLocationsRequest $request)
+    public function getNearestLocations(NearestLocationsRequest $request): NearestLocationsResponse
     {
         $resp = $this->get($request->getEndpoint(), $request->getArguments());
         return new NearestLocationsResponse($resp);
     }
-    
+
     /**
      * Get Nearest Locations Geo
      *
@@ -66,13 +66,13 @@ class LocationApi extends BaseClient
      * @param \Avido\PostNLCifClient\Request\DeliveryOptions\Location\NearestLocationsGeoRequest $request
      * @return \Avido\PostNLCifClient\Response\DeliveryOptions\Location\NearestLocationsResponse
      */
-    public function getNearestLocationsGeo(NearestLocationsGeoRequest $request)
+    public function getNearestLocationsGeo(NearestLocationsGeoRequest $request): NearestLocationsResponse
     {
         $resp = $this->get($request->getEndpoint(), $request->getArguments());
         return new NearestLocationsResponse($resp);
     }
-    
-    
+
+
     /**
      * Get Nearest Locations Area
      *
@@ -82,7 +82,7 @@ class LocationApi extends BaseClient
      * @param \Avido\PostNLCifClient\Request\DeliveryOptions\Location\NearestLocationsGeoRequest $request
      * @return \Avido\PostNLCifClient\Response\DeliveryOptions\Location\NearestLocationsResponse
      */
-    public function getNearestLocationsArea(NearestLocationsAreaRequest $request)
+    public function getNearestLocationsArea(NearestLocationsAreaRequest $request): NearestLocationsResponse
     {
         $resp = $this->get($request->getEndpoint(), $request->getArguments());
         return new NearestLocationsResponse($resp);
@@ -97,7 +97,7 @@ class LocationApi extends BaseClient
      * @param \Avido\PostNLCifClient\Request\DeliveryOptions\Location\LocationRequest $request
      * @return mixed \Avido\PostNLCifClient\Entities\Location|null
      */
-    public function getLocation(LocationRequest $request)
+    public function getLocation(LocationRequest $request): ?NearestLocationsResponse
     {
         $resp = $this->get($request->getEndpoint(), $request->getArguments());
         if (isset($resp['GetLocationsResult']) && isset($resp['GetLocationsResult']['ResponseLocation'])) {

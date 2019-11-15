@@ -36,7 +36,7 @@ class NearestLocationsRequest extends BaseRequest
             'delivery_options' => []
         ];
     }
-    
+
     /**
      * Set Country Code (ISO 3166-1 alpha-2.)
      *
@@ -45,23 +45,23 @@ class NearestLocationsRequest extends BaseRequest
      * @param string $country_code
      * @return $this
      */
-    public function setCountryCode($country_code)
+    public function setCountryCode(string $country_code): NearestLocationsRequest
     {
         $this->arguments['country_code'] = $country_code;
         return $this;
     }
-    
+
     /**
      * Set Postal code
      * @param string $postalcode
      * @return $this
      */
-    public function setPostalcode($postalcode)
+    public function setPostalcode(string $postalcode): NearestLocationsRequest
     {
         $this->arguments['postal_code'] = $postalcode;
         return $this;
     }
-    
+
     /**
      * Set City
      *
@@ -69,12 +69,12 @@ class NearestLocationsRequest extends BaseRequest
      * @param string $city
      * @return $this
      */
-    public function setCity($city)
+    public function setCity(string $city): NearestLocationsRequest
     {
         $this->arguments['city'] = $city;
         return $this;
     }
-    
+
     /**
      * Set Street
      *
@@ -82,12 +82,12 @@ class NearestLocationsRequest extends BaseRequest
      * @param strung $street
      * @return $this
      */
-    public function setStreet($street)
+    public function setStreet(string $street): NearestLocationsRequest
     {
         $this->arguments['street'] = $street;
         return $this;
     }
-    
+
     /**
      * Set Housenumber
      *
@@ -95,12 +95,12 @@ class NearestLocationsRequest extends BaseRequest
      * @param string $house_number
      * @return $this
      */
-    public function setHouseNumber($house_number)
+    public function setHouseNumber(int $house_number): NearestLocationsRequest
     {
-        $this->arguments['house_number'] = (int)$house_number;
+        $this->arguments['house_number'] = $house_number;
         return $this;
     }
-    
+
     /**
      * Set Delivery date
      *
@@ -108,12 +108,12 @@ class NearestLocationsRequest extends BaseRequest
      * @param string $delivery_date
      * @return $this
      */
-    public function setDeliveryDate($delivery_date)
+    public function setDeliveryDate(string $delivery_date): NearestLocationsRequest
     {
         $this->arguments['delivery_date'] = $delivery_date;
         return $this;
     }
-    
+
     /**
      * Set Opening Time
      *
@@ -121,12 +121,12 @@ class NearestLocationsRequest extends BaseRequest
      * @param string $opening_time
      * @return $this
      */
-    public function setOpeningTime($opening_time)
+    public function setOpeningTime(string $opening_time): NearestLocationsRequest
     {
         $this->arguments['opening_time'] = $opening_time;
         return $this;
     }
-    
+
     /**
      * Add delivery option
      *
@@ -134,15 +134,15 @@ class NearestLocationsRequest extends BaseRequest
      * @param string $option
      * @return $this
      */
-    public function addDeliveryOptions($option)
+    public function addDeliveryOptions(string $option): NearestLocationsRequest
     {
         if ($this->isValidDeliveryOption($option) && !in_array($option, $this->arguments['delivery_options'])) {
             $this->arguments['delivery_options'][] = $option;
         }
         return $this;
     }
-    
-    public function getDeliveryOptions()
+
+    public function getDeliveryOptions(): string
     {
         return implode(",", $this->arguments['delivery_options']);
     }

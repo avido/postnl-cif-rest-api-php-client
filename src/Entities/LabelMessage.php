@@ -23,8 +23,8 @@ class LabelMessage extends Message
      * Guidelines for the available printer types.
      * @var string
      */
-    private $Printertype = null;
-    
+    private $Printertype;
+
     public function __construct($message_id = null, $timestamp = null, $printertype = null)
     {
         parent::__construct();
@@ -32,7 +32,7 @@ class LabelMessage extends Message
             ->setMessageTimestamp($timestamp)
             ->setPrinterType($printertype);
     }
-    
+
     /**
      * Set Printer Type
      *
@@ -40,30 +40,30 @@ class LabelMessage extends Message
      * @param string $printertype
      * @return $this
      */
-    public function setPrinterType($printertype)
+    public function setPrinterType(string $printertype): LabelMessage
     {
-        $this->Printertype = (string)$printertype;
+        $this->Printertype = $printertype;
         return $this;
     }
-    
+
     /**
      * Get Printer type
      *
      * @access public
      * @return string
      */
-    public function getPrinterType()
+    public function getPrinterType(): string
     {
-        return $this->Printertype;
+        return $this->Printertype ?? '';
     }
-    
+
     /**
      * Output LabelMessage Entity as array
      *
      * @access public
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $arr = parent::toArray();
         $arr['Printertype'] = $this->getPrinterType();

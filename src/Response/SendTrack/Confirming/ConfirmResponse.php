@@ -24,7 +24,7 @@ class ConfirmResponse extends BaseResponse
      * @var String
      */
     protected $Barcode = null;
-    
+
     /**
      *
      * @access public
@@ -35,7 +35,7 @@ class ConfirmResponse extends BaseResponse
         parent::__construct();
         $this->initFromArray($data);
     }
-    
+
     /**
      * Set barcode
      *
@@ -43,19 +43,19 @@ class ConfirmResponse extends BaseResponse
      * @param string $barcode
      * @return $this
      */
-    public function setBarcode($barcode = null)
+    public function setBarcode(string $barcode)
     {
-        $this->Barcode = (string)$barcode;
+        $this->Barcode = $barcode;
         return $this;
     }
-    
+
     /**
      * Get Barcode
      *
      * @access public
      * @return string
      */
-    public function getBarcode()
+    public function getBarcode(): string
     {
         return (string)$this->Barcode;
     }

@@ -23,7 +23,7 @@ abstract class BaseEntity
             $this->initFromArray($data);
         }
     }
-    
+
     /**
      * Create Entitiy from array data
      *
@@ -31,7 +31,7 @@ abstract class BaseEntity
      * @param type $data
      * @return $this
      */
-    public function initFromArray($data = [])
+    public function initFromArray(array $data = [])
     {
         //Instantiate the reflection object
         $oReflector = new ReflectionClass(get_class($this));
@@ -48,7 +48,7 @@ abstract class BaseEntity
         }
         return $this;
     }
-    
+
     /**
      * Create a class instance static without calling the constructor.
      *
@@ -60,27 +60,27 @@ abstract class BaseEntity
         $reflection = new ReflectionClass(get_called_class());
         return $reflection->newInstanceWithoutConstructor();
     }
-    
+
     /**
      * Output entitiy as array
      *
      * @access public
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         //Instantiate the reflection object
         $oReflector = new ReflectionClass(get_class($this));
-        
+
         // return placeholder
         $data = [];
-        
+
         foreach ($oReflector->getProperties() as $property) {
             if ($property->isPublic() || $property->isProtected()) {
                 $data[$property->getName()] = $this->{$property->getName()};
             }
         }
-        
+
         return $data;
     }
 }

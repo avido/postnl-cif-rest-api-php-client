@@ -30,7 +30,7 @@ class NearestLocationsGeoRequest extends BaseRequest
             'delivery_options' => []
         ];
     }
-    
+
     /**
      * Set Country Code (ISO 3166-1 alpha-2.)
      *
@@ -39,19 +39,19 @@ class NearestLocationsGeoRequest extends BaseRequest
      * @param string $country_code
      * @return $this
      */
-    public function setCountryCode($country_code)
+    public function setCountryCode(string $country_code): NearestLocationsGeoRequest
     {
         $this->arguments['country_code'] = $country_code;
         return $this;
     }
-    
-    public function setLatitude($latitude)
+
+    public function setLatitude($latitude): NearestLocationsGeoRequest
     {
         $this->arguments['latitude'] = $latitude;
         return $this;
     }
-    
-    public function setLongitude($longitude)
+
+    public function setLongitude($longitude): NearestLocationsGeoRequest
     {
         $this->arguments['longitude'] = $longitude;
         return $this;
@@ -64,12 +64,12 @@ class NearestLocationsGeoRequest extends BaseRequest
      * @param string $delivery_date
      * @return $this
      */
-    public function setDeliveryDate($delivery_date)
+    public function setDeliveryDate(string $delivery_date): NearestLocationsGeoRequest
     {
         $this->arguments['delivery_date'] = $delivery_date;
         return $this;
     }
-    
+
     /**
      * Set Opening Time
      *
@@ -77,12 +77,12 @@ class NearestLocationsGeoRequest extends BaseRequest
      * @param string $opening_time
      * @return $this
      */
-    public function setOpeningTime($opening_time)
+    public function setOpeningTime(string $opening_time): NearestLocationsGeoRequest
     {
         $this->arguments['opening_time'] = $opening_time;
         return $this;
     }
-    
+
     /**
      * Add delivery option
      *
@@ -90,15 +90,15 @@ class NearestLocationsGeoRequest extends BaseRequest
      * @param string $option
      * @return $this
      */
-    public function addDeliveryOptions($option)
+    public function addDeliveryOptions(string $option): NearestLocationsGeoRequest
     {
         if ($this->isValidDeliveryOption($option) && !in_array($option, $this->arguments['delivery_options'])) {
             $this->arguments['delivery_options'][] = $option;
         }
         return $this;
     }
-    
-    public function getDeliveryOptions()
+
+    public function getDeliveryOptions(): string
     {
         return implode(",", $this->arguments['delivery_options']);
     }

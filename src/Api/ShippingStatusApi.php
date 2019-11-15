@@ -26,7 +26,7 @@ use Avido\PostNLCifClient\Response\SendTrack\ShippingStatus\StatusResponse;
 
 class ShippingStatusApi extends BaseClient
 {
-    
+
     /***********************************
      * Shipping Status Webservice API
      *
@@ -36,7 +36,7 @@ class ShippingStatusApi extends BaseClient
      *
      * @see https://developer.postnl.nl/browse-apis/send-and-track/shippingstatus-webservice/documentation/
      ***********************************/
-    
+
     /**
      * Get Current status by Shipping Barcode
      *
@@ -44,13 +44,13 @@ class ShippingStatusApi extends BaseClient
      * @param string $barcode
      * @return StatusResponse
      */
-    public function getCurrentStatus($barcode = null)
+    public function getCurrentStatus(string $barcode): StatusResponse
     {
         $request = new StatusRequest();
         $resp = $this->get("{$request->getEndpoint()}/barcode/{$barcode}");
         return new StatusResponse($resp);
     }
-    
+
     /**
      * Get Current status by Shipping Reference
      *
@@ -58,7 +58,7 @@ class ShippingStatusApi extends BaseClient
      * @param string $reference
      * @return StatusResponse
      */
-    public function getCurrentStatusByReference($reference = null)
+    public function getCurrentStatusByReference(string $reference): StatusResponse
     {
         $request = new StatusRequest();
         $resp = $this->get("{$request->getEndpoint()}/reference/{$reference}", [
@@ -67,7 +67,7 @@ class ShippingStatusApi extends BaseClient
         ]);
         return new StatusResponse($resp);
     }
-    
+
     /**
      * Get Complete Status by Shipping Barcode
      *
@@ -75,7 +75,7 @@ class ShippingStatusApi extends BaseClient
      * @param string $barcode
      * @return StatusResponse
      */
-    public function getCompleteStatus($barcode = null)
+    public function getCompleteStatus(string $barcode): StatusResponse
     {
         $request = new StatusRequest();
         $resp = $this->get("{$request->getEndpoint()}/barcode/{$barcode}", [
@@ -83,7 +83,7 @@ class ShippingStatusApi extends BaseClient
         ]);
         return new StatusResponse($resp);
     }
-    
+
     /**
      * Get Complete Status by Shipping Reference
      *
@@ -91,7 +91,7 @@ class ShippingStatusApi extends BaseClient
      * @param string $reference
      * @return StatusResponse
      */
-    public function getCompleteStatusByReference($reference = null)
+    public function getCompleteStatusByReference(string $reference): StatusResponse
     {
         $request = new StatusRequest();
         $resp = $this->get("{$request->getEndpoint()}/reference/{$reference}", [
@@ -101,8 +101,8 @@ class ShippingStatusApi extends BaseClient
         ]);
         return new StatusResponse($resp);
     }
-    
-    public function getSignature($barcode = null)
+
+    public function getSignature(string $barcode): StatusResponse
     {
         $request = new StatusRequest();
         $resp = $this->get("{$request->getEndpoint()}/signature/{$barcode}");

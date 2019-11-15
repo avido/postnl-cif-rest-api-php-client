@@ -23,26 +23,26 @@ class Message extends BaseEntity
      * ID of the message
      * @var string
      */
-    private $MessageID = null;
+    private $MessageID;
     /**
      * Date/time of sending the message. Format: dd-mm-yyyy hh:mm:ss
      * @var string
      */
-    private $MessageTimeStamp = null;
+    private $MessageTimeStamp;
     /**
      * Printer type that will be used to process the label, e.g. Zebra printer or PDF See
      * Guidelines for the available printer types.
      * @var string
      */
-    private $Printertype = null;
-    
+    private $Printertype;
+
     public function __construct($message_id = null, $timestamp = null)
     {
         parent::__construct();
         $this->setMessageId($message_id)
             ->setMessageTimestamp($timestamp);
     }
-    
+
     /**
      * Set Message ID
      *
@@ -50,23 +50,23 @@ class Message extends BaseEntity
      * @param string $message_id
      * @return $this
      */
-    public function setMessageId($message_id)
+    public function setMessageId(string $message_id): Message
     {
-        $this->MessageID = (string)$message_id;
+        $this->MessageID = $message_id;
         return $this;
     }
-    
+
     /**
      * Get Message ID
      *
      * @access public
      * @return string
      */
-    public function getMessageId()
+    public function getMessageId(): string
     {
-        return (string)$this->MessageID;
+        return $this->MessageID ?? '';
     }
-    
+
     /**
      * Set Message Timestamp
      *
@@ -74,33 +74,33 @@ class Message extends BaseEntity
      * @param string $timestamp
      * @return $this
      */
-    public function setMessageTimestamp($timestamp)
+    public function setMessageTimestamp(string $timestamp): Message
     {
         $this->MessageTimeStamp = new Date($timestamp);
         return $this;
     }
-    
+
     /**
      * Get Message Timestamp
      *
      * @access public
      * @return Avido\PostNLCifClient\Util\Date;
      */
-    public function getMessageTimestamp()
+    public function getMessageTimestamp(): Date
     {
         if (!$this->MessageTimeStamp instanceof Date) {
             $this->MessageTimeStamp = new Date($this->MessageTimeStamp);
         }
         return $this->MessageTimeStamp;
     }
-    
+
     /**
      * Output message entity as array
      *
      * @access public
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'MessageID' => $this->getMessageId(),

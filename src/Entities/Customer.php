@@ -38,12 +38,12 @@ class Customer extends BaseEntity
     protected $CustomerNumber = null;
     protected $Email = null;
     protected $Name = null;
-    
+
     public function __construct($data = [])
     {
         parent::__construct($data);
     }
-    
+
     /**
      * Set Address
      *
@@ -51,24 +51,24 @@ class Customer extends BaseEntity
      * @param Avido\PostNLCifClient\Entities\Address $address
      * @return $this
      */
-    public function setAddress(Address $address)
+    public function setAddress(Address $address): Customer
     {
         $this->Address = $address;
         return $this;
     }
-    
+
     /**
      * Get Address
      *
      * @access public
      * @return Avido\PostNLCifClient\Entities\Address
      */
-    public function getAddress()
+    public function getAddress(): Address
     {
         return $this->Address;
     }
-    
-    
+
+
     /**
      * Set Collection Location
      *
@@ -76,24 +76,24 @@ class Customer extends BaseEntity
      * @param string $collection_location
      * @return $this
      */
-    public function setCollectionLocation($collection_location)
+    public function setCollectionLocation(string $collection_location): Customer
     {
-        $this->CollectionLocation = (string)$collection_location;
+        $this->CollectionLocation = $collection_location;
         return $this;
     }
-    
+
     /**
      * Get Collection Location
      *
      * @access public
      * @return string
      */
-    public function getCollectionLocation()
+    public function getCollectionLocation(): string
     {
-        return (string)$this->CollectionLocation;
+        return $this->CollectionLocation ?? '';
     }
-    
-    
+
+
     /**
      * Set Contact Person
      *
@@ -101,21 +101,21 @@ class Customer extends BaseEntity
      * @param string $contact_person
      * @return $this
      */
-    public function setContactPerson($contact_person)
+    public function setContactPerson(string $contact_person): Customer
     {
-        $this->ContactPerson = (string)$contact_person;
+        $this->ContactPerson = $contact_person;
         return $this;
     }
-    
+
     /**
      * Get Contact Person
      *
      * @access public
      * @return string
      */
-    public function getContactPerson()
+    public function getContactPerson(): string
     {
-        return (string)$this->ContactPerson;
+        return $this->ContactPerson ?? '';
     }
 
     /**
@@ -125,23 +125,23 @@ class Customer extends BaseEntity
      * @param string $customer_code
      * @return $this
      */
-    public function setCustomerCode($customer_code)
+    public function setCustomerCode(string $customer_code): Customer
     {
-        $this->CustomerCode = (string)$customer_code;
+        $this->CustomerCode = $customer_code;
         return $this;
     }
-    
+
     /**
      * Get Customer Code
      *
      * @access public
      * @return string
      */
-    public function getCustomerCode()
+    public function getCustomerCode(): string
     {
-        return (string)$this->CustomerCode;
+        return $this->CustomerCode ?? '';
     }
-    
+
     /**
      * Set Customer Number
      *
@@ -149,23 +149,23 @@ class Customer extends BaseEntity
      * @param string $customer_number
      * @return $this
      */
-    public function setCustomerNumber($customer_number)
+    public function setCustomerNumber(string $customer_number): Customer
     {
-        $this->CustomerNumber = (string)$customer_number;
+        $this->CustomerNumber = $customer_number;
         return $this;
     }
-    
+
     /**
      * Get Customer Number
      *
      * @access public
      * @return string
      */
-    public function getCustomerNumber()
+    public function getCustomerNumber(): string
     {
-        return (string)$this->CustomerNumber;
+        return $this->CustomerNumber ?? '';
     }
-    
+
     /**
      * Set Email address
      *
@@ -173,23 +173,23 @@ class Customer extends BaseEntity
      * @param string $email
      * @return $this
      */
-    public function setEmail($email)
+    public function setEmail(string $email): Customer
     {
-        $this->Email = (string)$email;
+        $this->Email = $email;
         return $this;
     }
-    
+
     /**
      * Get Email Address
      *
      * @access public
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
-        return (string)$this->Email;
+        return $this->Email ?? '';
     }
-    
+
     /**
      * Set Name
      *
@@ -197,30 +197,30 @@ class Customer extends BaseEntity
      * @param string $name
      * @return $this
      */
-    public function setName($name)
+    public function setName(string $name): Customer
     {
-        $this->Name = (string)$name;
+        $this->Name = $name;
         return $this;
     }
-    
+
     /**
      * Get name
      *
      * @access public
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
-        return (string)$this->Name;
+        return $this->Name ?? '';
     }
-    
+
     /**
      * Return Customer Entity as array
      *
      * @access public
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'Address' => !is_null($this->getAddress()) ? $this->getAddress()->toArray() : null,

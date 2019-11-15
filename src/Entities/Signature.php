@@ -34,7 +34,7 @@ class Signature extends BaseEntity
      * @var String
      */
     protected $SignatureImage = null;
-    
+
     public function __construct($data = [])
     {
         parent::__construct($data);
@@ -43,7 +43,7 @@ class Signature extends BaseEntity
             $this->setSignatureDate($data['SignatureDate']);
         }
     }
-    
+
     /**
      * Set SignatureDate
      *
@@ -51,7 +51,7 @@ class Signature extends BaseEntity
      * @param String
      * @return $this
      */
-    public function setSignatureDate($timestamp)
+    public function setSignatureDate($timestamp): Signature
     {
         if (!$timestamp instanceof Date) {
             $timestamp = new Date($timestamp);
@@ -59,18 +59,18 @@ class Signature extends BaseEntity
         $this->SignatureDate = $timestamp;
         return $this;
     }
-    
+
     /**
      * Get SignatureDate
      *
      * @access public
      * @return String format: Y-m-d H:i:s
      */
-    public function getSignatureDate()
+    public function getSignatureDate(): string
     {
-        return (string)$this->SignatureDate->format("Y-m-d H:i:s");
+        return $this->SignatureDate->format("Y-m-d H:i:s");
     }
-    
+
     /**
      * Set Barcode
      *
@@ -78,23 +78,23 @@ class Signature extends BaseEntity
      * @param string $barcode
      * @return $this
      */
-    public function setBarcode($barcode)
+    public function setBarcode(string $barcode): Signature
     {
-        $this->Barcode = (string)$barcode;
+        $this->Barcode = $barcode;
         return $this;
     }
-    
+
     /**
      * Get Barcode
      *
      * @access public
      * @return string
      */
-    public function getBarcode()
+    public function getBarcode(): string
     {
-        return (string)$this->Barcode;
+        return $this->Barcode ?? '';
     }
-    
+
     /**
      * Set SignatureImage
      *
@@ -102,20 +102,20 @@ class Signature extends BaseEntity
      * @param string $image
      * @return $this
      */
-    public function setSignatureImage($image)
+    public function setSignatureImage(string $image): Signature
     {
-        $this->SignatureImage = (string)$image;
+        $this->SignatureImage = $image;
         return $this;
     }
-    
+
     /**
      * Get SignatureImage
      *
      * @access public
      * @return string
      */
-    public function getSignatureImage()
+    public function getSignatureImage(): string
     {
-        return (string)$this->SignatureImage;
+        return $this->SignatureImage ?? '';
     }
 }

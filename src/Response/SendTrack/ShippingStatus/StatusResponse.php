@@ -24,26 +24,26 @@ class StatusResponse extends BaseResponse
      * @var String
      */
     protected $Barcode = null;
-    
+
     /**
      * Signature
      * @var Entities/Signature
      */
     protected $Signature = null;
-    
+
     /**
      * Shipment with status information
      * @var array Entities/shipment
      */
     private $Shipments = [];
-    
-    
+
+
     /**
      *
      * @access public
      * @param array $data Shipment Status response Post NL
      */
-    
+
     public function __construct($data = [])
     {
         parent::__construct();
@@ -57,7 +57,7 @@ class StatusResponse extends BaseResponse
             $this->setShipments($data['CompleteStatus']['Shipment']);
         }
     }
-    
+
     /**
      * Set Signature
      *
@@ -65,25 +65,25 @@ class StatusResponse extends BaseResponse
      * @param Array $signature
      * @return $this
      */
-    public function setSignature($signature)
+    public function setSignature($signature): StatusResponse
     {
         if (!$signature instanceof Signature) {
             $this->Signature = new Signature($signature);
         }
         return $this;
     }
-    
+
     /**
      * Get Signature
      *
      * @access public
      * @return Entities/Signature
      */
-    public function getSignature()
+    public function getSignature(): Signature
     {
         return $this->Signature;
     }
-    
+
     /**
      * Set Shipments
      *
@@ -91,7 +91,7 @@ class StatusResponse extends BaseResponse
      * @param array $shipments
      * @return $this
      */
-    public function setShipments($shipments)
+    public function setShipments(array $shipments): StatusResponse
     {
         if (is_array($shipments)) {
             // check for multiple shipments
@@ -112,7 +112,7 @@ class StatusResponse extends BaseResponse
      * @param Array $shipment
      * @return $this
      */
-    public function addShipment($shipment)
+    public function addShipment($shipment): StatusResponse
     {
         if (!$shipment instanceof Shipment) {
             $shipment = new Shipment($shipment);
@@ -120,14 +120,14 @@ class StatusResponse extends BaseResponse
         $this->Shipments[] = $shipment;
         return $this;
     }
-    
+
     /**
      * Get Shipments
      *
      * @access public
      * @return array Entities/Shipment
      */
-    public function getShipments()
+    public function getShipments(): array
     {
         return $this->Shipments;
     }

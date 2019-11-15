@@ -18,7 +18,7 @@ use Avido\PostNLCifClient\BaseClient;
 // exception
 //use Avido\PostNLCifClient\Exceptions\CifClientException;
 
-// entities 
+// entities
 //use Avido\PostNLCifClient\Entities\Location;
 
 // requests
@@ -33,13 +33,13 @@ class DeliverydateApi extends BaseClient
 {
     /***********************************
      * Delivery date Webservice API
-     * 
+     *
      *      - GetDeliveryDate
      *      - GetShippingDate
-     * 
+     *
      * @see https://developer.postnl.nl/browse-apis/delivery-options/deliverydate-webservice/documentation/
      ***********************************/
-    
+
     /**
      * Get Delivery Date
      *
@@ -49,12 +49,12 @@ class DeliverydateApi extends BaseClient
      * @param \Avido\PostNLCifClient\Request\DeliveryOptions\Deliverydate\DeliverydateRequest $request
      * @return \Avido\PostNLCifClient\Response\DeliveryOptions\Deliverydate\DeliverydateResponse
      */
-    public function getDeliveryDate(DeliverydateRequest $request)
+    public function getDeliveryDate(DeliverydateRequest $request): DeliverydateResponse
     {
         $resp = $this->get($request->getEndpoint(), $request->getArguments());
         return new DeliverydateResponse($resp);
     }
-    
+
     /**
      * Get Shipping Date
      *
@@ -64,7 +64,7 @@ class DeliverydateApi extends BaseClient
      * @param \Avido\PostNLCifClient\Request\DeliveryOptions\Deliverydate\ShippingdateRequest $request
      * @return \Avido\PostNLCifClient\Response\DeliveryOptions\Deliverydate\ShippingdateResponse
      */
-    public function getShippingDate(ShippingdateRequest $request)
+    public function getShippingDate(ShippingdateRequest $request): ShippingdateResponse
     {
         $resp = $this->get($request->getEndpoint(), $request->getArguments());
         return new ShippingdateResponse($resp);

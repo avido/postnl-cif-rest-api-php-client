@@ -43,7 +43,7 @@ class Contact extends BaseEntity
      * @var String
      */
     private $TelNr = null;
-    
+
     public function __construct($type = null, $email = null, $sms = null, $tel = null)
     {
         parent::__construct();
@@ -52,7 +52,7 @@ class Contact extends BaseEntity
             ->setSmsNumber($sms)
             ->setPhonenumber($tel);
     }
-    
+
     /**
      * Set Contact Type
      *
@@ -60,23 +60,23 @@ class Contact extends BaseEntity
      * @param string $type
      * @return $this
      */
-    public function setContactType($type = '01')
+    public function setContactType(string $type = '01'): Contact
     {
-        $this->ContactType = (string)$type;
+        $this->ContactType = $type;
         return $this;
     }
-    
+
     /**
      * Get Contact Type
      *
      * @access public
      * @return string
      */
-    public function getContactType()
+    public function getContactType(): string
     {
-        return (string)$this->ContactType;
+        return $this->ContactType ?? '';
     }
-    
+
     /**
      * Set Email
      *
@@ -84,24 +84,24 @@ class Contact extends BaseEntity
      * @param string $email
      * @return $this
      */
-    public function setEmail($email)
+    public function setEmail(string $email): Contact
     {
-        $this->Email = (string)$email;
+        $this->Email = $email;
         return $this;
     }
-    
+
     /**
      * Get Email
      *
      * @access public
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
-        return (string)$this->Email;
+        return $this->Email ?? '';
     }
-    
-    
+
+
     /**
      * Set Sms number
      *
@@ -109,23 +109,23 @@ class Contact extends BaseEntity
      * @param string $number
      * @return $this
      */
-    public function setSmsNumber($number)
+    public function setSmsNumber(string $number): Contact
     {
-        $this->SMSNr = (string)$number;
+        $this->SMSNr = $number;
         return $this;
     }
-    
+
     /**
      * Get Sms number
      *
      * @access public
      * @return string
      */
-    public function getSmsNumber()
+    public function getSmsNumber(): string
     {
-        return (string)$this->SMSNr;
+        return $this->SMSNr ?? '';
     }
-    
+
     /**
      * Set Phonenumber
      *
@@ -133,30 +133,30 @@ class Contact extends BaseEntity
      * @param string $number
      * @return $this
      */
-    public function setPhonenumber($number)
+    public function setPhonenumber(string $number): Contact
     {
-        $this->TelNr = (string)$number;
+        $this->TelNr = $number;
         return $this;
     }
-    
+
     /**
      * Get Phonenumber
      *
      * @access public
      * @return string
      */
-    public function getPhonenumber()
+    public function getPhonenumber(): string
     {
-        return (string)$this->TelNr;
+        return $this->TelNr ?? '';
     }
-    
+
     /**
      * Output contact entity as array
      *
      * @access public
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'ContactType' => $this->getContactType(),

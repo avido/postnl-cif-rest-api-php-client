@@ -18,12 +18,12 @@ use Avido\PostNLCifClient\Entities\BaseEntity;
 
 class Dimension extends BaseEntity
 {
-    private $Height = null;
-    private $Length = null;
-    private $Volume = null;
-    private $Weight = null;
-    private $Width = null;
-    
+    private $Height ;
+    private $Length;
+    private $Volume;
+    private $Weight;
+    private $Width;
+
     public function __construct($weight = 0, $height = null, $length = null, $width = null, $volume = null)
     {
         parent::__construct();
@@ -33,7 +33,7 @@ class Dimension extends BaseEntity
             ->setWidth($width)
             ->setVolume($volume);
     }
-    
+
     /**
      * Set Height in milimeters (mm)
      *
@@ -41,24 +41,24 @@ class Dimension extends BaseEntity
      * @param int $height
      * @return $this
      */
-    public function setHeight($height)
+    public function setHeight(int $height): Dimension
     {
-        $this->Height = (int)$height;
+        $this->Height = $height;
         return $this;
     }
-    
+
     /**
      * Get Height in milimeters (mm)
      *
      * @access public
      * @return int
      */
-    public function getHeight()
+    public function getHeight(): int
     {
-        return (int)$this->Height;
+        return $this->Height ?? 0;
     }
-    
-    
+
+
     /**
      * Set Length in milimeters (mm)
      *
@@ -66,23 +66,23 @@ class Dimension extends BaseEntity
      * @param int $length
      * @return $this
      */
-    public function setLength($length)
+    public function setLength(int $length): Dimension
     {
-        $this->Length = (int)$length;
+        $this->Length = $length;
         return $this;
     }
-    
+
     /**
      * Get Length in milimeters (mm)
      *
      * @access public
      * @return int
      */
-    public function getLength()
+    public function getLength(): int
     {
-        return (int)$this->Length;
+        return $this->Length ?? 0;
     }
-    
+
     /**
      * Set Volume in cm (cm3), mandatory for E@H-products
      *
@@ -90,23 +90,23 @@ class Dimension extends BaseEntity
      * @param int $volume
      * @return $this
      */
-    public function setVolume($volume)
+    public function setVolume(int $volume): Dimension
     {
-        $this->Volume = (int)$volume;
+        $this->Volume = $volume;
         return $this;
     }
-    
+
     /**
      * Get Volume in cm (cm3), mandatory for E@H-products
      *
      * @access public
      * @return int
      */
-    public function getVolume()
+    public function getVolume(): int
     {
-        return (int)$this->Volume;
+        return $this->Volume ?? 0;
     }
-    
+
     /**
      * Set Weight in grams
      *
@@ -114,23 +114,23 @@ class Dimension extends BaseEntity
      * @param int $weight
      * @return $this
      */
-    public function setWeight($weight)
+    public function setWeight(int $weight): Dimension
     {
-        $this->Weight = (int)$weight;
+        $this->Weight = $weight;
         return $this;
     }
-    
+
     /**
      * Get Weight in grams
      *
      * @access public
      * @return int
      */
-    public function getWeight()
+    public function getWeight(): int
     {
-        return (int)$this->Weight;
+        return $this->Weight ?? 0;
     }
-    
+
     /**
      * Set Width in milimeters (mm)
      *
@@ -138,30 +138,30 @@ class Dimension extends BaseEntity
      * @param int $width
      * @return $this
      */
-    public function setWidth($width)
+    public function setWidth(int $width): Dimensio
     {
-        $this->Width= (int)$width;
+        $this->Width= $width;
         return $this;
     }
-    
+
     /**
      * Get Width in milimeters (mm)
      *
      * @access public
      * @return int
      */
-    public function getWidth()
+    public function getWidth(): int
     {
-        return (int)$this->Width;
+        return $this->Width ?? 0;
     }
-    
+
     /**
      * Output dimensions entity as array
      *
      * @access public
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'Height' => $this->getHeight(),

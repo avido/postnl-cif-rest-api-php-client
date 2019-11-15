@@ -22,7 +22,7 @@ class Date extends DateTime
 {
     const _DEFAULT_LOCALE = "nl_NL";
     const DEFAULT_FORMAT = "d-m-Y";
-    
+
     /**
      * Current config offset in seconds
      *
@@ -64,7 +64,7 @@ class Date extends DateTime
      * @param  string $timezone
      * @return int offset between timezone and gmt
      */
-    public function calculateOffset($timezone = null)
+    public function calculateOffset(?string $timezone = null)
     {
         $result = true;
         $offset = 0;
@@ -84,19 +84,19 @@ class Date extends DateTime
 
         return $offset;
     }
-    
+
     /**
      * Subtract day(s)
      *
      * @param int $days
      * @return Date
      */
-    public function subtract($days)
+    public function subtract(int $days)
     {
         $int = new DateInterval("P{$days}D");
         return $this->sub($int);
     }
-    
+
     /**
      * Add day(s)
      *
@@ -133,48 +133,48 @@ class Date extends DateTime
      * @access public
      * @return boolean
      */
-    public function isToday()
+    public function isToday(): bool
     {
         return (bool)(!$this->isPast() && !$this->isFuture()) ? true : false;
     }
-    
+
     /**
      * Check if date is tomorrow
      *
      * @access public
      * @return boolean
      */
-    public function isTomorrow()
+    public function isTomorrow(): bool
     {
         $tomorrow = new self();
         $tomorrow->add(new DateInterval('P1D'));
         return (bool)($this->format('dmY') == $tomorrow->format('dmY')) ? true : false;
     }
-    
+
     /**
      * Check if date is in the past
      *
      * @access public
      * @return boolean
      */
-    public function isPast()
+    public function isPast(): bool
     {
         $now = new self();
         return (bool)($now > $this) ? true : false;
     }
-    
+
     /**
      * Check if date is in the future
      *
      * @access public
      * @return boolean
      */
-    public function isFuture()
+    public function isFuture(): bool
     {
         $now = new self();
         return (bool)($now < $this) ? true : false;
     }
-    
+
     /**
      * Check if current date(scope) is after $date
      *
@@ -182,12 +182,12 @@ class Date extends DateTime
      * @param Date $date
      * @return boolean
      */
-    public function isAfter(Date $date)
+    public function isAfter(Date $date): bool
     {
         return ($this > $date) ? true : false;
     }
-    
-    public function __toString()
+
+    public function __toString(): string
     {
         return $this->format(self::DEFAULT_FORMAT);
     }

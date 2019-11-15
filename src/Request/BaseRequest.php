@@ -85,7 +85,7 @@ class BaseRequest extends BaseModel
         'pickup'
     ];
 
-    public function __construct($endpoint = null, $path = null, $version = null)
+    public function __construct(?string $endpoint = null, ?string $path = null, ?string $version = null)
     {
         if (!is_null($endpoint)) {
             $this->setEndpoint($endpoint);
@@ -104,7 +104,7 @@ class BaseRequest extends BaseModel
      * @access public
      * @return boolean (default true)
      */
-    public function okay()
+    public function okay(): bool
     {
         return true;
     }
@@ -115,9 +115,9 @@ class BaseRequest extends BaseModel
      * @param string $endpoint
      * @return $this
      */
-    protected function setEndpoint($endpoint)
+    protected function setEndpoint(string $endpoint)
     {
-        $this->endpoint = (string)$endpoint;
+        $this->endpoint = $endpoint;
         return $this;
     }
 
@@ -128,9 +128,9 @@ class BaseRequest extends BaseModel
      * @param string $path
      * @return $this
      */
-    protected function setPath($path)
+    protected function setPath(string $path)
     {
-        $this->path = (string)$path;
+        $this->path = $path;
         return $this;
     }
 
@@ -141,9 +141,9 @@ class BaseRequest extends BaseModel
      * @param string $version
      * @return $this
      */
-    protected function setVersion($version)
+    protected function setVersion(string $version)
     {
-        $this->version = (string)$version;
+        $this->version = $version;
         return $this;
     }
 
@@ -153,9 +153,9 @@ class BaseRequest extends BaseModel
      * @access public
      * @return string
      */
-    public function getEndpoint()
+    public function getEndpoint(): string
     {
-        return (string)"{$this->endpoint}/v{$this->version}/{$this->path}";
+        return "{$this->endpoint}/v{$this->version}/{$this->path}";
     }
 
 
@@ -178,7 +178,7 @@ class BaseRequest extends BaseModel
      * @access public
      * @return Avido\PostNLCifClient\Entities\Customer
      */
-    public function getCustomer()
+    public function getCustomer(): Customer
     {
         return $this->customer;
     }
@@ -203,7 +203,7 @@ class BaseRequest extends BaseModel
      * @access public
      * @return Avido\PostNLCifClient\Entities\Message
      */
-    public function getMessage()
+    public function getMessage(): Message
     {
         return $this->message;
     }
@@ -214,9 +214,9 @@ class BaseRequest extends BaseModel
      * @access public
      * @return string
      */
-    public function getBody()
+    public function getBody(): string
     {
-        return (string)$this->body;
+        return !is_null($this->body) ? $this->body : '';
     }
     /**
      * Validate Delivery Option
@@ -225,7 +225,7 @@ class BaseRequest extends BaseModel
      * @param string $option
      * @return boolean
      */
-    protected function isValidDeliveryOption($option, $type = 'location')
+    protected function isValidDeliveryOption(string $option, $type = 'location'): bool
     {
         switch ($type) {
             case 'timeframe':
@@ -237,7 +237,7 @@ class BaseRequest extends BaseModel
         return (bool)in_array($option, $valid) ? true : false;
     }
 
-    public function getArguments()
+    public function getArguments(): array
     {
         // reformat delivery options
         $arguments = $this->arguments;
@@ -253,7 +253,7 @@ class BaseRequest extends BaseModel
      * @param array $arguments
      * @return array
      */
-    protected function prepRequestArguments($arguments)
+    protected function prepRequestArguments($arguments): array
     {
         $return = [];
         foreach ($arguments as $key => $val) {

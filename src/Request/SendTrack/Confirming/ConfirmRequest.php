@@ -80,20 +80,20 @@ class ConfirmRequest extends BaseRequest
 
     private $printer = null;
     private $shipment = null;
-    
-            
+
+
     public function __construct()
     {
         parent::__construct($this->endpoint, $this->path, $this->version);
     }
-    
+
     /**
      * Check for mandatory elements
      *
      * @access public
      * @return boolean
      */
-    public function okay()
+    public function okay(): bool
     {
         if (is_null($this->customer)) {
             return false;
@@ -110,7 +110,7 @@ class ConfirmRequest extends BaseRequest
      * @param \Avido\PostNLCifClient\Entities\Shipment $shipment
      * @return $this
      */
-    public function setShipment(Shipment $shipment)
+    public function setShipment(Shipment $shipment): ConfirmRequest
     {
         $this->shipment = $shipment;
         return $this;
@@ -121,12 +121,12 @@ class ConfirmRequest extends BaseRequest
      * @access public
      * @return \Avido\PostNLCifClient\Entities\Shipment
      */
-    public function getShipment()
+    public function getShipment(): Shipment
     {
         return $this->shipment;
     }
-    
-    public function getMessage()
+
+    public function getMessage(): Message
     {
         $message = Message::create()
             ->setMessageId('01');
@@ -138,7 +138,7 @@ class ConfirmRequest extends BaseRequest
      * @access public
      * @return string
      */
-    public function getBody()
+    public function getBody(): string
     {
         $body = [
             'Customer' => !is_null($this->getCustomer()) ? $this->getCustomer()->toArray() : null,

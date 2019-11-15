@@ -14,7 +14,7 @@ use ReflectionClass;
 class BaseModel
 {
     private $data = [];
-    
+
     /**
      * Create a class instance static without calling the constructor.
      *
@@ -26,8 +26,8 @@ class BaseModel
         $reflection = new ReflectionClass(get_called_class());
         return $reflection->newInstanceWithoutConstructor();
     }
-    
-    public function initFromArray($data = [])
+
+    public function initFromArray(array $data = [])
     {
         //Instantiate the reflection object
         $oReflector = new \ReflectionClass(get_class($this));
@@ -44,7 +44,7 @@ class BaseModel
         }
         return $this;
     }
-    
+
     public function __construct()
     {
         $args = func_get_args();
@@ -53,7 +53,7 @@ class BaseModel
         }
         $this->setData($args[0]);
     }
-    
+
     /**
      * Set/Get attribute wrapper
      *
@@ -61,35 +61,39 @@ class BaseModel
      * @param   array $args
      * @return  mixed
      */
-    public function __call($method, $args)
+    public function __call(string $method, array $args = [])
     {
         switch (substr($method, 0, 3)) {
             case 'get':
                 $key = $this->underScore(substr($method, 3));
                 return $this->getData($key, isset($args[0]) ? $args[0] : null);
-                break;
             case 'set':
                 $key = $this->underScore(substr($method, 3));
                 return $this->setData($key, isset($args[0]) ? $args[0] : null);
-                break;
             case 'has':
                 $key = $this->underScore(strtolower(substr($method, 3)));
                 return isset($this->data[$key]);
-                break;
         }
     }
     /**
      * Get data from attribute, child entity or nested entity
      *
      * @param string $key
-     * @return null|string|array
+     * @return mixed
      */
-    public function getData($key = null)
+    public function getData(string $key)
     {
         $data = $this->data;
         return isset($data[$key]) ? $data[$key] : null;
     }
-    
+    /**
+     * Set object data
+     *
+     * @access public
+     * @param mided string|array $key
+     * @param mixed $value
+     * @return $this
+     */
     public function setData($key, $value = null)
     {
         if (is_array($key)) {
@@ -102,13 +106,13 @@ class BaseModel
         }
         return $this;
     }
-    
+
     /**
      * Convert object attributes to array
      *
      * @return array
      */
-    public function __toArray()
+    public function __toArray(): array
     {
         return $this->data;
     }
@@ -118,12 +122,12 @@ class BaseModel
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $tmp = $this->__toArray();
         return $tmp;
     }
-    
+
     /**
      * Camelcase string:
      * Example:
@@ -132,7 +136,7 @@ class BaseModel
      * @param string $str
      * @return string
      */
-    public static function camelCase($str)
+    public static function camelCase(string $str): string
     {
         $str = strtolower($str);
         $str = str_replace(" ", "_", $str);
@@ -147,9 +151,8 @@ class BaseModel
      * @param string $str
      * @return string
      */
-    public static function underScore($str)
+    public static function underScore(string $str): string
     {
-        #Varien_Profiler::start('underscore');
         $result = strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $str));
         return $result;
     }

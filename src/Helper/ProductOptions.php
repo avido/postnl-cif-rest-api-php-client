@@ -374,14 +374,14 @@ abstract class ProductOptions
             'group' => 'standard_options'
         ]
     ];
-    
+
     /**
      * Get Product Code instance
      * @param string $code
      * @return ProductOption
      * @throws UnknownProductCodeException
      */
-    public static function getProduct($code)
+    public static function getProduct(string $code): ProductOption
     {
         if (!isset(self::$options[$code])) {
             throw new UnknownProductCodeException($code);

@@ -32,7 +32,7 @@ class LocationRequest extends BaseRequest
             'retail_network_id' => null
         ];
     }
-    
+
     /**
      * Set Location Code
      *
@@ -42,12 +42,12 @@ class LocationRequest extends BaseRequest
      * @param string $location_code
      * @return $this
      */
-    public function setLocationCode($location_code)
+    public function setLocationCode(string $location_code): LocationRequest
     {
         $this->arguments['location_code'] = $location_code;
         return $this;
     }
-    
+
     /**
      * Set Retail Network Id
      *
@@ -55,7 +55,7 @@ class LocationRequest extends BaseRequest
      * @param string $retail_network_id
      * @return $this
      */
-    public function setRetailNetworkId($retail_network_id)
+    public function setRetailNetworkId(string $retail_network_id): LocationRequest
     {
         $this->arguments['retail_network_id'] = $retail_network_id;
         return $this;

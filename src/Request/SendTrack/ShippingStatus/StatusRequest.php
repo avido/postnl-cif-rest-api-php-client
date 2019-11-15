@@ -34,7 +34,7 @@ class StatusRequest extends BaseRequest
     {
         parent::__construct($this->endpoint, $this->path, $this->version);
     }
-    
+
     /**
      * Set Shipment barcode
      *
@@ -42,9 +42,9 @@ class StatusRequest extends BaseRequest
      * @param string $barcode
      * @return $this
      */
-    public function setBarcode($barcode)
+    public function setBarcode(string $barcode): StatusRequest
     {
-        $this->barcode = (string)$barcode;
+        $this->barcode = $barcode;
         return $this;
     }
     /**
@@ -53,8 +53,8 @@ class StatusRequest extends BaseRequest
      * @access public
      * @return string
      */
-    public function getBarcode()
+    public function getBarcode(): string
     {
-        return (string)$this->barcode;
+        return $this->barcode;
     }
 }
