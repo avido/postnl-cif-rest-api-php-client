@@ -18,6 +18,7 @@ namespace Avido\PostNLCifClient;
 use PHPUnit\Framework\TestCase;
 use Avido\PostNLCifClient\CifApi;
 use DateTime;
+use Avido\PostNLCifClient\Util\Date;
 
 // exceptions
 use Avido\PostNLCifClient\Exceptions\CifClientException;
@@ -79,7 +80,7 @@ class CifApiTest extends TestCase
         $collectionLocation = getenv('COLLECTION_LOCATION');
         $handler = null;
 
-//        $handler = new StreamHandler('php://stdout', Logger::DEBUG); // <<< uses a stream
+        $handler = new StreamHandler('php://stdout', Logger::DEBUG); // <<< uses a stream
         $this->client = new CifApi(
             $apiKey, //PostNL API Key
             $customerNumber, // PostNL Customer Number
@@ -1616,6 +1617,21 @@ class CifApiTest extends TestCase
         $response = $this->client->getAPI('shippingstatus')->getSignature($barcode);
         $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\ShippingStatus\StatusResponse', $response);
     }
+    /**
+     * Test Updated Shipment Statusses
+     * @group shippingstatus
+     */
+    public function testUpdatedShipments()
+    {
+        $periods = [];
+        $date1 = new Date();
+        $date2 = new Date();
+        $periods[] = $date1->subtract(2);
+        $periods[] = $date2->subtract(1);
+        $response = $this->client->getAPI('shippingstatus')->getUpdatedStatusses($periods);
+        $this->assertInstanceOf('Avido\PostNLCifClient\Response\SendTrack\ShippingStatus\UpdatedShipmentsResponse', $response);
+    }
+
 
     /**
      * Sender Entitiy For REST Call
