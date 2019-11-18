@@ -23,6 +23,8 @@ use Avido\PostNLCifClient\Request\SendTrack\ShippingStatus\StatusRequest;
 
 // responses
 use Avido\PostNLCifClient\Response\SendTrack\ShippingStatus\StatusResponse;
+use Avido\PostNLCifClient\Response\SendTrack\ShippingStatus\UpdatedShipmentsResponse;
+use Avido\PostNLCifClient\Util\Date;
 
 class ShippingStatusApi extends BaseClient
 {
@@ -101,11 +103,40 @@ class ShippingStatusApi extends BaseClient
         ]);
         return new StatusResponse($resp);
     }
-
+    /**
+     * Get Signature for specific barcode
+     *
+     * @access public
+     * @param string $barcode
+     * @return StatusResponse
+     */
     public function getSignature(string $barcode): StatusResponse
     {
         $request = new StatusRequest();
         $resp = $this->get("{$request->getEndpoint()}/signature/{$barcode}");
         return new StatusResponse($resp);
+    }
+    /**
+     * Get updated statusses in period
+     * @param array $periods
+     * @return UpdatedShipmentsResponse
+     */
+    public function getUpdatedStatusses(array $periods = []): UpdatedShipmentsResponse
+    {
+        $request = new StatusRequest(null, null, $periods);
+        $periods = $request->getPeriods();
+        $arguments = [];
+
+        if (count($periods) > 0) {
+            $argPeriods = [];
+            foreach ($periods as $period) {
+                $argPeriods[] = $period->format("Y-m-d\TH:i:s");
+            }
+            $arguments['period'] = implode("&", $argPeriods);
+        }
+        $resp = $this->get("{$request->getEndpoint()}/{$this->getCustomerNumber()}/updatedshipments",
+            $arguments
+        );
+        return new UpdatedShipmentsResponse($resp);
     }
 }
