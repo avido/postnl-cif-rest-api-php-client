@@ -72,7 +72,6 @@ use Avido\PostNLCifClient\Entities\Customer;
 use Avido\PostNLCifClient\Entities\Shipment;
 use Avido\PostNLCifClient\Entities\Message;
 
-
 class LabelRequest extends BaseRequest
 {
     private $endpoint = 'shipment';

@@ -134,7 +134,8 @@ class ShippingStatusApi extends BaseClient
             }
             $arguments['period'] = implode("&", $argPeriods);
         }
-        $resp = $this->get("{$request->getEndpoint()}/{$this->getCustomerNumber()}/updatedshipments",
+        $resp = $this->get(
+            "{$request->getEndpoint()}/{$this->getCustomerNumber()}/updatedshipments",
             $arguments
         );
         return new UpdatedShipmentsResponse($resp);
