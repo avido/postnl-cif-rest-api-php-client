@@ -351,7 +351,7 @@ class Shipment extends BaseEntity
      * @access public
      * @return array Entities/Status
      */
-    public function getOldStatus(): Status
+    public function getOldStatus(): array
     {
         return $this->OldStatus;
     }
@@ -384,9 +384,26 @@ class Shipment extends BaseEntity
      * @access public
      * @return array Entities/Event
      */
-    public function getEvent(): Event
+    public function getEvents(): array
     {
         return $this->Event;
+    }
+
+    /**
+     * Check for eventcode in array of events
+     *
+     * @access public
+     * @param string $code
+     * @return bool
+     */
+    public function hasEvent(string $code): bool
+    {
+        foreach ($this->getEvents() as $event) {
+            if ($event->getCode() === $code) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
