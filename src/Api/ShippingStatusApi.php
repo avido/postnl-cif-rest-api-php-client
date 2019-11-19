@@ -81,7 +81,7 @@ class ShippingStatusApi extends BaseClient
     {
         $request = new StatusRequest();
         $resp = $this->get("{$request->getEndpoint()}/barcode/{$barcode}", [
-            'detail' =>1
+            'detail' => 'true'
         ]);
         return new StatusResponse($resp);
     }
@@ -99,7 +99,7 @@ class ShippingStatusApi extends BaseClient
         $resp = $this->get("{$request->getEndpoint()}/reference/{$reference}", [
             'customerCode' => $this->getCustomerCode(),
             'customerNumber' => $this->getCustomerNumber(),
-            'detail' => 1
+            'detail' => 'true'
         ]);
         return new StatusResponse($resp);
     }
