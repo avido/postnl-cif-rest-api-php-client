@@ -136,7 +136,7 @@ class Event extends BaseEntity
      */
     public function getDescription(): ?string
     {
-        return $this->Description;
+        return is_string($this->Description) ? $this->Description : null;
     }
 
     /**
@@ -160,7 +160,7 @@ class Event extends BaseEntity
      */
     public function getLocationCode(): ?string
     {
-        return $this->LocationCode;
+        return is_string($this->LocationCode) ? $this->LocationCode : null;
     }
     /**
      * Set Destination Location Code
