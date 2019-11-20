@@ -112,7 +112,7 @@ class Event extends BaseEntity
      */
     public function getCode(): ?string
     {
-        return $this->Code;
+        return !is_string($this->Code) ? $this->Code : null;
     }
 
     /**
