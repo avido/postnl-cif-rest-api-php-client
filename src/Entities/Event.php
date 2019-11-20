@@ -110,7 +110,7 @@ class Event extends BaseEntity
      * @access public
      * @return string
      */
-    public function getCode(): string
+    public function getCode(): ?string
     {
         return $this->Code;
     }
