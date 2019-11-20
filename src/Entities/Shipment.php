@@ -254,6 +254,12 @@ class Shipment extends BaseEntity
      * @var array Entities/Status
      */
     protected $OldStatus = null;
+    protected $MainBarcode = null;
+    protected $ShipmentAmount = null;
+    protected $ShipmentCounter = null;
+    protected $ProductCode = null;
+    protected $ProductDescription;
+
 
     public function __construct($data = [])
     {
@@ -1356,5 +1362,115 @@ class Shipment extends BaseEntity
             $return[] = $amount->toArray();
         }
         return $return;
+    }
+    /**
+     * Set Main Barcode
+     *
+     * @access public
+     * @param string $barcode
+     * @return \Avido\PostNLCifClient\Entities\Shipment
+     */
+    public function setMainBarcode(string $barcode): Shipment
+    {
+        $this->MainBarcode = $barcode;
+        return $this;
+    }
+    /**
+     * Get Main Barcode
+     *
+     * @access public
+     * @return string|null
+     */
+    public function getMainBarcode(): ?string
+    {
+        return $this->MainBarcode;
+    }
+    /**
+     * Set Shipment Amount
+     *
+     * @access public
+     * @param string $amount
+     * @return \Avido\PostNLCifClient\Entities\Shipment
+     */
+    public function setShipmentAmount(string $amount): Shipment
+    {
+        $this->ShipmentAmount = $amount;
+        return $this;
+    }
+    /**
+     * Get Shipment Amount
+     *
+     * @access public
+     * @return string|null
+     */
+    public function getShipmentAmount(): ?string
+    {
+        return $this->ShipmentAmount;
+    }
+    /**
+     * Set Shipment Counter
+     *
+     * @access public
+     * @param string $counter
+     * @return \Avido\PostNLCifClient\Entities\Shipment
+     */
+    public function setShipmentCounter(string $counter): Shipment
+    {
+        $this->ShipmentCounter = $counter;
+        return $this;
+    }
+    /**
+     * Get Shipment Counter
+     *
+     * @access public
+     * @return string|null
+     */
+    public function getShipmentCounter(): ?string
+    {
+        return $this->ShipmentCounter;
+    }
+    /**
+     * Set Product Code
+     *
+     * @access public
+     * @param string $code
+     * @return \Avido\PostNLCifClient\Entities\Shipment
+     */
+    public function setProductCode(string $code): Shipment
+    {
+        $this->ProductCode = $code;
+        return $this;
+    }
+    /**
+     * Get Product Code
+     *
+     * @access public
+     * @return string|null
+     */
+    public function getProductCode(): ?string
+    {
+        return $this->ProductCode;
+    }
+    /**
+     * Set Product Description
+     *
+     * @access public
+     * @param string $description
+     * @return \Avido\PostNLCifClient\Entities\Shipment
+     */
+    public function setProductDescription(string $description): Shipment
+    {
+        $this->ProductDescription = $description;
+        return $this;
+    }
+    /**
+     * Get Product Description
+     *
+     * @access public
+     * @return string|null
+     */
+    public function getProductDescription(): ?string
+    {
+        return $this->ProductDescription;
     }
 }

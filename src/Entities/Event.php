@@ -39,6 +39,21 @@ class Event extends BaseEntity
      * @var String
      */
     protected $LocationCode = null;
+    /**
+     * Destination location code
+     * @var string
+     */
+    protected $DestinationLocationCode = null;
+    /**
+     * Route code
+     * @var string
+     */
+    protected $RouteCode = null;
+    /**
+     * Route name
+     * @var string
+     */
+    protected $RouteName = null;
 
     public function __construct($data = [])
     {
@@ -97,7 +112,7 @@ class Event extends BaseEntity
      */
     public function getCode(): string
     {
-        return $this->Code ?? '';
+        return $this->Code;
     }
 
     /**
@@ -119,9 +134,9 @@ class Event extends BaseEntity
      * @access public
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
-        return $this->Description ?? '';
+        return $this->Description;
     }
 
     /**
@@ -143,8 +158,74 @@ class Event extends BaseEntity
      * @access public
      * @return string
      */
-    public function getLocationCode(): string
+    public function getLocationCode(): ?string
     {
-        return $this->LocationCode ?? '';
+        return $this->LocationCode;
+    }
+    /**
+     * Set Destination Location Code
+     *
+     * @access public
+     * @param string $code
+     * @return \Avido\PostNLCifClient\Entities\Event
+     */
+    public function setDestinationLocationCode(string $code): Event
+    {
+        $this->DestinationLocationCode = $code;
+        return $this;
+    }
+    /**
+     * Get Destination Location Code
+     *
+     * @access public
+     * @return string|null
+     */
+    public function getDestinationLocationCode(): ?string
+    {
+        return $this->DestinationLocationCode;
+    }
+    /**
+     * Set Route Code
+     *
+     * @access public
+     * @param string $code
+     * @return \Avido\PostNLCifClient\Entities\Event
+     */
+    public function setRouteCode(string $code): Event
+    {
+        $this->RouteCode = $code;
+        return $this;
+    }
+    /**
+     * Get Route Code
+     *
+     * @access public
+     * @return string|null
+     */
+    public function getRouteCode(): ?string
+    {
+        return $this->RouteCode;
+    }
+    /**
+     * Set Route Name
+     *
+     * @access public
+     * @param string $name
+     * @return \Avido\PostNLCifClient\Entities\Event
+     */
+    public function setRouteName(string $name): Event
+    {
+        $this->RouteName = $name;
+        return $this;
+    }
+    /**
+     * Get Route Name
+     *
+     * @access public
+     * @return string|null
+     */
+    public function getRouteName(): ?string
+    {
+        return $this->RouteName;
     }
 }
