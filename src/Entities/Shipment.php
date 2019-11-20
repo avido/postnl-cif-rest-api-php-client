@@ -371,7 +371,10 @@ class Shipment extends BaseEntity
                 if (!$event instanceof Event) {
                     $event = new Event($event);
                 }
-                $tmp[] = $event;
+                // for some reason postnl is returning empty events sometimes. filter them
+                if (!is_null($event->getCode())) {
+                    $tmp[] = $event;
+                }
             }
         }
         $this->Event = $tmp;
